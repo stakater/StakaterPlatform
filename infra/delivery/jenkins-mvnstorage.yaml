@@ -1,0 +1,23 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-delivery-mvnstorage
+  namespace: delivery
+spec:
+  releaseName: stakater-delivery-mvnstorage
+  chart:
+    repository: https://stakater.github.io/stakater-charts/
+    name: storage
+    version: 1.0.5
+  values:
+    Claims:
+      - accessModes:
+          - ReadWriteMany
+        annotations:
+          helm.sh/resource-policy: keep
+          volume.beta.kubernetes.io/storage-class: ibmc-file-silver
+        labels:
+          app: jenkins
+        name: jenkins-mvn-local-repo
+        storage: 10Gi
+        storageClassName: ibmc-file-silver

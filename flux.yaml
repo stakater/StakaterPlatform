@@ -1,0 +1,40 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: infra-flux
+  namespace: flux
+spec:
+  releaseName: flux
+  chart:
+    repository: https://charts.fluxcd.io
+    name: flux
+    version: 0.15.0
+  values:
+    replicaCount: 1
+
+    image:
+      repository: docker.io/fluxcd/flux
+      tag: 1.15.0
+
+    helmOperator:
+      create: false
+      createCRD: false
+
+    rbac:
+      create: false
+    
+    clusterRole:
+      create: false
+    
+    serviceAccount:
+      create: false
+      name: helm-operator
+    
+    git:
+      url: ssh://git@github.com/stakater/StakaterInfrastructure.git
+      pollInterval: "10s"
+      branch: "ibm-stakater"
+      path: "infra"
+
+    additionalArgs:
+      - --k8s-allow-namespace=control,delivery,security,logging,monitoring,tracing,kube-system

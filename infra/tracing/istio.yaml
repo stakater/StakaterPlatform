@@ -1,0 +1,26 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-tracing-istio
+  namespace: tracing
+spec:
+  releaseName: stakater-tracing-istio
+  chart:
+    repository: https://gcsweb.istio.io/gcs/istio-prerelease/prerelease/1.1.0/1.1.0/charts/
+    name: istio
+    version: 1.1.0
+  values:
+    global:
+      enableTracing: true
+    mixer:
+      telemetry:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+    pilot:
+      traceSampling: 100
+    prometheus:
+      enabled: false
+    tracing:
+      enabled: true

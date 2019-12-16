@@ -1,0 +1,49 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-delivery-sonarqube
+  namespace: delivery
+spec:
+  releaseName: stakater-delivery-sonarqube
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com
+    name: sonarqube
+    version: 1.0.1
+  values:
+    image:
+      tag: 7.4-community
+      
+    command:
+      - /usr/local/copy_plugins.sh
+      
+    service:
+      annotations:
+        config.xposer.stakater.com/Domain: stakater.com
+        config.xposer.stakater.com/IngressNameTemplate: '{{.Service}}-{{.Namespace}}'
+        config.xposer.stakater.com/IngressURLTemplate: sonarqube.{{.Namespace}}.{{.Domain}}
+        xposer.stakater.com/annotations: |-
+          kubernetes.io/ingress.class: internal-ingress
+          ingress.kubernetes.io/force-ssl-redirect: true
+          exposeIngressUrl: globally
+      labels:
+        expose: "true"
+      type: ClusterIP
+      
+    persistence:
+      enabled: true
+      existingClaim: stakater-delivery-sonarqube
+      
+    database:
+      type: postgresql
+      
+    postgresql:
+      persistence:
+        size: 3Gi
+        storageClass: ibmc-block-silver
+      
+    plugins:
+      install:
+      - https://github.com/vaulttec/sonar-auth-oidc/releases/download/v1.0.4/sonar-auth-oidc-plugin-1.0.4.jar
+       
+    sonarProperties: |- 
+      SONARQUBE_PROPERTIES

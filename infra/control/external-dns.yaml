@@ -1,0 +1,42 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-control-external-dns
+  namespace: control
+spec:
+  releaseName: stakater-control-external-dns
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com 
+    name: external-dns
+    version: 2.4.2
+  values:
+    image:
+      name: bitnami/external-dns
+      pullPolicy: IfNotPresent
+    sources:
+      - ingress
+    domainFilters:
+      - stakater.com
+    txtOwnerId: stakater-ibm
+    registry: txt
+    provider: aws
+    extraEnv:
+      - name: AWS_ACCESS_KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: aws-creds
+            key: AWS_ACCESS_KEY_ID
+      - name: AWS_SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: aws-creds
+            key: AWS_SECRET_ACCESS_KEY
+    policy: sync
+    rbac:
+      create: true
+      apiVersion: v1beta1      
+    tolerations:
+    - key: "dedicated"
+      operator: "Equal"
+      value: "app"
+      effect: "NoSchedule"  

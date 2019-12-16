@@ -1,0 +1,67 @@
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nginx-configuration-external
+  namespace: control
+data:
+  ssl-protocols: TLSv1.2
+  proxy-connect-timeout: "300"
+  proxy-read-timeout: "300"
+  use-http2: "false"
+  worker-processes: "24"
+  worker-connections: "100000"
+  worker-rlimit-nofile: "102400"
+  worker-cpu-affinity: "auto"
+  keepalive: "200"
+  hsts-preload: "true"
+  hsts-max-age: "31536000"
+  proxy-buffer-size: "256k"
+  client-body-buffer-size: "256k"
+  proxy-body-size: "8m"
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-control-external-ingress
+  namespace: control
+spec:
+  releaseName: stakater-control-external-ingress
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com 
+    name: nginx-ingress
+    version: 1.6.10
+  values:
+    nameOverride: stakater-control-external
+    fullnameOverride: stakater-control-external
+    revisionHistoryLimit: 3
+    controller:
+      name: nginx-ingress
+      publishService:
+        enabled: true
+        pathOverride: "control/stakater-control-external-nginx-ingress"
+      ingressClass: external-ingress
+      stats:
+        enabled: "true"
+      metrics:
+        enabled: "true"
+        service:
+          annotations:
+            prometheus.io/scrape: "true"
+            prometheus.io/port: "10254"
+          labels:
+            k8s-app: external-ingress
+      config:
+        use-proxy-protocol: "false"
+        enable-opentracing: "false"
+      replicaCount: 2
+      podAnnotations: 
+        scheduler.alpha.kubernetes.io/critical-pod: "true"
+      image:  
+        pullPolicy: Always      
+      extraArgs:
+        configmap: control/nginx-configuration-external
+        annotations-prefix: ingress.kubernetes.io     
+        default-ssl-certificate: "control/tls-cert" 
+        enable-ssl-chain-completion: true
+        enable-dynamic-certificates: "false"        

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    helm.sh/resource-policy: keep
+  labels:
+    app: sonatype-nexus
+    fullname: stakater-delivery-sonatype-nexus
+  name: stakater-delivery-sonatype-nexus-data-big
+  namespace: delivery
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 80Gi
+  storageClassName: ibmc-file-silver

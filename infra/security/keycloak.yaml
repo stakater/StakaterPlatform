@@ -1,0 +1,202 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-security-keycloak
+  namespace: security
+spec:
+  releaseName: stakater-security-keycloak
+  chart:
+    repository: https://codecentric.github.io/helm-charts
+    name: keycloak
+    version: 5.1.7
+  values:
+    init:
+      image:
+        pullPolicy: IfNotPresent
+        repository: alpine
+        tag: 3.9
+      resources: {}
+      
+    clusterDomain: cluster.local
+    keycloak:
+      affinity: |
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  {{- include "keycloak.selectorLabels" . | nindent 10 }}
+                matchExpressions:
+                  - key: role
+                    operator: NotIn
+                    values:
+                      - test
+              topologyKey: kubernetes.io/hostname
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    {{- include "keycloak.selectorLabels" . | nindent 12 }}
+                  matchExpressions:
+                    - key: role
+                      operator: NotIn
+                      values:
+                        - test
+                topologyKey: failure-domain.beta.kubernetes.io/zone
+      basepath: auth
+      cli:
+        custom: ""
+        datasource: |
+          {{ .Files.Get "scripts/datasource.cli" }}
+        enabled: true
+        ha: |
+          {{ .Files.Get "scripts/ha.cli" }}
+        logging: |
+          {{ .Files.Get "scripts/logging.cli" }}
+        nodeIdentifier: |
+          {{ .Files.Get "scripts/node-identifier.cli" }}
+      containerSecurityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+      enableServiceLinks: false
+      existingSecret: keycloak-secrets
+      existingSecretKey: password
+      extraArgs: -Djgroups.bind_addr=global -Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile
+        -Dkeycloak.migration.file=/opt/jboss/keycloak/standalone/configuration/import/stakater-realm.json
+        -Dkeycloak.migration.strategy=IGNORE_EXISTING
+      extraContainers: ""
+      extraEnv: "- name: OPERATING_MODE\n  value: standalone\n- name: HIDE_OPENSHIFT_BTN\n
+        \ value: \"true\"\n- name: HIDE_GITHUB_BTN\n  value: \"false\"\n- name: PROXY_ADDRESS_FORWARDING
+        # Why? https://www.keycloak.org/docs/3.4/server_installation/index.html#identifying-client-ip-addresses\n
+        \ value: \"true\"\n- name: K8S_API_SERVER\n  value: http://kubernetes\n- name: AUTH_URL\n
+        \ value: http://auth\n- name: KEYCLOAK_URL\n  value: http://keycloak        \n"
+      extraInitContainers: ""
+      extraPorts: ""
+      extraVolumeMounts: |
+        - name: keycloak-config
+          mountPath: /opt/jboss/keycloak/standalone/configuration/import/stakater-realm.json
+          subPath: stakater-realm.json
+        - name: data
+          mountPath: /opt/jboss/keycloak/standalone/deployments
+      extraVolumes: |
+        - name: keycloak-config
+          secret:
+            secretName: keycloak-config
+            items:
+            - key: stakater-realm.json
+              path: stakater-realm.json
+        - name: data
+          emptyDir: {}
+      hostAliases: []
+      image:
+        pullPolicy: IfNotPresent
+        # pullSecrets:
+        # - dockerconfig
+        repository: jboss/keycloak
+        tag: 6.0.1
+      ingress:
+        annotations: {}
+        enabled: false
+        hosts:
+        - keycloak.example.com
+        labels: {}
+        path: /
+        tls: []
+      lifecycleHooks: ""
+      livenessProbe:
+        initialDelaySeconds: 120
+        timeoutSeconds: 5
+      nodeSelector: {}
+      password: ""
+      persistence:
+        dbHost: stakater-security-postgresql.security
+        dbName: keycloak-db
+        dbPassword: ""
+        dbPort: 5432
+        dbUser: keycloak
+        dbVendor: postgres
+        deployPostgres: false
+        existingSecret: keycloak-secrets
+        existingSecretKey: db.password
+      podAnnotations:
+        secret.reloader.stakater.com/reload: "keycloak-config,keycloak-secrets"
+        fluentdConfiguration: |
+          [
+              {
+                  "containers":
+                  [
+                      {
+                          "expression": "/^\\S*\\s-\\s-\\s\\[(?<time>\\S*)[\\S\\s]*\\]\\s(?<message>[\\S\\s]*)/",
+                          "expressionFirstLine": "/^\\:\\:f{4}:[0-9]+.[0-9]+\\.[0-9]+\\.[0-9]+/",
+                          "timeFormat": "%d/%b/%Y:%H:%M:%S",
+                          "containerName": "keycloak"
+                      }
+                  ]
+              }
+          ]
+      podDisruptionBudget: {}
+      podLabels: {}
+      priorityClassName: ""
+      readinessProbe:
+        initialDelaySeconds: 30
+        timeoutSeconds: 1
+      replicas: 1
+      resources: {}
+      restartPolicy: Always
+      route:
+        annotations: {}
+        enabled: false
+        host: null
+        labels: {}
+        path: /
+        tls:
+          enabled: true
+          insecureEdgeTerminationPolicy: Redirect
+          termination: edge
+      securityContext:
+        fsGroup: 1000
+      service:
+        annotations:
+          config.xposer.stakater.com/Domain: stakater.com
+          config.xposer.stakater.com/IngressNameTemplate: '{{.Service}}'
+          config.xposer.stakater.com/IngressURLTemplate: keycloak.{{.Namespace}}.{{.Domain}}
+          config.xposer.stakater.com/TLS: "true"
+          config.xposer.stakater.com/TLSSecretNameTemplate: tls-cert
+          xposer.stakater.com/annotations: |-
+            kubernetes.io/ingress.class: internal-ingress
+            ingress.kubernetes.io/force-ssl-redirect: false
+            nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+            forecastle.stakater.com/expose: true
+            forecastle.stakater.com/icon: https://www.keycloak.org/resources/images/keycloak_logo_480x108.png
+            forecastle.stakater.com/appName: keycloak
+            exposeIngressUrl: globally
+        jgroupsPort: 7600
+        labels:
+          expose: "true"
+        port: 80
+        type: ClusterIP
+      serviceAccount:
+        create: false
+        name: null
+      startupScripts: {}
+      tolerations: []
+      username: stackator
+      
+    postgresql:
+      persistence:
+        enabled: false
+      postgresqlDatabase: keycloak
+      postgresqlPassword: ""
+      postgresqlUsername: keycloak
+      
+    test:
+      containerSecurityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+      enabled: true
+      image:
+        pullPolicy: IfNotPresent
+        repository: unguiculus/docker-python3-phantomjs-selenium
+        tag: v1
+      securityContext:
+        fsGroup: 1000

@@ -1,0 +1,528 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-monitoring-po
+  namespace: monitoring
+spec:
+  releaseName: stakater-monitoring-po
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com
+    name: prometheus-operator
+    version: 5.11.0
+  values:
+    # to override the names
+    nameOverride: stakater
+    fullnameOverride: stakater
+    global:
+      rbac:
+        create: true
+        pspEnabled: true
+
+    defaultRules:
+      labels:
+        kind: infra
+
+    additionalPrometheusRules:
+      - name: infra-rules
+        additionalLabels:
+          kind: infra
+        groups:
+          - name: infra-rules
+            rules:
+              - alert: HighCPULoad
+                expr: node:node_cpu_utilisation:avg1m > 0.8
+                for: 60s
+                labels:
+                  severity: warning
+                annotations:
+                  summary: "Server under high CPU load"
+                  
+              - alert: HighMemoryLoad
+                expr: (sum(node_memory_MemTotal_bytes) - sum(node_memory_MemFree_bytes + node_memory_Buffers_bytes + node_memory_Cached_bytes) ) / sum(node_memory_MemTotal_bytes) * 100 > 75
+                for: 20s
+                labels:
+                  severity: critical
+                annotations:
+                  summary: "Server memory is almost full {{ $labels.node }}"
+                  description: "Host memory usage is {{ humanize $value}}%. Reported by instance {{ $labels.instance }} of job {{ $labels.job }}."
+  
+      - additionalLabels:
+          kind: infra
+        groups:
+          - name: Fluentd
+            rules:
+              - alert: IncreasedFluentdRetryWait
+                annotations:
+                  description: 'Fluentd Output Status Retry Wait has increased from 1000 in 1 minute'
+                  summary: Retry Wait Increased {{ $labels.kind }}
+                expr: max_over_time(fluentd_output_status_retry_wait[1m]) > 1000
+                for: 20s
+                labels:
+                  kind: infra
+                  severity: critical
+              - alert: IncreasedFluentdRetryCount
+                annotations:
+                  description:
+                    Rate of Fluentd Output Retry Count has increased from 0.5 in
+                    1m
+                  summary: Retry Wait Increased
+                expr: rate(fluentd_output_status_retry_count[1m]) > 0.5
+                for: 20s
+                labels:
+                  kind: infra
+                  severity: critical
+              - alert: IncreasedFluentdOutputBufferLength
+                annotations:
+                  description:
+                    Fluentd Output Status Buffer Queue length has increased from
+                    500.
+                  summary: Fluentd Buffer Queue length Increased - {{ $externalLabels.kind }}
+                expr: max_over_time(fluentd_output_status_buffer_queue_length[1m]) > 500
+                for: 10s
+                labels:
+                  kind: infra
+                  severity: critical
+        name: fluentd-rules
+
+    commonLabels:
+      expose: "true"
+
+    prometheusOperator:
+      admissionWebhooks:
+        enabled: true
+        failurePolicy: Fail
+        patch:
+          enabled: true
+          image:
+            pullPolicy: IfNotPresent
+            repository: jettech/kube-webhook-certgen
+            tag: v1.0.0
+          nodeSelector: {}
+          podAnnotations: {}
+          priorityClassName: ""
+      affinity: {}
+      cleanupCustomResource: false
+      cleanupCustomResourceBeforeInstall: false
+      configmapReloadImage:
+        repository: quay.io/coreos/configmap-reload
+        tag: v0.0.1
+      crdApiGroup: monitoring.coreos.com
+      createCustomResource: false
+      enabled: true
+      hyperkubeImage:
+        pullPolicy: IfNotPresent
+        repository: k8s.gcr.io/hyperkube
+        tag: v1.12.1
+      image:
+        pullPolicy: IfNotPresent
+        repository: quay.io/coreos/prometheus-operator
+        tag: v0.32.0
+      kubeletService:
+        enabled: false
+        namespace: kube-system
+      nodeSelector: {}
+      podAnnotations: {}
+      podLabels: {}
+      prometheusConfigReloaderImage:
+        repository: quay.io/coreos/prometheus-config-reloader
+        tag: v0.32.0
+      resources: {}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+      service:
+        additionalPorts: []
+        annotations: {}
+        clusterIP: ""
+        externalIPs: []
+        labels: {}
+        loadBalancerIP: ""
+        loadBalancerSourceRanges: []
+        nodePort: 30080
+        nodePortTls: 30443
+        type: ClusterIP
+      serviceAccount:
+        create: true
+        name: stakater-monitoring
+      serviceMonitor:
+        interval: ""
+        metricRelabelings: []
+        relabelings: []
+        selfMonitor: true
+      tlsProxy:
+        enabled: true
+        image:
+          pullPolicy: IfNotPresent
+          repository: squareup/ghostunnel
+          tag: v1.4.1
+        resources: {}
+      tolerations: []
+
+    prometheus:
+      additionalServiceMonitors:
+        - endpoints:
+            - interval: 20s
+              path: /metrics
+              port: monitor-agent
+              scheme: http
+          jobLabel: k8s-app
+          name: monitoring-fluentd
+          namespaceSelector:
+            matchNames:
+              - logging
+          selector:
+            matchLabels:
+              app.kubernetes.io/name: fluentd-elasticsearch
+        - endpoints:
+            - interval: 30s
+              port: metrics
+          jobLabel: k8s-app
+          name: external-ingress
+          namespaceSelector:
+            matchNames:
+              - control
+          selector:
+            matchLabels:
+              k8s-app: external-ingress
+        - endpoints:
+            - interval: 30s
+              port: metrics
+          jobLabel: k8s-app
+          name: internal-ingress
+          namespaceSelector:
+            matchNames:
+              - control
+          selector:
+            matchLabels:
+              k8s-app: internal-ingress
+      enabled: true
+      externalIPs: []
+      hosts: []
+      ingress:
+        annotations: {}
+        enabled: false
+        labels: {}
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      nodePort: 30090
+      paths: []
+      podDisruptionBudget:
+        enabled: false
+        maxUnavailable: ""
+        minAvailable: 1
+      podSecurityPolicy:
+        allowedCapabilities: []
+      prometheusSpec:
+        additionalAlertManagerConfigs: []
+        additionalAlertRelabelConfigs: []
+        additionalScrapeConfigs: []
+        additionalScrapeConfigsExternal: false
+        affinity: {}
+        alertingEndpoints: []
+        configMaps: []
+        containers: []
+        enableAdminAPI: false
+        evaluationInterval: ""
+        externalLabels: {}
+        externalUrl: ""
+        image:
+          repository: quay.io/prometheus/prometheus
+          tag: v2.12.0
+        listenLocal: false
+        logFormat: logfmt
+        logLevel: info
+        nodeSelector: {}
+        paused: false
+        podAntiAffinity: ""
+        podAntiAffinityTopologyKey: kubernetes.io/hostname
+        podMetadata: {}
+        priorityClassName: ""
+        prometheusExternalLabelName: ""
+        prometheusExternalLabelNameClear: false
+        query: {}
+        remoteRead: []
+        remoteWrite: []
+        replicaExternalLabelName: ""
+        replicaExternalLabelNameClear: false
+        replicas: 1
+        resources: {}
+        retention: 10d
+        retentionSize: ""
+        routePrefix: /
+        ruleNamespaceSelector: {}
+        ruleSelector: {}
+        ruleSelectorNilUsesHelmValues: true
+        scrapeInterval: ""
+        secrets: []
+        securityContext:
+          fsGroup: 2000
+          runAsNonRoot: true
+          runAsUser: 1000
+        serviceMonitorNamespaceSelector: {}
+        serviceMonitorSelector: {}
+        serviceMonitorSelectorNilUsesHelmValues: true
+        storageSpec:
+          volumeClaimTemplate:
+            selector: {}
+            spec:
+              accessModes:
+                - ReadWriteOnce
+              resources:
+                requests:
+                  storage: 6Gi
+              storageClassName: ibmc-block-silver
+        thanos: {}
+        tolerations: []
+        walCompression: false
+      rbac:
+        roleNamespaces:
+          - monitoring
+          - kube-system
+          - default
+          - logging
+          - control
+      service:
+        annotations:
+          config.xposer.stakater.com/Domain: stakater.com
+          config.xposer.stakater.com/IngressNameTemplate: "{{.Service}}-{{.Namespace}}"
+          config.xposer.stakater.com/IngressURLPath: /
+          config.xposer.stakater.com/IngressURLTemplate: prometheus.{{.Namespace}}.{{.Domain}}
+          config.xposer.stakater.com/TLS: "true"
+          config.xposer.stakater.com/TLSSecretNameTemplate: tls-cert
+          xposer.stakater.com/annotations: |-
+            kubernetes.io/ingress.class: internal-ingress
+            ingress.kubernetes.io/rewrite-target: /
+            ingress.kubernetes.io/force-ssl-redirect: true
+            forecastle.stakater.com/expose: true
+            forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/prometheus.png
+            forecastle.stakater.com/appName: Prometheus
+        labels:
+          expose: "true"
+      serviceAccount:
+        create: true
+        name: ""
+      serviceMonitor:
+        interval: ""
+        metricRelabelings: []
+        relabelings: []
+        selfMonitor: true
+      sessionAffinity: ""
+      targetPort: 9090
+      tls: []
+      type: ClusterIP
+
+    grafana:
+      admin:
+        existingSecret: "grafana-credentials"
+        userKey: "admin-user"
+        passwordKey: "admin-password"
+      ingress:
+        annotations:
+          forecastle.stakater.com/appName: Grafana
+          forecastle.stakater.com/expose: "true"
+          forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/grafana.png
+          ingress.kubernetes.io/force-ssl-redirect: "true"
+          ingress.kubernetes.io/rewrite-target: /
+          kubernetes.io/ingress.class: internal-ingress
+        enabled: "true"
+        hosts:
+          - grafana.monitoring.stakater.com
+        tls:
+          - hosts:
+              - grafana.monitoring.stakater.com
+            secretName: tls-cert
+      rbac:
+        create: true
+        namespaced: true
+      sidecar:
+        dashboards:
+          enabled: true
+
+    kubeControllerManager:
+      enabled: false
+      endpoints: []
+      service:
+        port: 10252
+        selector:
+          component: kube-controller-manager
+        targetPort: 10252
+      serviceMonitor:
+        https: false
+        insecureSkipVerify: null
+        interval: ""
+        metricRelabelings: []
+        relabelings: []
+        serverName: null
+
+    kubeEtcd:
+      enabled: true
+      endpoints: []
+      service:
+        port: 4001
+        selector:
+          component: etcd-server
+        targetPort: 4001
+      serviceMonitor:
+        caFile: ""
+        certFile: ""
+        insecureSkipVerify: false
+        interval: ""
+        keyFile: ""
+        metricRelabelings: []
+        relabelings: []
+        scheme: http
+        serverName: ""
+
+    kubeScheduler:
+      enabled: false
+      endpoints: []
+      service:
+        port: 10251
+        selector:
+          component: kube-scheduler
+        targetPort: 10251
+      serviceMonitor:
+        https: false
+        insecureSkipVerify: null
+        interval: ""
+        metricRelabelings: []
+        relabelings: []
+        serverName: null
+
+    alertmanager:
+      alertmanagerSpec:
+        additionalPeers: []
+        affinity: {}
+        configMaps: []
+        containers: []
+        externalUrl: null
+        image:
+          repository: quay.io/prometheus/alertmanager
+          tag: v0.17.0
+        listenLocal: false
+        logFormat: logfmt
+        logLevel: info
+        nodeSelector: {}
+        paused: false
+        podAntiAffinity: ""
+        podAntiAffinityTopologyKey: kubernetes.io/hostname
+        podMetadata: {}
+        priorityClassName: ""
+        replicas: 1
+        resources: {}
+        retention: 120h
+        routePrefix: /
+        secrets:
+          - stakater-alertmanager-config
+        securityContext:
+          fsGroup: 2000
+          runAsNonRoot: true
+          runAsUser: 1000
+        storage: {}
+        tolerations: []
+        useExistingSecret: true
+      config:
+        global:
+          resolve_timeout: 5m
+        receivers:
+          - name: "null"
+        route:
+          group_by:
+            - job
+          group_interval: 5m
+          group_wait: 30s
+          receiver: "null"
+          repeat_interval: 12h
+          routes:
+            - match:
+                alertname: Watchdog
+              receiver: "null"
+      enabled: true
+      ingress:
+        annotations: {}
+        enabled: false
+        hosts: []
+        labels: {}
+        paths: []
+        tls: []
+      podDisruptionBudget:
+        enabled: false
+        maxUnavailable: ""
+        minAvailable: 1
+      service:
+        annotations:
+          config.xposer.stakater.com/Domain: stakater.com
+          config.xposer.stakater.com/IngressNameTemplate: "{{.Service}}-{{.Namespace}}"
+          config.xposer.stakater.com/IngressURLPath: /
+          config.xposer.stakater.com/IngressURLTemplate: alertmanager.{{.Namespace}}.{{.Domain}}
+          config.xposer.stakater.com/TLS: "true"
+          config.xposer.stakater.com/TLSSecretNameTemplate: tls-cert
+          xposer.stakater.com/annotations: |-
+            kubernetes.io/ingress.class: internal-ingress
+            ingress.kubernetes.io/rewrite-target: /
+            ingress.kubernetes.io/force-ssl-redirect: true
+            forecastle.stakater.com/expose: true
+            forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/alert-manager.png
+            forecastle.stakater.com/appName: Alert Manager
+        clusterIP: ""
+        externalIPs: []
+        labels: {}
+        loadBalancerIP: ""
+        loadBalancerSourceRanges: []
+        nodePort: 30903
+        type: ClusterIP
+      serviceAccount:
+        create: true
+        name: ""
+      serviceMonitor:
+        interval: ""
+        metricRelabelings: []
+        relabelings: []
+        selfMonitor: true
+      templateFiles: {}
+      tplConfig: false
+
+    kubelet:
+      enabled: false
+      namespace: kube-system
+      serviceMonitor:
+        cAdvisorMetricRelabelings: []
+        cAdvisorRelabelings: []
+        https: false
+        interval: ""
+        metricRelabelings: []
+        relabelings: []
+
+    kubeApiServer:
+      enabled: true
+      relabelings:
+        - action: keep
+          regex: default;kubernetes;https
+          sourceLabels:
+            - __meta_kubernetes_namespace
+            - __meta_kubernetes_service_name
+            - __meta_kubernetes_endpoint_port_name
+        - replacement: kubernetes.default.svc:443
+          targetLabel: __address__
+      serviceMonitor:
+        interval: ""
+        jobLabel: component
+        metricRelabelings: []
+        selector:
+          matchLabels:
+            component: apiserver
+            provider: kubernetes
+      tlsConfig:
+        insecureSkipVerify: true
+
+    coreDns:
+      enabled: true
+      service:
+        port: 9153
+        selector:
+          k8s-app: kube-dns
+        targetPort: 9153
+      serviceMonitor:
+        interval: ""
+        metricRelabelings: []
+        relabelings: []

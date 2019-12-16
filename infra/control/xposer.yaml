@@ -1,0 +1,23 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-control-xposer
+  namespace: control
+spec:
+  releaseName: stakater-control-xposer
+  chart:
+    repository: https://stakater.github.io/stakater-charts/
+    name: xposer
+    version: 0.0.17
+  values:
+    xposer:        
+      configFilePath: /configs/config.yaml
+      watchGlobally: true
+      exposeServiceURL: controlly
+      config:
+        domain: stakater.com
+        ingressURLTemplate: "{{.Service}}.{{.Namespace}}.{{.Domain}}"
+        ingressURLPath: /
+        ingressNameTemplate: "{{.Service}}"
+        tlsSecretNameTemplate: "tls-cert"
+        tls: true

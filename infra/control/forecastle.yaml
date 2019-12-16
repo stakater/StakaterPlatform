@@ -1,0 +1,46 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-control-forecastle
+  namespace: control
+spec:
+  releaseName: stakater-control-forecastle
+  chart:
+    repository: https://stakater.github.io/stakater-charts/
+    name: forecastle
+    version: 1.0.36
+  values:
+    forecastle:
+      createCustomResource: false
+      namespace: control
+      deployment:
+        replicas: 1
+        revisionHistoryLimit: 2
+        annotations:
+          configmap.reloader.stakater.com/reload: forecastle
+          authproxy.stakater.com/enabled: "true"
+          authproxy.stakater.com/upstream-url: "http://127.0.0.1:3000"
+          authproxy.stakater.com/source-service-name: forecastle
+          authproxy.stakater.com/redirection-url: "https://forecastle.control.stakater.com"
+          authproxy.stakater.com/listen: "0.0.0.0:80"
+      service:
+        expose: "true"
+        annotations:
+          config.xposer.stakater.com/IngressURLPath: "/"
+          config.xposer.stakater.com/Domain: "stakater.com"
+          config.xposer.stakater.com/IngressNameTemplate: "{{.Service}}"
+          config.xposer.stakater.com/IngressURLTemplate: "{{.Service}}.{{.Namespace}}.{{.Domain}}"
+          config.xposer.stakater.com/TLS: "true"
+          config.xposer.stakater.com/TLSSecretNameTemplate: "tls-cert"
+          xposer.stakater.com/annotations: |-
+            kubernetes.io/ingress.class: external-ingress
+            ingress.kubernetes.io/rewrite-target: /
+            ingress.kubernetes.io/force-ssl-redirect: true
+            exposeIngressUrl: globally
+      config:
+        namespaceSelector:
+          any: true
+        headerBackground: "#173F5F"
+        headerForeground: "white"
+        title: "Forecastle - Stakater"
+        crdEnabled: true
