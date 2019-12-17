@@ -413,7 +413,7 @@ spec:
         retention: 120h
         routePrefix: /
         secrets:
-          - stakater-alertmanager-config
+          - alertmanager-stakater-alertmanager
         securityContext:
           fsGroup: 2000
           runAsNonRoot: true

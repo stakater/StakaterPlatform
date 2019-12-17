@@ -7,7 +7,8 @@ metadata:
 data:
   ssl-protocols: TLSv1.2
   proxy-connect-timeout: "300"
-  proxy-read-timeout: "300"
+  proxy-read-timeout: "1200"
+  proxy-send-timeout: "300"
   use-http2: "false"
   worker-processes: "24"
   worker-connections: "100000"
@@ -18,7 +19,8 @@ data:
   hsts-max-age: "31536000"
   proxy-buffer-size: "256k"
   client-body-buffer-size: "256k"
-  proxy-body-size: "8m"
+  ssl-buffer-size: "32k"
+  proxy-body-size: "100m"
 ---
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease

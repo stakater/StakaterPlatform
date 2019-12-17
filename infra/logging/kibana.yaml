@@ -37,6 +37,7 @@ spec:
           kubernetes.io/ingress.class: internal-ingress
           ingress.kubernetes.io/rewrite-target: /
           ingress.kubernetes.io/force-ssl-redirect: true
+          nginx.ingress.kubernetes.io/cors-allow-origin: "*"
           forecastle.stakater.com/expose: true
           forecastle.stakater.com/icon: https://github.com/stakater/ForecastleIcons/raw/master/kibana.png
           forecastle.stakater.com/appName: Kibana
