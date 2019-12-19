@@ -31,7 +31,7 @@ spec:
             rules:
               - alert: HighCPULoad
                 expr: node:node_cpu_utilisation:avg1m > 0.8
-                for: 60s
+                for: 30s
                 labels:
                   severity: warning
                 annotations:
