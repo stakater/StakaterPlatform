@@ -31,7 +31,7 @@ spec:
       name: helm-operator
     
     git:
-      url: ssh://STAKATER_PLATFORM_SSH_GIT_URL
+      url: STAKATER_PLATFORM_SSH_GIT_URL
       pollInterval: "10s"
       branch: "STAKATER_PLATFORM_BRANCH"
       path: "platform"
