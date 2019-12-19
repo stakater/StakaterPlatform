@@ -31,10 +31,10 @@ spec:
       name: helm-operator
     
     git:
-      url: ssh://git@github.com/stakater/StakaterInfrastructure.git
+      url: ssh://STAKATER_PLATFORM_SSH_GIT_URL
       pollInterval: "10s"
-      branch: "ibm-stakater"
-      path: "infra"
+      branch: "STAKATER_PLATFORM_BRANCH"
+      path: "platform"
 
     additionalArgs:
       - --k8s-allow-namespace=control,delivery,security,logging,monitoring,tracing,kube-system
