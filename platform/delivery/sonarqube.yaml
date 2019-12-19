@@ -39,7 +39,7 @@ spec:
     postgresql:
       persistence:
         size: 3Gi
-        storageClass: ibmc-block-silver
+        storageClass: STORAGE_CLASS_NAME
       
     plugins:
       install:

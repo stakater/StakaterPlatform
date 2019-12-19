@@ -77,7 +77,7 @@ spec:
       enabled: true
       mountPath: /bitnami/postgresql
       size: 1Gi
-      storageClass: ibmc-block-silver
+      storageClass: STORAGE_CLASS_NAME
       subPath: ""
       
     updateStrategy:

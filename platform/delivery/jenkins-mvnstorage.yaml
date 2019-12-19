@@ -15,9 +15,9 @@ spec:
           - ReadWriteMany
         annotations:
           helm.sh/resource-policy: keep
-          volume.beta.kubernetes.io/storage-class: ibmc-file-silver
+          volume.beta.kubernetes.io/storage-class: STORAGE_CLASS_NAME
         labels:
           app: jenkins
         name: jenkins-mvn-local-repo
         storage: 10Gi
-        storageClassName: ibmc-file-silver
+        storageClassName: STORAGE_CLASS_NAME

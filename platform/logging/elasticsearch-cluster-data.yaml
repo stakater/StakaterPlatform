@@ -29,7 +29,7 @@ spec:
       data: "true"
     volumeClaimTemplate:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: ibmc-block-gold
+      storageClassName: STORAGE_CLASS_NAME
       resources:
         requests:
           storage: 200Gi

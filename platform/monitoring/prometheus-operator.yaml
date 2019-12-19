@@ -270,7 +270,7 @@ spec:
               resources:
                 requests:
                   storage: 6Gi
-              storageClassName: ibmc-block-silver
+              storageClassName: STORAGE_CLASS_NAME
         thanos: {}
         tolerations: []
         walCompression: false
