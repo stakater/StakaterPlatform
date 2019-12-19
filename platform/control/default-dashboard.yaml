@@ -14,6 +14,7 @@
 
 # ------------------- Dashboard Secret ------------------- #
 
+# Certs are generated when deployment starts and updates this resource
 apiVersion: v1
 kind: Secret
 metadata:
@@ -77,6 +78,7 @@ spec:
           protocol: TCP
         args:
           - --auto-generate-certificates
+          - --token-ttl=86400
           # Uncomment the following line to manually specify Kubernetes API server Host
           # If not specified, Dashboard will attempt to auto discover the API server and connect
           # to it. Uncomment only if the default does not work.
