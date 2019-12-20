@@ -12,7 +12,7 @@ spec:
   values:
     Claims:
       - accessModes:
-          - ReadWriteMany
+          - ReadWriteOnce
         annotations:
           helm.sh/resource-policy: keep
           volume.beta.kubernetes.io/storage-class: stakater-sc
