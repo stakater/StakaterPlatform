@@ -39,7 +39,7 @@ spec:
     postgresql:
       persistence:
         size: 3Gi
-        storageClass: STORAGE_CLASS_NAME
+        storageClass: stakater-sc
       
     plugins:
       install:

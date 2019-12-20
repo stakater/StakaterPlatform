@@ -270,7 +270,7 @@ spec:
               resources:
                 requests:
                   storage: 6Gi
-              storageClassName: STORAGE_CLASS_NAME
+              storageClassName: stakater-sc
         thanos: {}
         tolerations: []
         walCompression: false

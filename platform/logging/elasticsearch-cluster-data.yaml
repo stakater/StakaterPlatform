@@ -29,7 +29,7 @@ spec:
       data: "true"
     volumeClaimTemplate:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: STORAGE_CLASS_NAME
+      storageClassName: stakater-sc
       resources:
         requests:
           storage: 200Gi

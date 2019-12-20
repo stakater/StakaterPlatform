@@ -13,4 +13,4 @@ spec:
   resources:
     requests:
       storage: 8Gi
-  storageClassName: STORAGE_CLASS_NAME
+  storageClassName: stakater-sc
