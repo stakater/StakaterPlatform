@@ -1,0 +1,30 @@
+# pipeline base image
+image:
+  name: stakater/builder-tool:terraform-0.12.7-v0.0.10
+
+# Configuring CI/CD environment variables
+variables:
+  CLOUD_PROVIDER: "CLOUD_PROVIDER"
+  KUBE_CONFIG: "KUBE_CONFIG"
+  STAKATER_PLATFORM_SSH_GIT_URL: "STAKATER_PLATFORM_SSH_GIT_URL"
+  STAKATER_PLATFORM_BRANCH: "STAKATER_PLATFORM_BRANCH"
+  AWS_ACCESS_KEY_ID: "AWS_ACCESS_KEY_ID"
+  AWS_ACCESS_KEY_SECRET: "AWS_ACCESS_KEY_SECRET"
+  
+
+before_script:
+  # Configuring kubernetes cluster access
+  - echo "configuration kubernetes access in pipeline"
+  - mkdir ~/.kube/
+  - echo $KUBE_CONFIG | base64 -d > ~/.kube/config
+
+# pipeline stages
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+
+  # pipeline execution script
+  script:
+    - make deploy CLOUD_PROVIDER=$CLOUD_PROVIDER STAKATER_PLATFORM_SSH_GIT_URL=$STAKATER_PLATFORM_SSH_GIT_URL STAKATER_PLATFORM_BRANCH=$STAKATER_PLATFORM_BRANCH
