@@ -15,6 +15,6 @@ deploy: setvars
 	bash install.sh
 
 destroy:
-    bash destroy.sh
+	bash destroy.sh
 
 .PHONY: setvars deploy
