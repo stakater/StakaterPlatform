@@ -1,0 +1,27 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-logging-logrotate
+  namespace: logging
+spec:
+  releaseName: stakater-logging-logrotate
+  chart:
+    repository: https://stakater.github.io/stakater-charts
+    name: logrotate
+    version: 1.0.9
+  values:
+    config:
+      k8sRotatorConf: |-
+        /var/lib/docker/containers/*/*.log {
+            rotate 5
+            copytruncate
+            missingok
+            notifempty
+            compress
+            maxsize 200M
+            daily
+            create 0644 root root
+        }
+      
+    environment:
+      cronSchedule: 0 */12 * * *

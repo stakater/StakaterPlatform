@@ -2,6 +2,8 @@ set +x
 #!/bin/bash
 NAMESPACES="flux control delivery logging monitoring security tracing"
 
+kubectl delete hr infra-flux -n flux
+
 # Create Namespaces
 for NAMESPACE in $NAMESPACES; do 
   kubectl delete all --all -n $NAMESPACE && \

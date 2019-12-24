@@ -1,0 +1,17 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-security-proxyinjector
+  namespace: security
+spec:
+  releaseName: stakater-security-proxyinjector
+  chart:
+    repository: https://stakater.github.io/stakater-charts/
+    name: proxyinjector
+    version: 0.0.22
+  values:
+    proxyinjector:
+      watchGlobally: true
+      mount: "secret"
+      existingSecret: "proxyinjector-config"
+      configFilePath: /etc/ProxyInjector
