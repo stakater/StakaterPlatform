@@ -1,0 +1,39 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-control-dashboard
+  namespace: control
+spec:
+  releaseName: stakater-control-dashboard
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com 
+    name: kubernetes-dashboard
+    version: 1.5.2
+  values:
+    rbac:
+      create: true
+      clusterAdminRole: true    
+    # annotations:
+    #   authproxy.stakater.com/enabled: "true"
+    #   authproxy.stakater.com/upstream-url: "http://127.0.0.1:9090"
+    #   authproxy.stakater.com/source-service-name: stakater-control-dashboard-kubernetes-dashboard
+    #   authproxy.stakater.com/redirection-url: "https://dashboard.control.stakater.com"
+    #   authproxy.stakater.com/listen: "0.0.0.0:80"
+    enableInsecureLogin: true
+    enableSkipLogin: false
+    service:
+      labels:
+        expose: "true"
+      annotations:
+        config.xposer.stakater.com/Domain: DOMAIN
+        config.xposer.stakater.com/IngressNameTemplate: '{{.Service}}'
+        config.xposer.stakater.com/IngressURLTemplate: 'dashboard-{{.Namespace}}.{{.Domain}}'
+        config.xposer.stakater.com/TLS: "true"
+        config.xposer.stakater.com/TLSSecretNameTemplate: "tls-cert"
+        xposer.stakater.com/annotations: |-
+          kubernetes.io/ingress.class: internal-ingress
+          ingress.kubernetes.io/force-ssl-redirect: true
+          forecastle.stakater.com/expose: true
+          forecastle.stakater.com/icon: https://github.com/stakater/ForecastleIcons/raw/master/kubernetes.png
+          forecastle.stakater.com/appName: Dashboard
+          exposeIngressUrl: locally

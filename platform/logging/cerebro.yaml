@@ -1,0 +1,39 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-logging-cerebro
+  namespace: logging
+spec:
+  releaseName: stakater-logging-cerebro
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com
+    name: cerebro
+    version: 1.0.1
+  values:
+    config:
+      secret: "ki:s:[[@=Ag?QIW2jMwkY:eqvrJ]JqoJyi2axj3ZvOv^/KavOT4ViJSv?6YY4[N"
+      hosts:
+      - host: "http://elasticsearch-master.logging:9200"
+        name: elasticsearch.DOMAIN
+    deployment:
+      annotations:
+        authproxy.stakater.com/enabled: "true"
+        authproxy.stakater.com/listen: 0.0.0.0:80
+        authproxy.stakater.com/redirection-url: https://cerebro-logging.DOMAIN
+        authproxy.stakater.com/source-service-name: stakater-logging-cerebro
+        authproxy.stakater.com/upstream-url: http://127.0.0.1:9000
+        
+    service:
+      annotations:
+        config.xposer.stakater.com/Domain: DOMAIN
+        config.xposer.stakater.com/IngressNameTemplate: '{{.Service}}-{{.Namespace}}'
+        config.xposer.stakater.com/IngressURLTemplate: cerebro-{{.Namespace}}.{{.Domain}}
+        xposer.stakater.com/annotations: |-
+          kubernetes.io/ingress.class: internal-ingress
+          ingress.kubernetes.io/force-ssl-redirect: true
+          forecastle.stakater.com/expose: true
+          forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/cerebro.png
+          forecastle.stakater.com/appName: Cerebro
+        
+      labels:
+        expose: "true"
