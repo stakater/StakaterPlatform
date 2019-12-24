@@ -1,0 +1,15 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: stakater-sc
+parameters:
+  billingType: hourly
+  classVersion: "2"
+  fsType: ext4
+  iopsPerGB: "4"
+  sizeRange: '[20-12000]Gi'
+  type: Endurance
+provisioner: ibm.io/ibmc-block
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+allowVolumeExpansion: true

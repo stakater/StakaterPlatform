@@ -1,0 +1,27 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-delivery-rbac
+  namespace: delivery
+spec:
+  releaseName: stakater-delivery-rbac
+  chart:
+    repository: https://stakater.github.io/stakater-charts/
+    name: rbac
+    version: 1.0.6
+  values:
+    rbac:
+      appName: jenkins
+      clusterRoleBinding:
+        enabled: true
+        name: jenkins-delivery-cluster-role-binding
+        labels: {}
+        clusterRoleName: cluster-admin
+        serviceAccountName: stakater-delivery-jenkins
+    serviceAccount:
+      # Specifies whether a ServiceAccount should be created
+      create: true
+      labels: {}
+      # The name of the ServiceAccount to use.
+      # If not set and create is true, a name is generated using the fullname template
+      name: stakater-delivery-jenkins

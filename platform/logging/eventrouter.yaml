@@ -1,0 +1,16 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-logging-eventrouter
+  namespace: logging
+spec:
+  releaseName: stakater-logging-eventrouter
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com
+    name: eventrouter
+    version: 0.2.3
+  values:
+    image:
+      repository: gcr.io/heptio-images/eventrouter
+      tag: v0.2
+      pullPolicy: IfNotPresent

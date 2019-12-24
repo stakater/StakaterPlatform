@@ -1,0 +1,312 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-delivery-jenkins
+  namespace: delivery
+spec:
+  releaseName: stakater-delivery-jenkins
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com
+    name: jenkins
+    version: 1.8.2
+  values:
+    serviceAccount:
+      name: jenkins
+    
+    persistence:
+      enabled: true
+      existingClaim: stakater-delivery-jenkins
+
+    rbac:
+      create: true
+
+    master:
+      image: jenkins/jenkins
+      imageTag: "2.203"
+      resources:
+        limits:
+          cpu: 2000m
+          memory: 3072Mi
+        requests:
+          cpu: 50m
+          memory: 256Mi
+  
+      ingress:
+        annotations:
+          exposeIngressUrl: globally
+          forecastle.stakater.com/expose: "true"
+          forecastle.stakater.com/appName: Jenkins
+          forecastle.stakater.com/icon: https://github.com/stakater/ForecastleIcons/raw/master/jenkins.png
+          ingress.kubernetes.io/force-ssl-redirect: "true"
+          ingress.kubernetes.io/proxy-body-size: 150m
+          kubernetes.io/ingress.class: external-ingress
+        enabled: true
+        hostName: jenkins-delivery.DOMAIN
+        path: /
+        tls:
+          - hosts:
+              - jenkins-delivery.DOMAIN
+
+      securityRealm: |-
+        <securityRealm class="org.jenkinsci.plugins.oic.OicSecurityRealm" plugin="oic-auth@1.6">
+        <clientId>KEYCLOAK_CLIENT_ID</clientId> <clientSecret>KEYCLOAK_CLIENT_SECRET</clientSecret>
+        <tokenServerUrl>https://keycloak-security.DOMAIN/auth/realms/stakater/protocol/openid-connect/token</tokenServerUrl>
+        <authorizationServerUrl>https://keycloak-security.DOMAIN/auth/realms/stakater/protocol/openid-connect/auth</authorizationServerUrl>
+        <userNameField>email</userNameField> <scopes>openid email</scopes> </securityRealm>
+
+      serviceType: ClusterIP
+      installPlugins:
+      - workflow-cps:2.75
+      - git:3.9.1
+      - oic-auth:1.6
+      - github:1.29.2
+      - github-pullrequest:0.2.4
+      - github-oauth:0.29
+      - github-api:1.92
+      - github-branch-source:2.4.1
+      - github-issues:1.2.4
+      - workflow-multibranch:2.20
+      - pipeline-model-api:1.4.0
+      - pipeline-stage-step:2.3
+      - workflow-cps-global-lib:2.11
+      - pipeline-github-lib:1.0
+      - kubernetes:1.12.6
+      - kubernetes-pipeline-steps:1.5
+      - kubernetes-pipeline-aggregator:1.5
+      - workflow-basic-steps:2.18
+      - jdk-tool:1.1
+      - jackson2-api:2.9.8
+      - blueocean-pipeline-api-impl:1.8.4
+      - pipeline-utility-steps:2.1.0
+      - gitlab-plugin:1.5.10
+      - gitlab-merge-request-jenkins:2.0.0
+      - job-dsl:1.70
+      - cloudbees-folder:6.9
+      - authorize-project:1.3.0
+      - gitlab-hook:1.4.2
+      - pipeline-stage-view:2.10
+      - ssh-agent:1.17
+      - ssh:2.6.1
+      - ssh-credentials:1.17.2
+      - ssh-steps:1.1.1
+      - rich-text-publisher-plugin:1.4
+      - timestamper:1.8.10
+      - workflow-aggregator:2.6
+      - cloudbees-bitbucket-branch-source:2.4.2
+      - pipeline-aws:1.39
+
+      scriptApproval:
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods first java.lang.Object[]
+        - method hudson.tasks.test.AbstractTestResultAction getFailCount
+        - method hudson.tasks.test.AbstractTestResultAction getSkipCount
+        - method hudson.tasks.test.AbstractTestResultAction getTotalCount
+        - method java.lang.CharSequence subSequence int int
+        - field hudson.plugins.git.GitSCM GIT_BRANCH
+        - method hudson.plugins.git.GitSCM getUserRemoteConfigs
+        - method hudson.plugins.git.UserRemoteConfig getUrl
+        - method hudson.plugins.git.UserRemoteConfig getRefspec
+        - method hudson.plugins.git.UserRemoteConfig getName
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods first java.util.List
+        - method java.net.URL getHost
+        - method java.net.URL getPath
+        - field hudson.plugins.git.GitSCMBackwardCompatibility branch
+        - field hudson.plugins.git.GitSCMBackwardCompatibility source
+        - method groovy.json.JsonBuilder toPrettyString
+        - method groovy.json.JsonSlurper parse java.io.Reader
+        - method groovy.json.JsonSlurperClassic parse java.io.Reader
+        - method groovy.json.JsonSlurperClassic parseText java.lang.String
+        - method groovy.lang.GroovyObject getProperty java.lang.String
+        - method groovy.lang.GroovyObject invokeMethod java.lang.String java.lang.Object
+        - method groovy.lang.GString plus java.lang.String
+        - method groovy.util.ConfigSlurper parse java.net.URL
+        - method groovy.util.ConfigSlurper parse java.util.Properties
+        - method groovy.util.slurpersupport.GPathResult text
+        - method groovy.util.XmlSlurper parse java.lang.String
+        - method groovy.util.XmlSlurper parseText java.lang.String
+        - method groovy.xml.DOMBuilder parseText java.lang.String
+        - method hudson.model.Actionable getAction java.lang.Class
+        - method hudson.model.Job getBuildByNumber int
+        - method hudson.model.Job getProperty java.lang.Class
+        - method hudson.model.Run getCause java.lang.Class
+        - method hudson.scm.SCM getBrowser
+        - method io.fabric8.kubernetes.client.KubernetesClient configMaps
+        - method io.fabric8.kubernetes.client.dsl.Namespaceable inNamespace java.lang.String
+        - method io.fabric8.jenkins.openshiftsync.BuildCause getName
+        - method io.fabric8.jenkins.openshiftsync.BuildConfigProjectProperty getName
+        - method io.fabric8.kubernetes.api.model.Doneable done
+        - method io.fabric8.kubernetes.api.model.KubernetesResourceList getItems
+        - method io.fabric8.kubernetes.api.model.ObjectMeta getName
+        - method io.fabric8.kubernetes.api.model.ObjectMetaFluent addToAnnotations java.lang.String java.lang.String
+        - method io.fabric8.kubernetes.api.model.ObjectMetaFluent withName java.lang.String
+        - method io.fabric8.kubernetes.api.pipelines.PipelineConfiguration getUseDockerSocketFlag
+        - method io.fabric8.kubernetes.api.pipelines.PipelineConfiguration isUseDockerSocket
+        - method io.fabric8.kubernetes.client.Client adapt java.lang.Class
+        - method io.fabric8.kubernetes.client.Client getNamespace
+        - method io.fabric8.kubernetes.client.Client isAdaptable java.lang.Class
+        - method io.fabric8.kubernetes.client.dsl.Createable createNew
+        - method io.fabric8.kubernetes.client.dsl.Editable edit
+        - method io.fabric8.kubernetes.client.dsl.Gettable get
+        - method io.fabric8.kubernetes.client.dsl.KubernetesDSL nodes
+        - method io.fabric8.kubernetes.client.dsl.Listable list
+        - method io.fabric8.kubernetes.client.dsl.Nameable withName java.lang.String
+        - method io.fabric8.kubernetes.client.dsl.Namespaceable inNamespace java.lang.String
+        - method io.fabric8.kubernetes.client.KubernetesClient namespaces
+        - method io.fabric8.kubernetes.client.KubernetesClient nodes
+        - method io.fabric8.kubernetes.client.KubernetesClient services
+        - method io.fabric8.openshift.api.model.BuildFluent editMetadata
+        - method io.fabric8.openshift.api.model.BuildFluent$MetadataNested endMetadata
+        - method io.fabric8.openshift.api.model.ImageStream getStatus
+        - method io.fabric8.openshift.api.model.ImageStreamStatus getTags
+        - method io.fabric8.openshift.api.model.NamedTagEventList getItems
+        - method io.fabric8.openshift.api.model.ProjectRequestFluent withDisplayName java.lang.String
+        - method io.fabric8.openshift.api.model.ProjectRequestFluent withNewMetadata
+        - method io.fabric8.openshift.api.model.ProjectRequestFluent$MetadataNested endMetadata
+        - method io.fabric8.openshift.api.model.Route getSpec
+        - method io.fabric8.openshift.api.model.TagEvent getImage
+        - method io.fabric8.openshift.client.OpenShiftClient builds
+        - method io.fabric8.openshift.client.OpenShiftClient imageStreams
+        - method io.fabric8.openshift.client.OpenShiftClient projectrequests
+        - method io.fabric8.openshift.client.OpenShiftClient projects
+        - method io.fabric8.openshift.client.OpenShiftClient supportsOpenShiftAPIGroup
+        - method io.fabric8.openshift.client.OpenShiftClient supportsOpenShiftAPIGroup java.lang.String
+        - new org.csanchez.jenkins.plugins.kubernetes.PodAnnotation java.lang.String java.lang.String
+        - staticMethod org.kohsuke.groovy.sandbox.impl.Checker checkedCall java.lang.Object boolean boolean java.lang.String java.lang.Object[]
+        - new java.util.LinkedHashMap java.util.Map
+        - method java.lang.Class getPackage
+        - method java.lang.Package getSpecificationTitle
+        - method java.lang.Package getSpecificationVersion
+        - method java.lang.Package getImplementationVersion
+        - staticMethod java.lang.Double parseDouble java.lang.String
+        - method io.fabric8.kubernetes.client.KubernetesClient configMaps
+        - method io.fabric8.kubernetes.api.model.ConfigMap getData
+        - method java.io.File close
+        - method java.io.File exists
+        - method java.io.File newOutputStream
+        - method java.io.File toURL
+        - method java.io.Flushable flush
+        - method java.io.Writer write java.lang.String
+        - method java.lang.AutoCloseable close
+        - method java.lang.Class isInstance java.lang.Object
+        - method java.lang.ClassLoader loadClass java.lang.String
+        - method java.lang.Object getClass
+        - method java.lang.String isEmpty
+        - method java.lang.String replaceAll java.lang.String java.lang.String
+        - method java.lang.String substring int
+        - method java.lang.Thread getContextClassLoader
+        - method java.lang.Throwable printStackTrace
+        - method java.net.HttpURLConnection disconnect
+        - method java.net.HttpURLConnection getResponseCode
+        - method java.net.HttpURLConnection setRequestMethod java.lang.String
+        - method java.net.URL openConnection
+        - method java.net.URL openStream
+        - method java.net.URLConnection connect
+        - method java.net.URLConnection getInputStream
+        - method java.net.URLConnection getOutputStream
+        - method java.net.URLConnection setDoInput boolean
+        - method java.net.URLConnection setDoOutput boolean
+        - method java.net.URLConnection setRequestProperty java.lang.String java.lang.String
+        - method java.util.LinkedHashMap$LinkedHashIterator hasNext
+        - method java.util.Properties load java.io.InputStream
+        - method java.util.regex.Matcher group java.lang.String
+        - method java.util.regex.Matcher matches
+        - method java.util.regex.Pattern matcher java.lang.CharSequence
+        - method java.util.Scanner useDelimiter java.lang.String
+        - method jenkins.model.Jenkins getCloud java.lang.String
+        - method jenkins.model.Jenkins getItemByFullName java.lang.String
+        - method org.jenkinsci.plugins.workflow.support.actions.EnvironmentAction getEnvironment
+        - method org.jenkinsci.plugins.workflow.support.steps.build.RunWrapper getRawBuild
+        - method org.w3c.dom.Document getDocumentElement
+        - method org.w3c.dom.Document getElementsByTagName java.lang.String
+        - method org.w3c.dom.Element getElementsByTagName java.lang.String
+        - method org.w3c.dom.Node getChildNodes
+        - method org.w3c.dom.Node getNodeName
+        - method org.w3c.dom.Node getTextContent
+        - method org.w3c.dom.Node setTextContent java.lang.String
+        - method org.w3c.dom.NodeList getLength
+        - method org.w3c.dom.NodeList item int
+        - method io.fabric8.kubernetes.api.model.ConfigMap getData
+        - method io.fabric8.kubernetes.api.model.HasMetadata getMetadata
+        - method java.util.Collection toArray
+        - new groovy.json.JsonBuilder java.lang.Object
+        - new groovy.json.JsonSlurper
+        - new groovy.json.JsonSlurperClassic
+        - new groovy.util.ConfigSlurper
+        - new groovy.util.XmlSlurper
+        - new io.fabric8.kubernetes.client.DefaultKubernetesClient
+        - new io.fabric8.openshift.client.DefaultOpenShiftClient
+        - new java.io.File java.lang.String
+        - new java.io.FileInputStream java.io.File
+        - new java.io.InputStreamReader java.io.InputStream java.lang.String
+        - new java.io.InputStreamReader java.io.InputStream
+        - new java.io.OutputStreamWriter java.io.OutputStream
+        - new java.lang.String java.lang.String
+        - new java.lang.StringBuilder
+        - new java.util.Properties
+        - new java.util.Scanner java.io.InputStream java.lang.String
+        - new java.util.Scanner java.lang.Readable
+        - new java.util.LinkedHashMap java.util.Map
+        - staticField groovy.io.FileType FILES
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods getAt java.lang.Object java.lang.String
+        - staticMethod org.kohsuke.groovy.sandbox.impl.Checker checkedConstructor java.lang.Class java.lang.Object[]
+        - staticMethod groovy.xml.DOMBuilder newInstance
+        - staticMethod groovy.xml.XmlUtil serialize org.w3c.dom.Element
+        - staticMethod io.fabric8.kubernetes.api.environments.Environments load io.fabric8.kubernetes.client.DefaultKubernetesClient java.lang.String
+        - staticMethod io.fabric8.kubernetes.api.environments.Environments load io.fabric8.kubernetes.client.KubernetesClient java.lang.String
+        - staticMethod io.fabric8.kubernetes.api.environments.Environments load java.lang.String
+        - staticMethod io.fabric8.kubernetes.api.environments.Environments load
+        - staticMethod io.fabric8.kubernetes.api.environments.Environments namespaceForEnvironment io.fabric8.kubernetes.client.DefaultKubernetesClient java.lang.String java.lang.String
+        - staticMethod io.fabric8.kubernetes.api.environments.Environments namespaceForEnvironment io.fabric8.kubernetes.client.KubernetesClient java.lang.String java.lang.String
+        - staticMethod io.fabric8.kubernetes.api.environments.Environments namespaceForEnvironment java.lang.String java.lang.String
+        - staticMethod io.fabric8.kubernetes.api.environments.Environments namespaceForEnvironment java.lang.String
+        - staticMethod io.fabric8.kubernetes.api.KubernetesHelper getServiceURL io.fabric8.kubernetes.client.DefaultKubernetesClient java.lang.String java.lang.String java.lang.String boolean
+        - staticMethod io.fabric8.kubernetes.api.KubernetesHelper getServiceURL io.fabric8.kubernetes.client.KubernetesClient java.lang.String java.lang.String java.lang.String boolean
+        - staticMethod io.fabric8.kubernetes.api.pipelines.PipelineConfiguration loadPipelineConfiguration io.fabric8.kubernetes.client.DefaultKubernetesClient java.lang.String
+        - staticMethod io.fabric8.kubernetes.api.pipelines.PipelineConfiguration loadPipelineConfiguration io.fabric8.kubernetes.client.KubernetesClient java.lang.String
+        - staticMethod io.fabric8.kubernetes.api.pipelines.PipelineConfiguration loadPipelineConfiguration java.lang.String
+        - staticMethod io.fabric8.kubernetes.api.pipelines.PipelineConfiguration loadPipelineConfiguration
+        - staticMethod io.fabric8.kubernetes.api.pipelines.Pipelines getPipeline io.fabric8.kubernetes.client.DefaultKubernetesClient java.lang.String io.fabric8.kubernetes.api.pipelines.JobEnvironment java.lang.String java.util.Map
+        - staticMethod io.fabric8.kubernetes.api.pipelines.Pipelines getPipeline io.fabric8.kubernetes.client.KubernetesClient java.lang.String io.fabric8.kubernetes.api.pipelines.JobEnvironment
+        - staticMethod io.fabric8.kubernetes.api.pipelines.Pipelines getPipeline io.fabric8.kubernetes.client.KubernetesClient java.lang.String java.util.Map
+        - staticMethod io.fabric8.kubernetes.api.pipelines.Pipelines getPipeline java.lang.String java.util.Map
+        - staticMethod io.fabric8.kubernetes.client.Adapters get java.lang.Class
+        - staticMethod io.fabric8.utils.Strings isNotBlank java.lang.String
+        - staticMethod java.lang.String valueOf int
+        - staticMethod java.lang.System getenv
+        - staticMethod java.lang.System getProperty java.lang.String
+        - staticMethod java.lang.Thread currentThread
+        - staticMethod java.lang.Thread sleep long
+        - staticMethod java.util.regex.Pattern compile java.lang.String
+        - staticMethod java.util.UUID randomUUID
+        - staticMethod jenkins.model.Jenkins getActiveInstance
+        - staticMethod jenkins.model.Jenkins getInstance
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods count java.lang.String java.lang.String
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods each java.lang.Object groovy.lang.Closure
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods eachDirRecurse java.io.File groovy.lang.Closure
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods eachFile java.io.File groovy.lang.Closure
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods eachFileMatch java.io.File java.lang.Object groovy.lang.Closure
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods eachFileRecurse java.io.File groovy.io.FileType groovy.lang.Closure
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods eachFileRecurse java.io.File groovy.lang.Closure
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods eachLine java.io.File groovy.lang.Closure
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods eachLine java.lang.String groovy.lang.Closure
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods eachWithIndex java.lang.Object groovy.lang.Closure
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods get java.util.Map java.lang.Object java.lang.Object
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods getCount java.util.regex.Matcher
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods getText java.net.URL
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods invokeMethod java.lang.Object java.lang.String java.lang.Object
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods isNumber java.lang.String
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods leftShift java.io.OutputStream java.io.InputStream
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods leftShift java.io.OutputStream java.lang.Object
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods leftShift java.util.Collection java.lang.Object
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods minus java.lang.String java.lang.Object
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods newReader java.net.URL
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods println groovy.lang.Closure java.lang.Object
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods readLine java.io.Reader
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods removeAll java.util.Collection java.lang.Object[]
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods size java.lang.Object[]
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods take java.lang.CharSequence int
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods toInteger java.lang.String
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods use java.lang.Object java.lang.Class groovy.lang.Closure
+        - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods withInputStream java.io.File groovy.lang.Closure
+        - staticMethod org.codehaus.groovy.runtime.ScriptBytecodeAdapter bitwiseNegate java.lang.Object
+        - staticMethod org.codehaus.groovy.runtime.ScriptBytecodeAdapter compareGreaterThan java.lang.Object java.lang.Object
+        - method java.net.URLConnection getHeaderField java.lang.String

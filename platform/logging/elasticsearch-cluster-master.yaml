@@ -1,0 +1,35 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-logging-es-master
+  namespace: logging
+spec:
+  releaseName: stakater-logging-es-master
+  chart:
+    repository: https://helm.elastic.co
+    name: elasticsearch
+    version:  7.5.0
+  values:
+    imageTag: 6.8.5
+    minimumMasterNodes: 1
+    replicas: 1
+    esJavaOpts: "-Xmx1g -Xms1g"
+    initResources: # they must be in synch with java-options setting above!
+      requests:
+        memory: 2Gi
+        cpu: 200m
+      limits:
+        memory: 3Gi
+        cpu: 1000m
+    clusterName: "elasticsearch"
+    nodeGroup: "master"
+    roles:
+      master: "true"
+      ingest: "false"
+      data: "false"
+    volumeClaimTemplate:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: stakater-sc
+      resources:
+        requests:
+          storage: 8Gi

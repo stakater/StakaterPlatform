@@ -1,0 +1,39 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-tracing-istio
+  namespace: tracing
+spec:
+  releaseName: stakater-tracing-istio
+  chart:
+    repository: https://storage.googleapis.com/istio-release/releases/1.4.2/charts/
+    name: istio
+    version: 1.4.2
+  values:
+    global:
+      enableTracing: true
+    mixer:
+      telemetry:
+        resources:
+          requests:
+            cpu: 100m
+            memory: 500Mi
+    sidecarInjectorWebhook:
+      enabled: true
+      rewriteAppHTTPProbe: true
+    pilot:
+      traceSampling: 100
+    prometheus:
+      enabled: true
+    tracing:
+      enabled: true
+      ingress:
+        enabled: true
+    grafana:
+      enabled: true
+    kiali:
+      enabled: true
+    gateway:
+      istio-ingressgateway:
+        ports:
+          nodePort: 31399

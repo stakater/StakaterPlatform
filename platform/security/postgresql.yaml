@@ -1,0 +1,162 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-security-postgresql
+  namespace: security
+spec:
+  releaseName: stakater-security-postgresql
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com
+    name: postgresql
+    version: 6.3.6
+  values:
+    global:
+      postgresql: {}
+      
+    image:
+      debug: false
+      pullPolicy: Always
+      registry: docker.io
+      repository: bitnami/postgresql
+      tag: 11.5.0-debian-9-r26
+      
+    volumePermissions:
+      enabled: true
+      image:
+        pullPolicy: Always
+        registry: docker.io
+        repository: bitnami/minideb
+        tag: stretch
+      securityContext:
+        runAsUser: 0
+      
+    securityContext:
+      enabled: false
+      fsGroup: 1001
+      runAsUser: 1001
+      
+    serviceAccount:
+      enabled: false
+      
+    replication:
+      applicationName: my_application
+      enabled: false
+      numSynchronousReplicas: 0
+      password: repl_password
+      slaveReplicas: 1
+      synchronousCommit: "off"
+      user: repl_user
+      
+    postgresqlUsername: keycloak
+    #postgresqlPassword: 
+    existingSecret: postgres-secret
+    usePasswordFile: false
+    postgresqlDatabase: keycloak-db
+    postgresqlDataDir: /bitnami/postgresql/data
+    #postgresqlInitdbArgs: 
+    #postgresqlInitdbWalDir: 
+    #postgresqlConfiguration: 
+    #postgresqlExtendedConf: 
+    #pgHbaConfiguration:  
+    #configurationConfigMap: 
+    #extendedConfConfigMap: 
+    #initdbScripts: 
+    #initdbScriptsConfigMap: 
+    #initdbScriptsSecret: 
+    #terminationGracePeriodSeconds: 
+    service:
+      annotations: {}
+      port: 5432
+      type: ClusterIP
+      
+    persistence:
+      accessModes:
+      - ReadWriteOnce
+      annotations:
+        helm.sh/resource-policy: keep
+      enabled: true
+      mountPath: /bitnami/postgresql
+      size: 1Gi
+      storageClass: stakater-sc
+      subPath: ""
+      
+    updateStrategy:
+      type: RollingUpdate
+      
+    master:
+      affinity: {}
+      extraVolumeMounts: []
+      extraVolumes: []
+      nodeSelector: {}
+      podAnnotations: {}
+      podLabels: {}
+      tolerations: []
+      
+    slave:
+      affinity: {}
+      extraVolumeMounts: []
+      extraVolumes: []
+      nodeSelector: {}
+      podAnnotations: {}
+      podLabels: {}
+      tolerations: []
+      
+    resources:
+      limits:
+        cpu: 250m
+        memory: 256Mi
+      
+    networkPolicy:
+      allowExternal: true
+      enabled: false
+      
+    livenessProbe:
+      enabled: true
+      failureThreshold: 6
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 5
+      
+    readinessProbe:
+      enabled: true
+      failureThreshold: 6
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 5
+      
+    metrics:
+      enabled: false
+      image:
+        pullPolicy: IfNotPresent
+        registry: docker.io
+        repository: bitnami/postgres-exporter
+        tag: 0.5.1-debian-9-r41
+      livenessProbe:
+        enabled: true
+        failureThreshold: 6
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 5
+      readinessProbe:
+        enabled: true
+        failureThreshold: 6
+        initialDelaySeconds: 5
+        periodSeconds: 10
+        successThreshold: 1
+        timeoutSeconds: 5
+      securityContext:
+        enabled: false
+        runAsUser: 1001
+      service:
+        annotations:
+          prometheus.io/port: "9187"
+          prometheus.io/scrape: "true"
+        type: ClusterIP
+      serviceMonitor:
+        additionalLabels: {}
+        enabled: false
+      
+    # extraEnv: map[]

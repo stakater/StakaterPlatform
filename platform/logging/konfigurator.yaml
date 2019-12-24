@@ -1,0 +1,14 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-logging-konfigurator
+  namespace: logging
+spec:
+  releaseName: stakater-logging-konfigurator
+  chart:
+    repository: https://stakater.github.io/stakater-charts/
+    name: konfigurator
+    version: 0.0.20
+  values:
+    konfigurator:
+      deployCRD: false

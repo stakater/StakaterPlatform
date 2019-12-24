@@ -1,0 +1,11 @@
+apiVersion: forecastle.stakater.com/v1alpha1
+kind: ForecastleApp
+metadata:
+  name: cr-uptimerobot
+  namespace: control
+spec:
+  name: UptimeRobot
+  group: Alerting
+  icon: https://uptimerobot.com/assets/img/logo_plain.png
+  url: https://uptimerobot.com/
+  networkRestricted: false

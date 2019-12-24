@@ -1,0 +1,11 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-tracing-istio-init
+  namespace: tracing
+spec:
+  releaseName: stakater-tracing-istio-init
+  chart:
+    repository: https://storage.googleapis.com/istio-release/releases/1.4.2/charts/
+    name: istio-init
+    version: 1.4.2

@@ -1,0 +1,27 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-delivery-rdlm
+  namespace: delivery
+spec:
+  releaseName: stakater-delivery-rdlm
+  chart:
+    repository: https://stakater.github.io/stakater-charts/
+    name: restful-distributed-lock-manager
+    version: 1.0.4
+  values:
+    rdlm:
+      labels:
+        group: com.stakater.platform
+        provider: stakater
+        version: 0.5.3
+      deployment:
+        replicas: 1
+        podLabels:
+          app: rdlm
+        container:
+          name: rdlm
+          imageName: stakater/restful-distributed-lock-manager
+          imageTag: 0.5.3
+          port: 8080
+          targetPort: 8888

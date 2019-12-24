@@ -1,0 +1,46 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: stakater-logging-kibana
+  namespace: logging
+spec:
+  releaseName: stakater-logging-kibana
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com
+    name: kibana
+    version: 3.2.4
+  values:
+    image:
+      tag: 6.8.5
+    files:
+      kibana.yml:
+        server.name: kibana
+        server.host: "0.0.0.0"
+        server.port: 5601
+        elasticsearch.hosts: http://elasticsearch-master.logging:9200
+        elasticsearch.requestTimeout: 1200000
+    deployment:
+      annotations:
+        authproxy.stakater.com/enabled: "true"
+        authproxy.stakater.com/listen: 0.0.0.0:80
+        authproxy.stakater.com/redirection-url: https://kibana-logging.DOMAIN
+        authproxy.stakater.com/source-service-name: stakater-logging-kibana
+        authproxy.stakater.com/upstream-url: http://127.0.0.1:5601
+        
+    service:
+      externalPort: 80
+      annotations:
+        config.xposer.stakater.com/Domain: DOMAIN
+        config.xposer.stakater.com/IngressNameTemplate: '{{.Service}}-{{.Namespace}}'
+        config.xposer.stakater.com/IngressURLTemplate: kibana-{{.Namespace}}.{{.Domain}}
+        xposer.stakater.com/annotations: |-
+          kubernetes.io/ingress.class: internal-ingress
+          ingress.kubernetes.io/rewrite-target: /
+          ingress.kubernetes.io/force-ssl-redirect: true
+          nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+          forecastle.stakater.com/expose: true
+          forecastle.stakater.com/icon: https://github.com/stakater/ForecastleIcons/raw/master/kibana.png
+          forecastle.stakater.com/appName: Kibana
+
+      labels:
+        expose: "true"
