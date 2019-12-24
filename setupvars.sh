@@ -35,10 +35,10 @@ SLACK_CHANNEL=${20}
 SLACK_URL=${21}
 
 # Replace Stakater Platform URL and Branch names
-replace_flux_values () {
-  sed -i -e "s#STAKATER_PLATFORM_SSH_GIT_URL#${GIT_URL}#g" flux.yaml
-  sed -i -e "s#STAKATER_PLATFORM_BRANCH#${BRANCH}#g" flux.yaml
-}
+# replace_flux_values () {
+#   sed -i -e "s#STAKATER_PLATFORM_SSH_GIT_URL#${GIT_URL}#g" flux.yaml
+#   sed -i -e "s#STAKATER_PLATFORM_BRANCH#${BRANCH}#g" flux.yaml
+# }
 
 replace_aws_creds_values () {
   sed -i -e "s#BASE64_ENCODED_AWS_ACCESS_KEY_ID#${AWS_ACCESS_KEY_ID}#g" platform/control/secret-aws-creds.yaml
@@ -85,7 +85,7 @@ replace_domain () {
 
 
 replace_domain && \
-replace_flux_values && \
+# replace_flux_values && \
 replace_aws_creds_values && \
 replace_imc_values && \
 replace_jenkins_values && \

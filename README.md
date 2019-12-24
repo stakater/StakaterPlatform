@@ -31,6 +31,8 @@ These configurations must be checked into the forked repository.
 | Name                           | Required  |  Description          |    File Path    |
 | :---------------------------------: | :-------: | :------------------:| :------------------------: |
 | SSL certificate secret named as `tls-cert`  |    Yes    |   a TLS certificate secret for domain in `control` namespace | Place under folder `platform/control/` |
+| STAKATER_PLATFORM_SSH_GIT_URL |    Yes    |   flux.yaml | URL of the forked repository (e.g. git@gitlab.com/stakater/stakaterplatform.git ). Used by `Flux` to maintain state |
+| STAKATER_PLATFORM_BRANCH      |    Yes    |   flux.yaml  | Forked repository branch used by flux |
 
 #### Pipeline Environment Varaibles
 
