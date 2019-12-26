@@ -95,11 +95,13 @@ Following Environment variables should be configured in CI/CD Pipeline `Varaible
 4. Jenkins configurations:
 
 | Variables                           | Required  |  File Path          |  Description         |
+| :--------------------------------- | :-------: | :------------------|:------------------- |
 | BASE64_ENCODED_JENKINS_CFG | Yes   | platform/delivery/secret-jenkins-cfg.yaml | Encoded Docker cfg json file used by jenkins for CI/CD pipelines |
 
 5. Keycloak configurations:
 
 | Variables                           | Required  |  File Path          |  Description         |
+| :--------------------------------- | :-------: | :------------------|:------------------- |
 | KEYCLOAK_CLIENT_ID      | Yes | platform/delivery/jenkins.yaml | KeyCloak Client Id used by jenkins security realm for authenticating with KeyCloak |
 | KEYCLOAK_CLIENT_SECRET  | Yes | platform/delivery/jenkins.yaml | KeyCloak Client Secret used by jenkins security realm for authenticating with KeyCloak |
 | BASE64_ENCODED_KEYCLOAK_CONFIG | Yes | platform/security/secret-keycloak-config.yaml | Base64 encoded KeyCloak config. |
@@ -117,6 +119,7 @@ Following Environment variables should be configured in CI/CD Pipeline `Varaible
 7. Nexus configurations:
 
 | Variables                           | Required  |  File Path          |  Description         |
+| :--------------------------------- | :-------: | :------------------|:------------------- |
 | BASE64_ENCODED_NEXUS_ADMIN_ACCOUNT_JSON | No | platform/delivery/nexus.yaml | Base64 nexus json for admin account. default value in plain text: <br>`{"name": "user-admin","type": "groovy","content": "security.addUser('user-admin', 'Stackator', 'Admin', 'user@gmail.com', true, 'stakater@qwerty786', ['nx-admin'])"}` <br>  |
 | BASE64_ENCODED_NEXUS_CLUSTER_ACCOUNT_JSON | No | platform/delivery/nexus.yaml | Base64 nexus json for cluster account default value in plain text: <br>`{"name": "cluster-admin","type": "groovy","content": "security.addRole('cluster', 'cluster', 'User with privileges to allow read access to repo content and healtcheck', ['nx-healthcheck-read','nx-repository-view-docker-stackator-docker-browse','nx-repository-view-docker-stackator-docker-read','nx-search-read'],  ['nx-anonymous']); security.addUser('cluster-admin', 'Cluster', 'Cluster', 'user@gmail.com', true, 'stakater@qwerty786', ['cluster'])"}`<br> |
 | NEXUS_ADMIN_ACCOUNT_USERNAME | No | platform/delivery/nexus.yaml | Admin Account username for Nexus. Default value:`user-admin` |
@@ -125,11 +128,13 @@ Following Environment variables should be configured in CI/CD Pipeline `Varaible
 8. Alertmanager configurations:
 
 | Variables                           | Required  |  File Path          |  Description         |
+| :--------------------------------- | :-------: | :------------------|:------------------- |
 | BASE64_ENCODED_ALERTMANAGER_CONFIG | Yes | platform/monitoring/secret-alertmanager-config.yaml | Base64 encoded Alertmanager config. |
 
 9. Proxy Injector configurations:
 
 | Variables                           | Required  |  File Path          |  Description         |
+| :--------------------------------- | :-------: | :------------------|:------------------- |
 | BASE64_ENCODED_PROXYINJECTOR_CONFIG | Yes | platform/security/secret-pi-config.yaml | Base64 encoded ProxyInjector tool config to inject proxy for SSO with KeyCloak |
 
 ### Pipeline Execution
