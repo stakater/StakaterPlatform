@@ -33,7 +33,7 @@ The sections contains steps that must be performed before running the pipeline:
 
 It is recommended to fork it in a private repository as you have to add sensitive information in it.
 
-2. Tools have been configured with default configurations. Which can be replaced based on the requirement. Secrets have base64 encoded data in it which is `NOT SECURE`, so it is recommeded to secure the secret either by using [SealedSecrets](https://playbook.stakater.com/content/stacks/control/stakaterplatform.html#SealedSecrets) or any other method of your choice.
+2. Tools have been configured with default configurations. Which can be replaced based on the requirement. Secrets have base64 encoded data in it which is `NOT SECURE`, so it is recommeded to secure the secret either by using [SealedSecrets](https://playbook.stakater.com/content/workshop/sealed-secrets/introduction.html#overview) or any other method of your choice.
 
 #### Mandatory Configurations
 
