@@ -13,7 +13,16 @@ Stakater Platform consist of 6 stacks
 
 ## Platfrom Deployment
 
-This section contains steps to deploy Stakater Platform on Kubernetes cluster using Gitlab CI pipeline.
+### Pre-Requisites
+
+1. This Document expects that the user has familiarity with the following technologies:
+- Basic working understanding of Kubernetes and kubectl
+- Helm Charts
+- Kubernetes Operators
+- Flux
+
+2. Before deploying, user must have a `valid working domain` on Route53. e.g. (example.com, subdmain.example.com etc.) and AWS Credentials (AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY) that has access to create Route53 entries.
+
 
 ### Pre-Pipeline Configuration
 The sections contains steps that must be performed before running the pipeline:
@@ -40,7 +49,7 @@ Following Environment variables should be configured in CI/CD Pipeline `Varaible
 
 | Variables                           | Required  |  File Path          |  Description         |
 | :--------------------------------- | :-------: | :------------------|:------------------- |
-| CLOUD_PROVIDER              |    Yes    |   None | Cloud provider name (Supported values: `aws`). Configures Storage Classes  |
+| CLOUD_PROVIDER              |    Yes    |   None | Cloud provider name Default:`aws` (Supported values: `aws`). Configures Storage Classes  |
 | KUBE_CONFIG   |    Yes    |   None | Base64 Encoded Kubernetes Cluster Config |
 | STAKATER_PLATFORM_SSH_GIT_URL |    Yes    |   flux.yaml | URL of the forked repository (e.g. git@gitlab.com/stakater/stakaterplatform.git ). Used by `Flux` to maintain state |
 | STAKATER_PLATFORM_BRANCH      |    Yes    |   flux.yaml  | Forked repository branch used by flux |
