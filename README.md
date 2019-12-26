@@ -12,7 +12,6 @@ How can a novice use can deploy tools that is required for the management of kub
 
 StakaterPlatform provides out of the box stacks to control, monitor, log, trace and security for applications deployed on kubernetes using CI/CD pipelines.
 
-
 StakaterPlatform consist of 6 stacks
 - [Control](https://playbook.stakater.com/content/stacks/control.html)
 - [Delivery](https://playbook.stakater.com/content/stacks/delivery.html)
@@ -21,9 +20,16 @@ StakaterPlatform consist of 6 stacks
 - [Security](https://playbook.stakater.com/content/stacks/security.html)
 - [Tracing](https://playbook.stakater.com/content/stacks/tracing.html)
 
-## Platfrom Deployment
+## StakaterPlatfrom Deployment
 
-### Pre-Requisites
+### Hardening Rules
+This section provides guidelines on how harden the security for StakaterPlatform:
+
+1. Secrets have base64 encoded data in it which is `NOT SECURE`, so it is recommeded to secure the secret either by using [SealedSecrets](https://playbook.stakater.com/content/workshop/sealed-secrets/introduction.html#overview) or any other method of your choice.
+
+2. Use third party identity provider for keycloak like (google oauth identity provider).
+
+### Pre-Requisites Knowledge
 
 1. This Document expects that the user has familiarity with the following technologies: 
 
@@ -43,7 +49,7 @@ The sections contains steps that must be performed before running the pipeline:
 
 It is recommended to fork it in a private repository as you have to add sensitive information in it.
 
-2. Tools have been configured with default configurations. Which can be replaced based on the requirement. Secrets have base64 encoded data in it which is `NOT SECURE`, so it is recommeded to secure the secret either by using [SealedSecrets](https://playbook.stakater.com/content/workshop/sealed-secrets/introduction.html#overview) or any other method of your choice.
+2. Tools have been configured with default configurations. Which can be replaced based on the requirement.
 
 #### Mandatory Configurations
 
@@ -57,7 +63,9 @@ These configurations must be checked into the forked repository.
 
 #### Pipeline Environment Varaibles
 
-Following Environment variables should be configured in CI/CD Pipeline `Varaibles` in GitLab
+Following Environment variables should be configured in CI/CD Pipeline `Varaibles` in GitLab:
+
+1. Repository configurations:
 
 | Variables                           | Required  |  File Path          |  Description         |
 | :--------------------------------- | :-------: | :------------------|:------------------- |
@@ -69,13 +77,29 @@ Following Environment variables should be configured in CI/CD Pipeline `Varaible
 | USER_NAME                |    Yes    |   None  | User name to commit back changes to branch STAKATER_PLATFORM_BRANCH in the STAKATER_PLATFORM_SSH_GIT_URL repository |
 | REPO_ACCESS_TOKEN           |    Yes    |  None | Access token to commit back changes |
 | TARGET   |   Yes | None | Makefile Target (Targets: `deploy`, `destroy`) |
+
+2. External DNS configurations:
+| Variables                           | Required  |  File Path          |  Description         |
+| :--------------------------------- | :-------: | :------------------|:------------------- |
 | BASE64_ENCODED_AWS_ACCESS_KEY_ID    | Yes      | platform/control/secret-aws-creds.yaml | AWS Access Key Id to create Route53 entries by external-dns tool |
 | BASE64_ENCODED_AWS_SECRET_ACCESS_KEY   | Yes | platform/control/secret-aws-creds.yaml  | AWS Access Key Secret to create Route53 entries by external-dns tool |
 | DOMAIN |     Yes | Multiple Instances in files under platform/ directory | Domain used by StakaterPlatform tools (e.g. platform.com) |
+
+3. Ingress Monitor Controller configurations:
+| Variables                           | Required  |  File Path          |  Description         |
+| :--------------------------------- | :-------: | :------------------|:------------------- |
 | BASE64_ENCODED_IMC_CONFIG | Yes | platform/control/secret-imc-config.yaml | IngressMonitorController (IMC) config to automate ingress creation |
+
+4. Jenkins configurations:
 | BASE64_ENCODED_JENKINS_CFG | Yes   | platform/delivery/secret-jenkins-cfg.yaml | Encoded Docker cfg json file used by jenkins for CI/CD pipelines |
+
+5. Keycloak configurations:
 | KEYCLOAK_CLIENT_ID      | Yes | platform/delivery/jenkins.yaml | KeyCloak Client Id used by jenkins security realm for authenticating with KeyCloak |
 | KEYCLOAK_CLIENT_SECRET  | Yes | platform/delivery/jenkins.yaml | KeyCloak Client Secret used by jenkins security realm for authenticating with KeyCloak |
+
+6. Slack configurations:
+| Variables                           | Required  |  File Path          |  Description         |
+| :--------------------------------- | :-------: | :------------------|:------------------- |
 | BASE64_ENCODED_SLACK_CHANNEL  | Yes | platform/delivery/secret-slack-hook.yaml | Slack Channel name to generate slack alerts (e.g. `#jenkins-alerts`) |
 | BASE64_ENCODED_SLACK_WEBHOOK_URL | Yes | platform/delivery/secret-slack-hook.yaml | Slack Channel URL to generate slack alerts (e.g. `#https://hooks.slack.com/services/AAAAAAAAA/BBBBBBBBBBBBBB`) |
 | BASE64_ENCODED_HUB_TOKEN  | Yes | platform/delivery/secret-jenkinshub-api-token.yaml | GitHub API token to post comments on PRs by Jenkins|
