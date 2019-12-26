@@ -10,6 +10,7 @@ spec:
     name: fluentd-elasticsearch
     version: 4.9.1
   values:
+    fullnameOverride: stakater-logging-fluentd
     image:
       pullPolicy: Always
       repository: stakater/fluentd-elasticsearch
@@ -69,7 +70,7 @@ spec:
       enabled: false
       
     annotations:
-      configmap.reloader.stakater.com/reload: konfigurator-stakater-logging-fluentd-elasticsearch-rendered,stakater-fluentd-elasticsearch
+      configmap.reloader.stakater.com/reload: konfigurator-stakater-logging-fluentd-rendered,stakater-logging-fluentd-elasticsearch
           
     podAnnotations:
       prometheus.io/port: "24231"

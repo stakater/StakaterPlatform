@@ -1,4 +1,4 @@
-set +x
+set -x
 #!/bin/bash
 NAMESPACES="flux control delivery logging monitoring security tracing"
 
@@ -15,4 +15,6 @@ for NAMESPACE in $NAMESPACES; do
   kubectl delete pvc --all -n $NAMESPACE
 done
 helm reset --force
+helm delete --purge helm-operator --namespace flux && kubectl delete crd helmreleases.helm.fluxcd.io -n flux
+kubectl delete configmap -l OWNER=TILLER -n kube-system
 kubectl delete namespaces $NAMESPACES

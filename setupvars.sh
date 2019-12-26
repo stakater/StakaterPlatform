@@ -41,46 +41,54 @@ SLACK_URL=${21}
 # }
 
 replace_aws_creds_values () {
-  sed -i -e "s#BASE64_ENCODED_AWS_ACCESS_KEY_ID#${AWS_ACCESS_KEY_ID}#g" platform/control/secret-aws-creds.yaml
+  sed -i -e "s#BASE64_ENCODED_AWS_ACCESS_KEY_ID#${AWS_ACCESS_KEY_ID}#g" platform/control/secret-aws-creds.yaml && \
   sed -i -e "s#BASE64_ENCODED_AWS_SECRET_ACCESS_KEY#${AWS_SECRET_ACCESS_KEY}#g" platform/control/secret-aws-creds.yaml
+  return $?
 }
 
 replace_imc_values () {
   sed -i -e "s#BASE64_ENCODED_IMC_CONFIG#${IMC_CONFIG}#g" platform/control/secret-imc-config.yaml
+  return $?
 }
 
 replace_jenkins_values () {
-  sed -i -e "s#BASE64_ENCODED_JENKINS_CFG#${JENKINS_CFG}#g" platform/delivery/secret-jenkins-cfg.yaml
-  sed -i -e "s#KEYCLOAK_CLIENT_ID#${KEYCLOAK_CLIENT_ID}#g" platform/delivery/jenkins.yaml
-  sed -i -e "s#BASE64_ENCODED_SLACK_CHANNEL#${SLACK_CHANNEL}#g" platform/delivery/secret-slack-hook.yaml
-  sed -i -e "s#BASE64_ENCODED_SLACK_WEBHOOK_URL#${SLACK_URL}#g" platform/delivery/secret-slack-hook.yaml
-  sed -i -e "s#KEYCLOAK_CLIENT_SECRET#${KEYCLOAK_CLIENT_SECRET}#g" platform/delivery/jenkins.yaml
-  sed -i -e "s#BASE64_ENCODED_HUB_TOKEN#${HUB_TOKEN}#g" platform/delivery/secret-jenkinshub-api-token.yaml
-  sed -i -e "s#BASE64_ENCODED_GITLAB_TOKEN#${GITLAB_TOKEN}#g" platform/delivery/secret-jenkinshub-api-token.yaml
-  sed -i -e "s#BASE64_ENCODED_BITBUCKET_TOKEN#${BITBUCKET_TOKEN}#g" platform/delivery/secret-jenkinshub-api-token.yaml
+  sed -i -e "s#BASE64_ENCODED_JENKINS_CFG#${JENKINS_CFG}#g" platform/delivery/secret-jenkins-dockercfg.yaml && \
+  sed -i -e "s#KEYCLOAK_CLIENT_ID#${KEYCLOAK_CLIENT_ID}#g" platform/delivery/jenkins.yaml && \
+  sed -i -e "s#BASE64_ENCODED_SLACK_CHANNEL#${SLACK_CHANNEL}#g" platform/delivery/secret-slack-hook.yaml  && \
+  sed -i -e "s#BASE64_ENCODED_SLACK_WEBHOOK_URL#${SLACK_URL}#g" platform/delivery/secret-slack-hook.yaml && \
+  sed -i -e "s#KEYCLOAK_CLIENT_SECRET#${KEYCLOAK_CLIENT_SECRET}#g" platform/delivery/jenkins.yaml && \
+  sed -i -e "s#BASE64_ENCODED_HUB_TOKEN#${HUB_TOKEN}#g" platform/delivery/secret-jenkins-vc-api-tokens.yaml && \
+  sed -i -e "s#BASE64_ENCODED_GITLAB_TOKEN#${GITLAB_TOKEN}#g" platform/delivery/secret-jenkins-vc-api-tokens.yaml && \
+  sed -i -e "s#BASE64_ENCODED_BITBUCKET_TOKEN#${BITBUCKET_TOKEN}#g" platform/delivery/secret-jenkins-vc-api-tokens.yaml
+  return $?
 }
 
 replace_nexus_values () {
-  sed -i -e "s#BASE64_ENCODED_NEXUS_ADMIN_ACCOUNT_JSON#${ADMIN_ACCOUNT_JSON}#g" platform/delivery/nexus.yaml
-  sed -i -e "s#BASE64_ENCODED_NEXUS_CLUSTER_ACCOUNT_JSON#${CLUSTER_ACCOUNT_JSON}#g" platform/delivery/nexus.yaml
-  sed -i -e "s#NEXUS_ADMIN_ACCOUNT_USERNAME#${ADMIN_ACCOUNT_USERNAME}#g" platform/delivery/nexus.yaml
+  sed -i -e "s#BASE64_ENCODED_NEXUS_ADMIN_ACCOUNT_JSON#${ADMIN_ACCOUNT_JSON}#g" platform/delivery/nexus.yaml  && \
+  sed -i -e "s#BASE64_ENCODED_NEXUS_CLUSTER_ACCOUNT_JSON#${CLUSTER_ACCOUNT_JSON}#g" platform/delivery/nexus.yaml && \
+  sed -i -e "s#NEXUS_ADMIN_ACCOUNT_USERNAME#${ADMIN_ACCOUNT_USERNAME}#g" platform/delivery/nexus.yaml && \
   sed -i -e "s#NEXUS_CLUSTER_ACCOUNT_USERNAME#${CLUSTER_ACCOUNT_USERNAME}#g" platform/delivery/nexus.yaml
+  return $?
 }
 
 replace_alertmanager_values () {
   sed -i -e "s#BASE64_ENCODED_ALERTMANAGER_CONFIG#${ALERTMANAGER_CONFIG}#g" platform/monitoring/secret-alertmanager-config.yaml
+  return $?
 }
 
 replace_keycloak_values () {
   sed -i -e "s#BASE64_ENCODED_KEYCLOAK_CONFIG#${KEYCLOAK_CONFIG}#g" platform/security/secret-keycloak-config.yaml
+  return $?
 }
 
 replace_proxyinjector_values () {
   sed -i -e "s#BASE64_ENCODED_PROXYINJECTOR_CONFIG#${PROXYINJECTOR_CONFIG}#g" platform/security/secret-pi-config.yaml
+  return $?
 }
 
 replace_domain () {
   find ./platform/ -type f -exec sed -i -e "s#DOMAIN#${DOMAIN}#g" {} \;
+  return $?
 }
 
 
@@ -92,7 +100,7 @@ replace_jenkins_values && \
 replace_nexus_values && \
 replace_alertmanager_values && \
 replace_keycloak_values && \
-replace_proxyinjector_values && \
+replace_proxyinjector_values
 
 if [ $?==0 ]; then
   exit 0
