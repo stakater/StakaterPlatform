@@ -15,6 +15,7 @@ for NAMESPACE in $NAMESPACES; do
   kubectl delete pvc --all -n $NAMESPACE
 done
 helm reset --force
-helm delete --purge helm-operator && kubectl delete crd helmreleases.helm.fluxcd.io -n flux
+helm delete --purge helm-operator
+kubectl delete crd helmreleases.helm.fluxcd.io
 kubectl delete configmap -l OWNER=TILLER -n kube-system
 kubectl delete namespaces $NAMESPACES
