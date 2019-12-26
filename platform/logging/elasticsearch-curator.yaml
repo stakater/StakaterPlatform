@@ -1,10 +1,10 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
-  name: stakater-logging-elasticsearch-curator
+  name: stakater-logging-curator
   namespace: logging
 spec:
-  releaseName: stakater-logging-elasticsearch-curator
+  releaseName: stakater-logging-curator
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com
     name: elasticsearch-curator

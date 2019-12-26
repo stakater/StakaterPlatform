@@ -6,8 +6,8 @@ metadata:
   namespace: control
 data:
   ssl-protocols: TLSv1.2
-  proxy-connect-timeout: "300"
-  proxy-read-timeout: "300"
+  proxy-connect-timeout: "1000"
+  proxy-read-timeout: "1000"
   use-http2: "false"
   worker-processes: "24"
   worker-connections: "100000"
@@ -16,8 +16,11 @@ data:
   keepalive: "200"
   hsts-preload: "true"
   hsts-max-age: "31536000"
-  proxy-buffer-size: "256k"
+  proxy-buffers-number: "8"
+  proxy-buffer-size: "1024k"
   proxy-body-size: "8m"
+  proxy-request-buffering: "off"
+  proxy-send-timeout: "1000"
 ---
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
@@ -45,9 +48,6 @@ spec:
       ingressClass: internal-ingress
       stats:
         enabled: "true"
-      service:
-        #Set external traffic policy to: "Local" to preserve source IP on providers supporting it
-        externalTrafficPolicy: "Local"
       metrics:
         enabled: "true"
         service:

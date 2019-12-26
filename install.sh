@@ -1,7 +1,6 @@
 set -x
 #!/bin/bash
-FLUXNAMESPACE="flux"
-NAMESPACES="control delivery logging monitoring security tracing "$FLUXNAMESPACE
+NAMESPACES="control delivery logging monitoring security tracing flux"
 
 # Create Namespaces
 for NAMESPACE in $NAMESPACES; do kubectl create namespace $NAMESPACE; done
@@ -14,7 +13,7 @@ helm init --wait --service-account tiller || true
 helm repo add fluxcd https://charts.fluxcd.io && helm repo update
 
 # Install helm Operator
-helm upgrade --version 0.2.0 -i --wait --force helm-operator fluxcd/helm-operator --namespace $FLUXNAMESPACE --set createCRD=true,serviceAccount.name=helm-operator,clusterRole.name=helm-operator
+helm upgrade --version 0.2.0 -i --wait --force helm-operator fluxcd/helm-operator --namespace flux --set createCRD=true,serviceAccount.name=helm-operator,clusterRole.name=helm-operator
 
 # Install Flux
-kubectl apply -f flux.yaml -n $FLUXNAMESPACE
+kubectl apply -f flux.yaml -n flux

@@ -8,11 +8,11 @@ metadata:
 spec:
   renderTarget: ConfigMap
   app:
-    name: stakater-logging-fluentd-elasticsearch
+    name: stakater-logging-fluentd
     kind: DaemonSet
     volumeMounts:
       - mountPath: /etc/fluent
-        container: stakater-logging-fluentd-elasticsearch
+        container: stakater-logging-fluentd
   templates:
     fluent.conf: |
       # Do not collect fluentd's own logs to avoid infinite loops.

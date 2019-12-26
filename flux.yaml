@@ -32,7 +32,7 @@ spec:
     
     git:
       url: "ssh://STAKATER_PLATFORM_SSH_GIT_URL"
-      pollInterval: "10s"
+      pollInterval: "2m"
       branch: "STAKATER_PLATFORM_BRANCH"
       path: "platform"
 
