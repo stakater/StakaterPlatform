@@ -108,7 +108,7 @@ https://forecastle-control.DOMAIN.com
 
 ![forecastle image](./images/forecastle.png)
 
-2. We will deploy [Nordmart](https://playbook.stakater.com/content/workshop/nordmart-intro.html#introduction) application using the guideline provided in this [link](https://playbook.stakater.com/content/workshop/nordmart-ci-cd.html)
+2. We will deploy [Nordmart](https://playbook.stakater.com/content/workshop/nordmart-intro.html#introduction) application using the guideline provided in this [link](https://playbook.stakater.com/content/workshop/nordmart-ci-cd.html#ci-cd-pipeline-creation)
 
 
 
