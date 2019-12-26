@@ -96,6 +96,7 @@ Following Environment variables should be configured in CI/CD Pipeline `Varaible
 5. Keycloak configurations:
 | KEYCLOAK_CLIENT_ID      | Yes | platform/delivery/jenkins.yaml | KeyCloak Client Id used by jenkins security realm for authenticating with KeyCloak |
 | KEYCLOAK_CLIENT_SECRET  | Yes | platform/delivery/jenkins.yaml | KeyCloak Client Secret used by jenkins security realm for authenticating with KeyCloak |
+| BASE64_ENCODED_KEYCLOAK_CONFIG | Yes | platform/security/secret-keycloak-config.yaml | Base64 encoded KeyCloak config. |
 
 6. Slack configurations:
 | Variables                           | Required  |  File Path          |  Description         |
@@ -105,12 +106,17 @@ Following Environment variables should be configured in CI/CD Pipeline `Varaible
 | BASE64_ENCODED_HUB_TOKEN  | Yes | platform/delivery/secret-jenkinshub-api-token.yaml | GitHub API token to post comments on PRs by Jenkins|
 | BASE64_ENCODED_GITLAB_TOKEN  | Yes | platform/delivery/secret-jenkinshub-api-token.yaml | GitLab API token to post comments on PRs by Jenkins|
 | BASE64_ENCODED_BITBUCKET_TOKEN | Yes | platform/delivery/secret-jenkinshub-api-token.yaml | BitBucket API token to post comments on PRs by Jenkins|
+
+7. Nexus configurations:
 | BASE64_ENCODED_NEXUS_ADMIN_ACCOUNT_JSON | No | platform/delivery/nexus.yaml | Base64 nexus json for admin account. default value in plain text: <br>`{"name": "user-admin","type": "groovy","content": "security.addUser('user-admin', 'Stackator', 'Admin', 'user@gmail.com', true, 'stakater@qwerty786', ['nx-admin'])"}` <br>  |
 | BASE64_ENCODED_NEXUS_CLUSTER_ACCOUNT_JSON | No | platform/delivery/nexus.yaml | Base64 nexus json for cluster account default value in plain text: <br>`{"name": "cluster-admin","type": "groovy","content": "security.addRole('cluster', 'cluster', 'User with privileges to allow read access to repo content and healtcheck', ['nx-healthcheck-read','nx-repository-view-docker-stackator-docker-browse','nx-repository-view-docker-stackator-docker-read','nx-search-read'],  ['nx-anonymous']); security.addUser('cluster-admin', 'Cluster', 'Cluster', 'user@gmail.com', true, 'stakater@qwerty786', ['cluster'])"}`<br> |
 | NEXUS_ADMIN_ACCOUNT_USERNAME | No | platform/delivery/nexus.yaml | Admin Account username for Nexus. Default value:`user-admin` |
 | NEXUS_CLUSTER_ACCOUNT_USERNAME | No | platform/delivery/nexus.yaml | Cluster account username for Nexus. Default value:`cluster-admin`|
+
+8. Alertmanager configurations:
 | BASE64_ENCODED_ALERTMANAGER_CONFIG | Yes | platform/monitoring/secret-alertmanager-config.yaml | Base64 encoded Alertmanager config. |
-| BASE64_ENCODED_KEYCLOAK_CONFIG | Yes | platform/security/secret-keycloak-config.yaml | Base64 encoded KeyCloak config. |
+
+9. Proxy Injector configurations:
 | BASE64_ENCODED_PROXYINJECTOR_CONFIG | Yes | platform/security/secret-pi-config.yaml | Base64 encoded ProxyInjector tool config to inject proxy for SSO with KeyCloak |
 
 ### Pipeline Execution
