@@ -17,23 +17,23 @@ spec:
         resources:
           requests:
             cpu: 100m
-            memory: 500Mi
+            memory: 500m
     sidecarInjectorWebhook:
       enabled: true
       rewriteAppHTTPProbe: true
     pilot:
       traceSampling: 100
     prometheus:
-      enabled: true
+      enabled: false
     tracing:
       enabled: true
       ingress:
         enabled: true
     grafana:
-      enabled: true
+      enabled: false
     kiali:
       enabled: true
-    gateway:
-      istio-ingressgateway:
-        ports:
-          nodePort: 31399
+#    gateway:
+#      istio-ingressgateway:
+#        ports:
+#          nodePort: 31399

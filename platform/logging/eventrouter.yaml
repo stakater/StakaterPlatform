@@ -14,3 +14,4 @@ spec:
       repository: gcr.io/heptio-images/eventrouter
       tag: v0.2
       pullPolicy: IfNotPresent
+    sink: stdout
