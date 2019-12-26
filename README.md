@@ -1,9 +1,19 @@
 # StakaterPlatform
 
-## Overview 
-Stakater platform provides out of the box stacks to control, monitor, log, trace and security for applications deployed on kubernetes using CI/CD pipelines.
+## Overview
 
-Stakater Platform consist of 6 stacks
+This section provides a bird eye view of StakaterPlatform.
+
+### Problem Statement
+
+How can a novice use can deploy tools that is required for the management of kubernetes cluster?
+
+### Solution
+
+StakaterPlatform provides out of the box stacks to control, monitor, log, trace and security for applications deployed on kubernetes using CI/CD pipelines.
+
+
+StakaterPlatform consist of 6 stacks
 - [Control](https://playbook.stakater.com/content/stacks/control.html)
 - [Delivery](https://playbook.stakater.com/content/stacks/delivery.html)
 - [Logging](https://playbook.stakater.com/content/stacks/logging.html)
@@ -61,7 +71,7 @@ Following Environment variables should be configured in CI/CD Pipeline `Varaible
 | TARGET   |   Yes | None | Makefile Target (Targets: `deploy`, `destroy`) |
 | BASE64_ENCODED_AWS_ACCESS_KEY_ID    | Yes      | platform/control/secret-aws-creds.yaml | AWS Access Key Id to create Route53 entries by external-dns tool |
 | BASE64_ENCODED_AWS_SECRET_ACCESS_KEY   | Yes | platform/control/secret-aws-creds.yaml  | AWS Access Key Secret to create Route53 entries by external-dns tool |
-| DOMAIN |     Yes | Multiple Instances in files under platform/ directory | Domain used by Stakater Platform tools (e.g. platform.com) |
+| DOMAIN |     Yes | Multiple Instances in files under platform/ directory | Domain used by StakaterPlatform tools (e.g. platform.com) |
 | BASE64_ENCODED_IMC_CONFIG | Yes | platform/control/secret-imc-config.yaml | IngressMonitorController (IMC) config to automate ingress creation |
 | BASE64_ENCODED_JENKINS_CFG | Yes   | platform/delivery/secret-jenkins-cfg.yaml | Encoded Docker cfg json file used by jenkins for CI/CD pipelines |
 | KEYCLOAK_CLIENT_ID      | Yes | platform/delivery/jenkins.yaml | KeyCloak Client Id used by jenkins security realm for authenticating with KeyCloak |
@@ -98,7 +108,7 @@ kubectl -n flux logs deployment/flux | grep identity.pub | cut -d '"' -f2
 
 ### Stkater Platform Deployment Validation
 
-Stakater Platform can be validated by using the following steps:
+StakaterPlatform can be validated by using the following steps:
 
 1. URL given below belongs to a web application that contins link to all the platform components. Open each application to verfiy whether it is working or not.
 
@@ -110,15 +120,9 @@ https://forecastle-control.DOMAIN.com
 
 2. We will deploy [Nordmart](https://playbook.stakater.com/content/workshop/nordmart-intro.html#introduction) application using the guideline provided in this [link](https://playbook.stakater.com/content/workshop/nordmart-ci-cd.html#ci-cd-pipeline-creation)
 
-
-
-    
-
-    
-
 ## Compatibility Matrix
 
-Stakater Platform has been tested on following environment:
+StakaterPlatform has been tested on following environment:
 
 | Platform Version| K8s Version  | Infrastructure |
 |---|---|---|
