@@ -148,8 +148,8 @@ spec:
 
     secret:
       data:
-        .admin_account.json: BASE64_ENCODED_ADMIN_ACCOUNT_JSON
-        .cluster_account.json: BASE64_ENCODED_CLUSTER_ACCOUNT_JSON
+        .admin_account.json: BASE64_ENCODED_NEXUS_ADMIN_ACCOUNT_JSON
+        .cluster_account.json: BASE64_ENCODED_NEXUS_CLUSTER_ACCOUNT_JSON
       enabled: true
       mountPath: /etc/secret-volume
       readOnly: true

@@ -1,10 +1,10 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
-  name: stakater-logging-fluentd-elasticsearch
+  name: stakater-logging-fluentd
   namespace: logging
 spec:
-  releaseName: stakater-logging-fluentd-elasticsearch
+  releaseName: stakater-logging-fluentd
   chart:
     repository: https://kiwigrid.github.io
     name: fluentd-elasticsearch
