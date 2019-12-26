@@ -45,18 +45,19 @@ This section provides guidelines on how harden the security for StakaterPlatform
 ### Pre-Pipeline Configuration
 The sections contains steps that must be performed before running the pipeline:
 
-1. Fork [StakaterPlatform](https://github.com/stakater/StakaterPlatform) repository in Github and import it in your Gitlab account.
+1. Fork [StakaterPlatform](https://github.com/stakater/StakaterPlatform) repository in Github and [import](https://docs.gitlab.com/ee/user/project/import/github.html#import-your-github-repository-into-gitlab) it to your Gitlab account.
 
-It is recommended to fork it in a private repository as you have to add sensitive information in it.
+**Note:** It is recommended to fork it in a private repository as you have to add sensitive information in it.
 
 2. Tools have been configured with default configurations. Which can be replaced based on the requirement.
+
 
 #### Mandatory Configurations
 
 These configurations must be checked into the forked repository.
 
 | Name                           | Required  |  Description          |    File Path    |
-| :---------------------------------: | :-------: | :------------------:| :------------------------: |
+| :--------------------------------- | :-------: | :------------------:| :------------------------: |
 | SSL certificate secret named as `tls-cert`  |    Yes    |   a TLS certificate secret for domain in `control` namespace | Place under folder `platform/control/` |
 | STAKATER_PLATFORM_SSH_GIT_URL |    Yes    |   flux.yaml | URL of the forked repository (e.g. git@gitlab.com/stakater/stakaterplatform.git ). Used by `Flux` to maintain state |
 | STAKATER_PLATFORM_BRANCH      |    Yes    |   flux.yaml  | Forked repository branch used by flux |
@@ -141,9 +142,10 @@ Following Environment variables should be configured in CI/CD Pipeline `Varaible
 
 1. Once the above variables are configured, start GitLab pipeline for the forked repository 
 
+
 2. The Pipline will deploy flux pod in flux namespace and output an ssh key which must be added to deploy keys in forked repo `with write access` to allow flux to initiate GitOps.
 
-SSH is printed by flux in its logs. Logs can be seen using the command given below:
+SSH key is printed by flux in its logs. Key can be retrieved by the following command:
 
 ```bash
 kubectl -n flux logs deployment/flux | grep identity.pub | cut -d '"' -f2
@@ -151,14 +153,16 @@ kubectl -n flux logs deployment/flux | grep identity.pub | cut -d '"' -f2
 
 3. Once the key is added, all namespaces and tools will be deployed in the k8s cluster by flux. 
 
-4. If configuration needs to be changed, change it locally and then commit the changes in the repository. Flux continously monitor the reposiotry and apply the changes on the cluster.
+
+6. If configuration needs to be changed, change it locally and then commit the changes in the repository. Flux continuously monitors the repository and applies the changes on the cluster(`kubectl apply -f .`).
+
     Use tag `[skip ci]` in commit message to skip running CI pipeline for each commit.
 
-### Stkater Platform Deployment Validation
+### Stakater Platform Deployment Validation
 
 StakaterPlatform can be validated by using the following steps:
 
-1. URL given below belongs to a web application that contins link to all the platform components. Open each application to verfiy whether it is working or not.
+1. URL given below belongs to a web application that contains link to all the platform components. Open each application to verfiy whether it is working or not.
 
 ```bash
 https://forecastle-control.DOMAIN.com
