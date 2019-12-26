@@ -61,8 +61,8 @@ replace_jenkins_values () {
 }
 
 replace_nexus_values () {
-  sed -i -e "s#BASE64_ENCODED_ADMIN_ACCOUNT_JSON#${ADMIN_ACCOUNT_JSON}#g" platform/delivery/nexus.yaml
-  sed -i -e "s#BASE64_ENCODED_CLUSTER_ACCOUNT_JSON#${CLUSTER_ACCOUNT_JSON}#g" platform/delivery/nexus.yaml
+  sed -i -e "s#BASE64_ENCODED_NEXUS_ADMIN_ACCOUNT_JSON#${ADMIN_ACCOUNT_JSON}#g" platform/delivery/nexus.yaml
+  sed -i -e "s#BASE64_ENCODED_NEXUS_CLUSTER_ACCOUNT_JSON#${CLUSTER_ACCOUNT_JSON}#g" platform/delivery/nexus.yaml
   sed -i -e "s#NEXUS_ADMIN_ACCOUNT_USERNAME#${ADMIN_ACCOUNT_USERNAME}#g" platform/delivery/nexus.yaml
   sed -i -e "s#NEXUS_CLUSTER_ACCOUNT_USERNAME#${CLUSTER_ACCOUNT_USERNAME}#g" platform/delivery/nexus.yaml
 }
