@@ -5,14 +5,14 @@ image:
 # Configuring CI/CD environment variables
 variables:
   # Underlying cloud vars
-  # CLOUD_PROVIDER: "CLOUD_PROVIDER"
-  # KUBE_CONFIG: "KUBE_CONFIG"
+  CLOUD_PROVIDER: "aws"
+  KUBE_CONFIG: "KUBE_CONFIG"
   
   # # Repository vars
   STAKATER_PLATFORM_SSH_GIT_URL: "STAKATER_PLATFORM_SSH_GIT_URL"
   STAKATER_PLATFORM_BRANCH: "master"
-  # USER_MAIL: "USER_MAIL"
-  # USER_NAME: "USER_NAME"
+  USER_MAIL: "stakater@gmail.com"
+  USER_NAME: "stakater-user"
   # REPO_ACCESS_TOKEN: "REPO_ACCESS_TOKEN"
   
   # # AWS credentials for external-dns

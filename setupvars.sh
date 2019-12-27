@@ -87,6 +87,7 @@ replace_proxyinjector_values () {
 }
 
 replace_domain () {
+  sed -i -e "s#DOMAIN#${DOMAIN}#g" verify.sh && \
   find ./platform/ -type f -exec sed -i -e "s#DOMAIN#${DOMAIN}#g" {} \;
   return $?
 }
