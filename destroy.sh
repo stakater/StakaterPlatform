@@ -12,7 +12,9 @@ for NAMESPACE in $NAMESPACES; do
   kubectl delete ingress --all -n $NAMESPACE && \
   kubectl delete hr --all -n $NAMESPACE && \
   kubectl delete service --all -n $NAMESPACE && \
-  kubectl delete pvc --all -n $NAMESPACE
+  kubectl delete pvc --all -n $NAMESPACE && \
+  kubectl delete clusterrole --field-selector=metadata.namespace=$NAMESPACE && \
+  kubectl delete role --field-selector=metadata.namespace=$NAMESPACE
 done
 helm reset --force
 helm delete --purge helm-operator

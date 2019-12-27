@@ -32,6 +32,8 @@ setupvars:
 
 deploy:
 	bash install.sh
+	sleep 480
+	bash verify.sh
 
 destroy:
 	bash destroy.sh
