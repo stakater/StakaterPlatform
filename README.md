@@ -179,20 +179,3 @@ StakaterPlatform has been tested on following environment:
 | Platform Version| K8s Version  | Infrastructure |
 |---|---|---|
 | v0.0.1 | 1.14 | eks.6 |
-
-
-## Help
-
-### Have a question?
-
-File a GitHub [issue](https://github.com/stakater/StakaterPlatform/issues), or send us an [email](mailto:hello@stakater.com).
-
-## About
-The `StakaterPlatform` is maintained by [Stakater][website]. Like it? Please let us know at <hello@stakater.com>
-See [our other projects][community]
-or contact us in case of professional services and queries on <hello@stakater.com>
-[website]: http://stakater.com/
-[community]: https://www.stakater.com/projects-overview.html
-
-## Contributers
-Stakater Team and the Open Source community! :trophy:
