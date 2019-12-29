@@ -4,6 +4,8 @@ NAMESPACES="flux control delivery logging monitoring security tracing"
 
 kubectl delete hr infra-flux -n flux
 
+# TODO delete only HRs and then check for other stuff
+
 # Create Namespaces
 for NAMESPACE in $NAMESPACES; do 
   kubectl delete all --all -n $NAMESPACE && \

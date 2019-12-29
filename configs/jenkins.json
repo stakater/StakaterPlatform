@@ -1,0 +1,7 @@
+{
+  "auths": {
+    "docker-delivery.DOMAIN:443": {
+      "auth": "JENKINS_NEXUS_AUTH"
+    }
+  }
+}

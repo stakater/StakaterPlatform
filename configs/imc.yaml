@@ -1,0 +1,9 @@
+# For more details: https://github.com/stakater/IngressMonitorController
+providers:
+  - name: UptimeRobot
+    apiKey: IMC_API_KEY
+    apiURL: https://api.uptimerobot.com/v2/
+    alertContacts: "IMC_ALERT_CONTACTS"
+enableMonitorDeletion: true
+monitorNameTemplate: "stakater.{{.Namespace}}-{{.IngressName}}"
+resyncPeriod: 0 # how often (in seconds) monitors should be synced to their Kubernetes resources (0 = disabled)

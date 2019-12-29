@@ -118,7 +118,7 @@ spec:
     #         ES_PORT=9200
     #         ES_REPOSITORY=logger-es
     #         S3_REGION=ap-southeast-1
-    #         S3_BUCKET=pliro-monitoring-logs-backup
+    #         S3_BUCKET=stakater-logs-backup
     #         S3_BASE_PATH=/
     #         S3_COMPRESS=true
     #         S3_STORAGE_CLASS=standard

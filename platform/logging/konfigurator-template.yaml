@@ -123,49 +123,10 @@ spec:
 
 
       <label @OUTPUT>
-      
-      # Rewrite tags as pliro.kubernetes.** for pliro and stakater.kubernetes.** for the rest of the logs
+
+      # Send kubernetes.** to elasticsearch in logging stack
         <match kubernetes.**>
-          @type rewrite_tag_filter
-          <rule>
-            key $.kubernetes_namespace_name
-            pattern /pliro-[a-z]+/
-            tag stakater.${tag}
-            invert true
-          </rule>
-          <rule>
-            key $.kubernetes_namespace_name
-            pattern /pliro-[a-z]+/
-            tag $1.${tag}
-          </rule>
-        </match>
-      
-      # Send stakater.kubernetes.** to elasticsearch in logging stack
-        <match stakater.kubernetes.**>
           @id elasticsearch
-          @type elasticsearch
-          @log_level info
-          include_tag_key true
-          type_name _doc
-          host "#{ENV['OUTPUT_HOST']}"
-          port "#{ENV['OUTPUT_PORT']}"
-          scheme "#{ENV['OUTPUT_SCHEME']}"
-          ssl_version "#{ENV['OUTPUT_SSL_VERSION']}"
-          ssl_verify false
-          logstash_prefix "#{ENV['LOGSTASH_PREFIX']}"
-          logstash_format true
-          flush_interval 30s
-          # Never wait longer than 5 minutes between retries.
-          max_retry_wait 60
-          # Disable the limit on the number of retries (retry forever).
-          disable_retry_limit
-          time_key timestamp
-          reload_connections false
-        </match>
-      
-      # Send the remaining pliro-(tools|dev|prod).kubernetes.** to elasticsearch in namespace pliro-tools  
-        <match *.kubernetes.**>  
-          @id elasticsearch-pliro
           @type elasticsearch
           @log_level info
           include_tag_key true

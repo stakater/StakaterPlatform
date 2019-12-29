@@ -113,7 +113,7 @@ Following Environment variables should be configured in CI/CD Pipeline `Varaible
 | :--------------------------------- | :-------: | :------------------|:------------------- |
 | BASE64_ENCODED_SLACK_CHANNEL  | Yes | platform/delivery/secret-slack-hook.yaml | Slack Channel name to generate slack alerts (e.g. `#jenkins-alerts`) |
 | BASE64_ENCODED_SLACK_WEBHOOK_URL | Yes | platform/delivery/secret-slack-hook.yaml | Slack Channel URL to generate slack alerts (e.g. `#https://hooks.slack.com/services/AAAAAAAAA/BBBBBBBBBBBBBB`) |
-| BASE64_ENCODED_HUB_TOKEN  | Yes | platform/delivery/secret-jenkinshub-api-token.yaml | GitHub API token to post comments on PRs by Jenkins|
+| BASE64_ENCODED_GITHUB_TOKEN  | Yes | platform/delivery/secret-jenkinshub-api-token.yaml | GitHub API token to post comments on PRs by Jenkins|
 | BASE64_ENCODED_GITLAB_TOKEN  | Yes | platform/delivery/secret-jenkinshub-api-token.yaml | GitLab API token to post comments on PRs by Jenkins|
 | BASE64_ENCODED_BITBUCKET_TOKEN | Yes | platform/delivery/secret-jenkinshub-api-token.yaml | BitBucket API token to post comments on PRs by Jenkins|
 

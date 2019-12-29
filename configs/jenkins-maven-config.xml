@@ -1,0 +1,75 @@
+<settings>
+    <!-- sets the local maven repository outside of the ~/.m2 folder for easier mounting of secrets and repo -->
+    <localRepository>${user.home}/.mvnrepository</localRepository>
+    <mirrors>
+        <mirror>
+            <id>nexus</id>
+            <mirrorOf>external:*</mirrorOf>
+            <url>http://nexus.release/repository/public/</url>
+        </mirror>
+    </mirrors>
+
+    <!-- lets disable the download progress indicator that fills up logs -->
+    <interactiveMode>false</interactiveMode>
+
+    <servers>
+        <server>
+            <id>docker-release.DOMAIN:443</id>
+            <username>JENKINS_DOCKER_RELEASE_USERNAME</username>
+            <password>JENKINS_DOCKER_RELEASE_PASSWORD</password>
+        </server>
+        <server>
+            <id>local-nexus</id>
+            <username>JENKINS_LOCAL_NEXUS_USERNAME</username>
+            <password>JENKINS_LOCAL_NEXUS_PASSWORD</password>
+        </server>
+        <server>
+            <id>nexus</id>
+            <username>JENKINS_NEXUS_USERNAME</username>
+            <password>JENKINS_NEXUS_PASSWORD</password>
+        </server>
+        <server>
+            <id>oss-sonatype-staging</id>
+            <username></username>
+            <password></password>
+        </server>
+    </servers>
+
+    <profiles>
+        <profile>
+            <id>nexus</id>
+            <properties>
+                <altDeploymentRepository>local-nexus::default::http://nexus.release/repository/maven-releases/</altDeploymentRepository>
+                <altReleaseDeploymentRepository>local-nexus::default::http://nexus.release/repository/maven-releases/</altReleaseDeploymentRepository>
+                <altSnapshotDeploymentRepository>local-nexus::default::http://nexus.release/repository/maven-snapshots/</altSnapshotDeploymentRepository>
+            </properties>
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>http://central</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>central</id>
+                    <url>http://central</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+        <profile>
+            <id>release</id>
+            <properties>
+                <gpg.executable>gpg</gpg.executable>
+                <gpg.passphrase>mysecretpassphrase</gpg.passphrase>
+            </properties>
+        </profile>
+    </profiles>
+    <activeProfiles>
+        <!--make the profile active all the time -->
+        <activeProfile>nexus</activeProfile>
+    </activeProfiles>
+</settings>

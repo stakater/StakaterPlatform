@@ -19,7 +19,8 @@ spec:
       - DOMAIN
     txtOwnerId: stakater-platform
     registry: txt
-    provider: aws
+    provider: CLOUD_PROVIDER
+###TODO secrets should be populated dynamically based on the cloud provider
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
         valueFrom:
@@ -31,6 +32,7 @@ spec:
           secretKeyRef:
             name: aws-creds
             key: AWS_SECRET_ACCESS_KEY
+###
     policy: sync
     rbac:
       create: true
@@ -39,4 +41,4 @@ spec:
     - key: "dedicated"
       operator: "Equal"
       value: "app"
-      effect: "NoSchedule"  
+      effect: "NoSchedule"
