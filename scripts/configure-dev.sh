@@ -8,13 +8,13 @@ replace_values() {
     VALUE_TO_REPLACE=`echo -n $2 | base64`
   fi
 
-  find platform/ -type f -name "*.yaml" -print0 | xargs -0 sed -i -e "s#${1}#${VALUE_TO_REPLACE}#g"
-  find configs/ -type f -name "*.*" -print0 | xargs -0 sed -i -e "s#${1}#${VALUE_TO_REPLACE}#g"
+  find platform/ -type f -name "*.yaml" -print0 | xargs -0 sed -i -e "s|${1}|${VALUE_TO_REPLACE}|g"
+  find configs/ -type f -name "*.*" -print0 | xargs -0 sed -i -e "s|${1}|${VALUE_TO_REPLACE}|g"
 }
 
 replace_configs() {
     VALUE_TO_REPLACE=`echo -n $(cat $2) | base64`
-    find platform/ -type f -name "*.yaml" -print0 | xargs -0 sed -i -e "s#${1}#${VALUE_TO_REPLACE}#g"
+    find platform/ -type f -name "*.yaml" -print0 | xargs -0 sed -i -e "s|${1}|${VALUE_TO_REPLACE}|g"
 }
 
 # Replace following keys with their values in config and platform

@@ -6,7 +6,7 @@ SHELL= /bin/bash
 include variables.config
 
 configure:
-	git checkout $(STAKATER_PLATFORM_BRANCH) && \
+	git checkout -b $(STAKATER_PLATFORM_BRANCH) && \
 	bash scripts/configure-dev.sh && \
 	git add . && \
 	git commit -a -m "[skip ci] update vars for deployment"  && \
