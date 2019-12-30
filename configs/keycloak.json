@@ -176,14 +176,14 @@
       "groups": []
     },
     {
-      "username": "stakater-user",
+      "username": "KEYCLOAK_DEFAULT_USERNAME",
       "enabled": true,
       "emailVerified": false,
       "email": "stakater-userm@placeholder.org",
       "credentials": [
         { 
           "type" : "password",
-          "value" : "stakater@qwerty786"
+          "value" : "KEYCLOAK_DEFAULT_PASSWORD"
         }
       ],
       "realmRoles": ["offline_access", "uma_authorization"],
