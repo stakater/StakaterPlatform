@@ -19,6 +19,7 @@ replace_configs() {
 
 # Replace following keys with their values in config and platform
 replace_values CLOUD_PROVIDER $CLOUD_PROVIDER && \
+replace_values DNS_PROVIDER $DNS_PROVIDER && \
 replace_values DOMAIN $DOMAIN && \
 replace_values BASE64_ENCODED_SSL_CERTIFICATE_CA_CRT $BASE64_ENCODED_SSL_CERTIFICATE_CA_CRT && \
 replace_values BASE64_ENCODED_SSL_CERTIFICATE_TLS_CRT $BASE64_ENCODED_SSL_CERTIFICATE_TLS_CRT && \

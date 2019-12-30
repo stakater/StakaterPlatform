@@ -19,7 +19,7 @@ spec:
       - DOMAIN
     txtOwnerId: stakater-platform
     registry: txt
-    provider: CLOUD_PROVIDER
+    provider: DNS_PROVIDER
 ###TODO secrets should be populated dynamically based on the cloud provider
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
