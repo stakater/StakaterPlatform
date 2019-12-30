@@ -23,9 +23,9 @@ replace_configs() {
 # Replace following keys with their values in config and platform
 replace_values CLOUD_PROVIDER $CLOUD_PROVIDER && \
 replace_values DOMAIN $DOMAIN && \
-replace_values SSL_CERTIFICATE_CA_CRT $SSL_CERTIFICATE_CA_CRT && \
-replace_values SSL_CERTIFICATE_TLS_CRT $SSL_CERTIFICATE_TLS_CRT && \
-replace_values SSL_CERTIFICATE_TLS_KEY $SSL_CERTIFICATE_TLS_KEY && \
+replace_values SSL_CERTIFICATE_CA_CRT $SSL_CERTIFICATE_CA_CRT ENCODE && \
+replace_values SSL_CERTIFICATE_TLS_CRT $SSL_CERTIFICATE_TLS_CRT ENCODE && \
+replace_values SSL_CERTIFICATE_TLS_KEY $SSL_CERTIFICATE_TLS_KEY ENCODE && \
 replace_values STAKATER_PLATFORM_SSH_GIT_URL $STAKATER_PLATFORM_SSH_GIT_URL && \
 replace_values STAKATER_PLATFORM_BRANCH $STAKATER_PLATFORM_BRANCH && \
 replace_values USER_MAIL $USER_MAIL && \
