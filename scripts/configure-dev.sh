@@ -4,6 +4,7 @@ source ../variables.config
 replace_values() {
   VALUE_TO_REPLACE = ${2}
   if [ -z "$3" ] ; then
+    # TODO convert to sealed-secret here
     VALUE_TO_REPLACE=`echo -n $2 | base64`
   fi
 
@@ -11,6 +12,12 @@ replace_values() {
 
   find ../platform -type f -name "*.yaml" -print0 | xargs -0 sed -i -e "s#${1}#${VALUE_TO_REPLACE}#g"
   find ../config -type f -name "*.*" -print0 | xargs -0 sed -i -e "s#${1}#${VALUE_TO_REPLACE}#g"
+}
+
+replace_configs() {
+    VALUE_TO_REPLACE=`echo -n $(cat $2) | base64`
+    echo "Value to replace : $VALUE_TO_REPLACE"
+    find ../platform -type f -name "*.yaml" -print0 | xargs -0 sed -i -e "s#${1}#${VALUE_TO_REPLACE}#g"
 }
 
 # Replace following keys with their values in config and platform
@@ -53,7 +60,15 @@ replace_values SLACK_APPS_ALERTS_CHANNEL $SLACK_APPS_ALERTS_CHANNEL && \
 replace_values GRAFANA_USERNAME $GRAFANA_USERNAME && \
 replace_values GRAFANA_PASSWORD $GRAFANA_PASSWORD
 
-# TODO once values are replaced convert all configs to base64 encoded values
+# Replace following Configs with their base64 encoded values in secrets in platform
+replace_configs  BASE64_ENCODED_ALERTMANAGER_CONFIG ../configs/alertmanager.yaml && \
+replace_configs  BASE64_ENCODED_IMC_CONFIG ../configs/imc.yaml && \
+replace_configs  BASE64_ENCODED_JENKINS_CFG ../configs/jenkins.json && \
+replace_configs  BASE64_ENCODED_JENKINS_MAVEN_CONF ../configs/jenkins-maven-config.xml && \
+replace_configs  BASE64_ENCODED_KEYCLOAK_CONFIG ../configs/keycloak.json && \
+replace_configs  BASE64_ENCODED_NEXUS_ADMIN_ACCOUNT_JSON ../configs/nexus-admin-account.json && \
+replace_configs  BASE64_ENCODED_NEXUS_CLUSTER_ACCOUNT_JSON ../configs/nexus-cluster-account.json && \
+replace_configs  BASE64_ENCODED_PROXYINJECTOR_CONFIG ../configs/proxyinjector.yaml && \
 
 if [ $?==0 ]; then
   exit 0
