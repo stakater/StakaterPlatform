@@ -12,7 +12,7 @@ receivers:
   - name: default-infra-alerts
     slack_configs:
       - api_url: SLACK_INFRA_ALERTS_WEBHOOK_URL
-        channel: 'SLACK_INFRA_ALERTS_CHANNEL'
+        channel: '#SLACK_INFRA_ALERTS_CHANNEL'
         send_resolved: true
         text: |2-
 
@@ -37,7 +37,7 @@ receivers:
   - name: apps-alerts
     slack_configs:
       - api_url: SLACK_APPS_ALERTS_WEBHOOK_URL
-        channel: 'SLACK_APPS_ALERTS_CHANNEL'
+        channel: '#SLACK_APPS_ALERTS_CHANNEL'
         send_resolved: true
         text: |2-
 
