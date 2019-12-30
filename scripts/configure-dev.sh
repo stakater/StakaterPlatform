@@ -61,7 +61,7 @@ replace_values JENKINS_NEXUS_AUTH "$(NEXUS_ADMIN_ACCOUNT_USER):$(NEXUS_ADMIN_ACC
 # Replace following Configs with their base64 encoded values in secrets in platform
 replace_configs  BASE64_ENCODED_ALERTMANAGER_CONFIG ../configs/alertmanager.yaml && \
 replace_configs  BASE64_ENCODED_IMC_CONFIG ../configs/imc.yaml && \
-replace_configs  BASE64_ENCODED_JENKINS_CFG ../configs/jenkins.json && \
+replace_configs  BASE64_ENCODED_JENKINS_CONFIG ../configs/jenkins.json && \
 replace_configs  BASE64_ENCODED_JENKINS_MAVEN_CONF ../configs/jenkins-maven-config.xml && \
 replace_configs  BASE64_ENCODED_KEYCLOAK_CONFIG ../configs/keycloak.json && \
 replace_configs  BASE64_ENCODED_NEXUS_ADMIN_ACCOUNT_JSON ../configs/nexus-admin-account.json && \
