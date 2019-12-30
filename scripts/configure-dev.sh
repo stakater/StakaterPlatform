@@ -2,7 +2,7 @@
 source variables.config
 
 replace_values() {
-  VALUE_TO_REPLACE = ${2}
+  VALUE_TO_REPLACE=${2}
   if [ -z "$3" ] ; then
     # TODO convert to sealed-secret here
     VALUE_TO_REPLACE=`echo -n $2 | base64`
