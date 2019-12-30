@@ -38,7 +38,7 @@
         "policyEnforcementMode" : "ENFORCING",
         "scopes" : [ {
           "name" : "read:space"
-        }, {
+          }, {
           "name" : "admin:space"
         } ]
       },
@@ -76,7 +76,7 @@
     }
   ],
   "clientScopes": [
-    {
+    {              
       "name": "email",
       "description": "OpenID Connect built-in scope: email",
       "protocol": "openid-connect",
@@ -100,7 +100,7 @@
             "jsonType.label": "String"
           }
         },
-        {
+        {                  
           "name": "email verified",
           "protocol": "openid-connect",
           "protocolMapper": "oidc-usermodel-property-mapper",
@@ -140,41 +140,60 @@
   ],
   "clientScopeMappings": {
     "realm-management": [
-      {
-        "client": "KEYCLOAK_CLIENT_ID",
-        "roles": ["view-users"]
-      },
-      {
-        "client": "KEYCLOAK_CLIENT_ID",
-        "roles": ["manage-authorization"]
-      }
+        {
+            "client": "KEYCLOAK_CLIENT_ID",
+            "roles": ["view-users"]
+        },
+        {
+            "client": "KEYCLOAK_CLIENT_ID",
+            "roles": ["manage-authorization"]
+        }
     ],
     "broker": [
-      {
-        "client": "KEYCLOAK_CLIENT_ID",
-        "roles": ["read-token"]
-      }
+        {
+            "client": "KEYCLOAK_CLIENT_ID",
+            "roles": ["read-token"]
+        }
     ]
   },
   "users": [{
-    "username": "service-account-KEYCLOAK_CLIENT_ID",
-    "enabled": true,
-    "totp": false,
-    "emailVerified": false,
-    "email": "service-account-KEYCLOAK_CLIENT_ID@placeholder.org",
-    "serviceAccountClientId": "KEYCLOAK_CLIENT_ID",
-    "credentials": [],
-    "disableableCredentialTypes": [],
-    "requiredActions": [],
-    "realmRoles": ["offline_access", "uma_authorization"],
-    "clientRoles": {
-      "realm-management": ["view-users", "manage-authorization"],
-      "broker": ["read-token"],
-      "KEYCLOAK_CLIENT_ID": ["uma_protection"],
-      "account": ["manage-account", "view-profile"]
+      "username": "service-account-KEYCLOAK_CLIENT_ID",
+      "enabled": true,
+      "totp": false,
+      "emailVerified": false,
+      "email": "service-account-KEYCLOAK_CLIENT_ID@placeholder.org",
+      "serviceAccountClientId": "KEYCLOAK_CLIENT_ID",
+      "credentials": [],
+      "disableableCredentialTypes": [],
+      "requiredActions": [],
+      "realmRoles": ["offline_access", "uma_authorization"],
+      "clientRoles": {
+        "realm-management": ["view-users", "manage-authorization"],
+        "broker": ["read-token"],
+        "KEYCLOAK_CLIENT_ID": ["uma_protection"],
+        "account": ["manage-account", "view-profile"]
+      },
+      "groups": []
     },
-    "groups": []
-  }],
+    {
+      "username": "stakater-user",
+      "enabled": true,
+      "emailVerified": false,
+      "email": "stakater-userm@placeholder.org",
+      "credentials": [
+        { 
+          "type" : "password",
+          "value" : "stakater@qwerty786"
+        }
+      ],
+      "realmRoles": ["offline_access", "uma_authorization"],
+      "clientRoles": {
+        "realm-management": ["view-users", "manage-authorization"],
+        "broker": ["read-token"],
+        "KEYCLOAK_CLIENT_ID": ["uma_protection"],
+        "account": ["manage-account", "view-profile"]
+      }
+    }],
   "roles" : {
     "realm" : [
       {
@@ -187,53 +206,49 @@
       }
     ]
   },
-  "identityProviders": [
-    {
-      "alias": "azure-ad",
-      "displayName": "Microsoft Azure AD",
-      "internalId": "b223f6b2-4664-414d-9384-71e4f293dff3",
-      "providerId": "oidc",
-      "enabled": true,
-      "updateProfileFirstLoginMode": "on",
-      "trustEmail": true,
-      "storeToken": true,
-      "addReadTokenRoleOnCreate": true,
-      "authenticateByDefault": false,
-      "linkOnly": false,
-      "firstBrokerLoginFlowAlias": "first broker login",
-      "config": {
-        "hideOnLoginPage": "false",
-        "loginHint": "",
-        "validateSignature": "",
-        "clientId": "bd5ad1b0-75af-489b-ae6a-6d8bb6d0d5aa",
-        "tokenUrl": "https://login.microsoftonline.com/fe7ede3f-aa6b-4b72-9cee-a4d92f676851/oauth2/v2.0/token",
-        "uiLocales": "",
-        "authorizationUrl": "https://login.microsoftonline.com/fe7ede3f-aa6b-4b72-9cee-a4d92f676851/oauth2/v2.0/authorize",
-        "disableUserInfo": "",
-        "clientSecret": "xxE?P-6ADoMf]n@Uro3ZybMpeo1kuja0",
-        "backchannelSupported": "",
-        "useJwksUrl": "true"
-      }
-    },
-    {
-      "alias": "google",
-      "providerId": "google",
-      "enabled": true,
-      "updateProfileFirstLoginMode": "on",
-      "trustEmail": true,
-      "storeToken": true,
-      "addReadTokenRoleOnCreate": true,
-      "config": {
-        "hideOnLoginPage": false,
-        "clientId": "232313397658-eodiip0dmjc8lkb8rg72fu4ukbrovhb5.apps.googleusercontent.com",
-        "disableUserInfo": "",
-        "userIp": "false",
-        "clientSecret": "wbpaMxBh2pR6H0bXvtvHzxBq",
-        "useJwksUrl": "true"
-      }
-    }
-  ],
   "authenticationFlows": [
+    {
+      "id": "8f18a831-de51-4163-89fc-c90d274d13b7",
+      "alias": "Basic Auth",
+      "description": "",
+      "providerId": "basic-flow",
+      "topLevel": true,
+      "builtIn": false,
+      "authenticationExecutions": [
+        {
+          "authenticator": "registration-page-form",
+          "requirement": "REQUIRED",
+          "priority": 0,
+          "flowAlias": "Form",
+          "userSetupAllowed": false,
+          "autheticatorFlow": true
+        }
+      ]
+    },
+        {
+      "id": "e540d440-9943-4a64-a79c-c3930f432acf",
+      "alias": "Form",
+      "description": "",
+      "providerId": "basic-flow",
+      "topLevel": false,
+      "builtIn": false,
+      "authenticationExecutions": [
+        {
+          "authenticator": "auth-cookie",
+          "requirement": "ALTERNATIVE",
+          "priority": 0,
+          "userSetupAllowed": false,
+          "autheticatorFlow": false
+        },
+        {
+          "authenticator": "auth-username-password-form",
+          "requirement": "REQUIRED",
+          "priority": 4,
+          "userSetupAllowed": false,
+          "autheticatorFlow": false
+        }
+      ]
+    },
     {
       "id": "5bd08fae-683d-4580-974e-a0fa1ca703ff",
       "alias": "Browser Passwordless",
@@ -746,7 +761,7 @@
       "config": {}
     }
   ],
-  "browserFlow": "Browser Passwordless",
+  "browserFlow": "Basic Auth",
   "registrationFlow": "registration",
   "directGrantFlow": "direct grant",
   "resetCredentialsFlow": "reset credentials",
