@@ -1,5 +1,5 @@
 #!/bin/bash
-source ../variables.config
+source variables.config
 
 replace_values() {
   VALUE_TO_REPLACE = ${2}
@@ -8,13 +8,13 @@ replace_values() {
     VALUE_TO_REPLACE=`echo -n $2 | base64`
   fi
 
-  find ../platform -type f -name "*.yaml" -print0 | xargs -0 sed -i -e "s#${1}#${VALUE_TO_REPLACE}#g"
-  find ../config -type f -name "*.*" -print0 | xargs -0 sed -i -e "s#${1}#${VALUE_TO_REPLACE}#g"
+  find platform/ -type f -name "*.yaml" -print0 | xargs -0 sed -i -e "s#${1}#${VALUE_TO_REPLACE}#g"
+  find config/ -type f -name "*.*" -print0 | xargs -0 sed -i -e "s#${1}#${VALUE_TO_REPLACE}#g"
 }
 
 replace_configs() {
     VALUE_TO_REPLACE=`echo -n $(cat $2) | base64`
-    find ../platform -type f -name "*.yaml" -print0 | xargs -0 sed -i -e "s#${1}#${VALUE_TO_REPLACE}#g"
+    find platform/ -type f -name "*.yaml" -print0 | xargs -0 sed -i -e "s#${1}#${VALUE_TO_REPLACE}#g"
 }
 
 # Replace following keys with their values in config and platform
@@ -56,17 +56,17 @@ replace_values SLACK_APPS_ALERTS_WEBHOOK_URL $SLACK_APPS_ALERTS_WEBHOOK_URL && \
 replace_values SLACK_APPS_ALERTS_CHANNEL $SLACK_APPS_ALERTS_CHANNEL && \
 replace_values GRAFANA_USERNAME $GRAFANA_USERNAME && \
 replace_values GRAFANA_PASSWORD $GRAFANA_PASSWORD && \
-replace_values JENKINS_NEXUS_AUTH "$(NEXUS_ADMIN_ACCOUNT_USER):$(NEXUS_ADMIN_ACCOUNT_PASSWORD)" ENCODE
+replace_values JENKINS_NEXUS_AUTH "$NEXUS_ADMIN_ACCOUNT_USER:$NEXUS_ADMIN_ACCOUNT_PASSWORD" ENCODE
 
 # Replace following Configs with their base64 encoded values in secrets in platform
-replace_configs  BASE64_ENCODED_ALERTMANAGER_CONFIG ../configs/alertmanager.yaml && \
-replace_configs  BASE64_ENCODED_IMC_CONFIG ../configs/imc.yaml && \
-replace_configs  BASE64_ENCODED_JENKINS_CONFIG ../configs/jenkins.json && \
-replace_configs  BASE64_ENCODED_JENKINS_MAVEN_CONF ../configs/jenkins-maven-config.xml && \
-replace_configs  BASE64_ENCODED_KEYCLOAK_CONFIG ../configs/keycloak.json && \
-replace_configs  BASE64_ENCODED_NEXUS_ADMIN_ACCOUNT_JSON ../configs/nexus-admin-account.json && \
-replace_configs  BASE64_ENCODED_NEXUS_CLUSTER_ACCOUNT_JSON ../configs/nexus-cluster-account.json && \
-replace_configs  BASE64_ENCODED_PROXYINJECTOR_CONFIG ../configs/proxyinjector.yaml && \
+replace_configs  BASE64_ENCODED_ALERTMANAGER_CONFIG configs/alertmanager.yaml && \
+replace_configs  BASE64_ENCODED_IMC_CONFIG configs/imc.yaml && \
+replace_configs  BASE64_ENCODED_JENKINS_CONFIG configs/jenkins.json && \
+replace_configs  BASE64_ENCODED_JENKINS_MAVEN_CONF configs/jenkins-maven-config.xml && \
+replace_configs  BASE64_ENCODED_KEYCLOAK_CONFIG configs/keycloak.json && \
+replace_configs  BASE64_ENCODED_NEXUS_ADMIN_ACCOUNT_JSON configs/nexus-admin-account.json && \
+replace_configs  BASE64_ENCODED_NEXUS_CLUSTER_ACCOUNT_JSON configs/nexus-cluster-account.json && \
+replace_configs  BASE64_ENCODED_PROXYINJECTOR_CONFIG configs/proxyinjector.yaml && \
 
 if [ $?==0 ]; then
   exit 0
