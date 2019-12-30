@@ -28,10 +28,9 @@ ARGS := $(STAKATER_PLATFORM_SSH_GIT_URL) $(STAKATER_PLATFORM_BRANCH) $(DOMAIN) $
 
 configure:
 	bash scripts/configure.sh $(ARGS)
-	kubectl apply -f storageclass/$(CLOUD_PROVIDER).yaml
 
 deploy:
-	bash scripts/install.sh
+	bash scripts/install.sh $(CLOUD_PROVIDER)
 	sleep 480
 	bash scripts/verify.sh
 

@@ -1,7 +1,7 @@
 set -x
 #!/bin/bash
 
-source ../configs/variables.config
+CLOUD_PROVIDER=${1}
 
 NAMESPACES="control delivery logging monitoring security tracing flux"
 TLS_SECRET_FILE="../platform/control/secrets/secret-tls-cert.yaml"
