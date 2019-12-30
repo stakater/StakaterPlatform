@@ -9,7 +9,7 @@ replace_values() {
   fi
 
   find platform/ -type f -name "*.yaml" -print0 | xargs -0 sed -i -e "s#${1}#${VALUE_TO_REPLACE}#g"
-  find config/ -type f -name "*.*" -print0 | xargs -0 sed -i -e "s#${1}#${VALUE_TO_REPLACE}#g"
+  find configs/ -type f -name "*.*" -print0 | xargs -0 sed -i -e "s#${1}#${VALUE_TO_REPLACE}#g"
 }
 
 replace_configs() {
