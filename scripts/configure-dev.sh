@@ -3,22 +3,21 @@ source variables.config
 
 replace_values() {
   VALUE_TO_REPLACE=${2}
-  if [ "$3" ] ; then
+  if [ "$3" = "ENCODE" ] ; then
     # TODO convert to sealed-secret here
-    VALUE_TO_REPLACE=`echo -n $2 | base64`
+    VALUE_TO_REPLACE=`echo -n $2 | base64 -w 0`
   fi
 
-  find platform/ -type f -name "*.yaml" -print0 | xargs -0 sed -i -e "s|${1}|${VALUE_TO_REPLACE}|g" && \
-  find configs/ -type f -name "*.*" -print0 | xargs -0 sed -i -e "s|${1}|${VALUE_TO_REPLACE}|g"
+  find platform/ -type f -name "*.yaml" -print0 | xargs -0 sed -i "s|${1}|${VALUE_TO_REPLACE}|g" && \
+  find configs/ -type f -name "*.*" -print0 | xargs -0 sed -i "s|${1}|${VALUE_TO_REPLACE}|g"
 }
 
 replace_configs() {
-    VALUE_TO_REPLACE=`echo -n $(cat $2) | base64`
-    find platform/ -type f -name "*.yaml" -print0 | xargs -0 sed -i -e "s|${1}|${VALUE_TO_REPLACE}|g"
+    VALUE_TO_REPLACE=`echo -n $(cat $2) | base64 -w 0`
+    find platform/ -type f -name "*.yaml" -print0 | xargs -0 sed -i "s|${1}|${VALUE_TO_REPLACE}|g"
 }
 
 # Replace following keys with their values in config and platform
-echo "Replacing variable values"
 replace_values CLOUD_PROVIDER $CLOUD_PROVIDER && \
 replace_values DNS_PROVIDER $DNS_PROVIDER && \
 replace_values DOMAIN $DOMAIN && \
@@ -62,18 +61,17 @@ replace_values SLACK_APPS_ALERTS_WEBHOOK_URL $SLACK_APPS_ALERTS_WEBHOOK_URL && \
 replace_values SLACK_APPS_ALERTS_CHANNEL $SLACK_APPS_ALERTS_CHANNEL && \
 replace_values GRAFANA_USERNAME $GRAFANA_USERNAME ENCODE && \
 replace_values GRAFANA_PASSWORD $GRAFANA_PASSWORD ENCODE && \
-replace_values JENKINS_NEXUS_AUTH "$NEXUS_ADMIN_ACCOUNT_USER:$NEXUS_ADMIN_ACCOUNT_PASSWORD" ENCODE
+replace_values JENKINS_NEXUS_AUTH "$NEXUS_ADMIN_ACCOUNT_USER:$NEXUS_ADMIN_ACCOUNT_PASSWORD" ENCODE && \
 
 # Replace following Configs with their base64 encoded values in secrets in platform
-echo "Replacing configs"
 replace_configs  BASE64_ENCODED_ALERTMANAGER_CONFIG configs/alertmanager.yaml && \
 replace_configs  BASE64_ENCODED_IMC_CONFIG configs/imc.yaml && \
 replace_configs  BASE64_ENCODED_JENKINS_CONFIG configs/jenkins.json && \
-replace_configs  BASE64_ENCODED_JENKINS_MAVEN_CONF configs/jenkins-maven-config.xml && \
+replace_configs  BASE64_ENCODED_JENKINS_MAVEN_CONFIG configs/jenkins-maven-config.xml && \
 replace_configs  BASE64_ENCODED_KEYCLOAK_CONFIG configs/keycloak.json && \
 replace_configs  BASE64_ENCODED_NEXUS_ADMIN_ACCOUNT_JSON configs/nexus-admin-account.json && \
 replace_configs  BASE64_ENCODED_NEXUS_CLUSTER_ACCOUNT_JSON configs/nexus-cluster-account.json && \
-replace_configs  BASE64_ENCODED_PROXYINJECTOR_CONFIG configs/proxyinjector.yaml && \
+replace_configs  BASE64_ENCODED_PROXYINJECTOR_CONFIG configs/proxyinjector.yaml
 
 if [ $?==0 ]; then
   exit 0
