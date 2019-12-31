@@ -14,9 +14,9 @@
 
     <servers>
         <server>
-            <id>docker-release.DOMAIN:443</id>
-            <username>JENKINS_DOCKER_RELEASE_USERNAME</username>
-            <password>JENKINS_DOCKER_RELEASE_PASSWORD</password>
+            <id>docker-delivery.DOMAIN:443</id>
+            <username>JENKINS_DOCKER_MAVEN_USERNAME</username>
+            <password>JENKINS_DOCKER_MAVEN_PASSWORD</password>
         </server>
         <server>
             <id>local-nexus</id>
