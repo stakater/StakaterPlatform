@@ -1,6 +1,6 @@
 # StakaterPlatform
 
-StakaterPlatform Supercharge kubernetes clusters to provides out of the box stacks to control, monitor, log, trace and security tools on kubernetes.
+StakaterPlatform Supercharges kubernetes clusters to provides out of the box stacks to control, monitor, log, trace and security tools.
 
 StakaterPlatform consist of 6 stacks
 - [Control](https://playbook.stakater.com/content/stacks/control.html)
