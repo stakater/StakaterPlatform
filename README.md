@@ -1,6 +1,6 @@
 # StakaterPlatform
 
-StakaterPlatform provides out of the box stacks to control, monitor, log, trace and security for applications deployed on kubernetes.
+StakaterPlatform Supercharge kubernetes clusters to provides out of the box stacks to control, monitor, log, trace and security tools on kubernetes.
 
 StakaterPlatform consist of 6 stacks
 - [Control](https://playbook.stakater.com/content/stacks/control.html)
@@ -13,8 +13,9 @@ StakaterPlatform consist of 6 stacks
 
 ### Kubernetes Cluster Requitements
 
-The Minimum collective resources of the Kubernetes cluster should be:
 - Kubernetes version >=1.11
+
+The Minimum collective resources for the Kubernetes cluster should be:
 - Total CPUs >= 4
 - Total Memory >= 32 GB
 
@@ -37,7 +38,8 @@ make -f Makefile-dev configure
 ```
 make -f Makefile-dev deploy
 ```
-<!-- TODO: Flux key addition documentation -->
+
+StakaterPlatform Flux uses default ssh public/private key pair to provide GitOps. It is recommended to use own private/public key. To generate your own see [here](#Production Configuration and Hardening)
 
 ## Basic Configuration
 | Variables | Description | Default |  
@@ -57,13 +59,21 @@ make -f Makefile-dev deploy
 
 See [Detailed Configurations](docs/detailed-config.md) for configuring available tools in the stacks. 
 
-
 ## Uninstall
 
 Run the following to tear down StakaterPlatform
 ```
 make -f Makefile-dev destroy
 ```
+
+## Production Configuration and Hardening
+
+- Change default usernames and passwords for all tools
+- Generate own SSH keys for Flux. To generate own keys:
+    - Run `ssh-keygen -q -N "" -f ./flux`
+    - Copy content of private key in configs/flux-key.private and
+    - Add flux.pub key in your corresponding git repo with write access.
+- Use Identity Providers (e.g. Google, Active Directory etc.) to authenticate to KeyCloak
 
 ## Compatibility Matrix
 
