@@ -2,21 +2,20 @@ set -x
 #!/bin/bash
 
 CLOUD_PROVIDER=${1}
-
 NAMESPACES="control delivery logging monitoring security tracing flux"
-TLS_SECRET_FILE="../platform/control/secrets/secret-tls-cert.yaml"
+TLS_SECRET_FILE="platform/control/secrets/secret-tls-cert.yaml"
 
 # Create Namespaces
 for NAMESPACE in $NAMESPACES; do kubectl create namespace $NAMESPACE; done
 
 # Configure RBAC and Init Helm
-kubectl apply -f ../platform/rbac.yaml
+kubectl apply -f platform/rbac.yaml
 helm init --wait --service-account tiller || true
 
 # TODO install sealed-secrets and convert all secrets!
 
 # Install storage class
-kubectl apply -f storageclass/$(CLOUD_PROVIDER).yaml
+kubectl apply -f storageclass/$CLOUD_PROVIDER.yaml
 
 # Install tls secret
 kubectl apply -f $TLS_SECRET_FILE
@@ -28,7 +27,7 @@ helm repo add fluxcd https://charts.fluxcd.io && helm repo update
 helm upgrade --version 0.2.0 -i --wait --force helm-operator fluxcd/helm-operator --namespace flux --set createCRD=true,serviceAccount.name=helm-operator,clusterRole.name=helm-operator
 
 # Install Flux
-kubectl apply -f ../platform/flux.yaml -n flux
+kubectl apply -f platform/flux.yaml -n flux
 
 # Wait till all pods against flux deployment are deployed & then print flux public key
 kubectl -n flux wait --timeout=200s --for condition=ready pod -l release=flux
