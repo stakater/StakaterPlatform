@@ -5,5 +5,5 @@ providers:
     apiURL: https://api.uptimerobot.com/v2/
     alertContacts: "IMC_ALERT_CONTACTS"
 enableMonitorDeletion: true
-monitorNameTemplate: "stakater.{{.Namespace}}-{{.IngressName}}"
+monitorNameTemplate: "{{.IngressName}}-{{.Namespace}}"
 resyncPeriod: 0 # how often (in seconds) monitors should be synced to their Kubernetes resources (0 = disabled)
