@@ -155,7 +155,7 @@ spec:
         fsGroup: 1000
       service:
         annotations:
-          config.xposer.stakater.com/Domain: DOMAIN
+          config.xposer.stakater.com/Domain: workshop.stakater.com
           config.xposer.stakater.com/IngressNameTemplate: '{{.Service}}'
           config.xposer.stakater.com/IngressURLTemplate: keycloak-{{.Namespace}}.{{.Domain}}
           config.xposer.stakater.com/TLS: "true"

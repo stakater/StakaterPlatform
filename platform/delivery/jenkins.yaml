@@ -41,17 +41,17 @@ spec:
           ingress.kubernetes.io/proxy-body-size: 150m
           kubernetes.io/ingress.class: external-ingress
         enabled: true
-        hostName: jenkins-delivery.DOMAIN
+        hostName: jenkins-delivery.workshop.stakater.com
         path: /
         tls:
           - hosts:
-              - jenkins-delivery.DOMAIN
+              - jenkins-delivery.workshop.stakater.com
 
       securityRealm: |-
         <securityRealm class="org.jenkinsci.plugins.oic.OicSecurityRealm" plugin="oic-auth@1.6">
-        <clientId>KEYCLOAK_CLIENT_ID</clientId> <clientSecret>KEYCLOAK_CLIENT_SECRET</clientSecret>
-        <tokenServerUrl>https://keycloak-security.DOMAIN/auth/realms/stakater/protocol/openid-connect/token</tokenServerUrl>
-        <authorizationServerUrl>https://keycloak-security.DOMAIN/auth/realms/stakater/protocol/openid-connect/auth</authorizationServerUrl>
+        <clientId>stakater-online-platform</clientId> <clientSecret>1ce66f91-2068-4f3d-9578-f03fa8259230</clientSecret>
+        <tokenServerUrl>https://keycloak-security.workshop.stakater.com/auth/realms/stakater/protocol/openid-connect/token</tokenServerUrl>
+        <authorizationServerUrl>https://keycloak-security.workshop.stakater.com/auth/realms/stakater/protocol/openid-connect/auth</authorizationServerUrl>
         <userNameField>email</userNameField> <scopes>openid email</scopes> </securityRealm>
 
       serviceType: ClusterIP

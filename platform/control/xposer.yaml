@@ -15,7 +15,7 @@ spec:
       watchGlobally: true
       exposeServiceURL: globally
       config:
-        domain: DOMAIN
+        domain: workshop.stakater.com
         ingressURLTemplate: "{{.Service}}-{{.Namespace}}.{{.Domain}}"
         ingressURLPath: /
         ingressNameTemplate: "{{.Service}}"

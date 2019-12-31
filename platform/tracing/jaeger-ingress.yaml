@@ -13,7 +13,7 @@ metadata:
   namespace: tracing
 spec:
   rules:
-  - host: jaeger-tracing.DOMAIN
+  - host: jaeger-tracing.workshop.stakater.com
     http:
       paths:
       - backend:
@@ -21,5 +21,5 @@ spec:
           servicePort: 16686
   tls:
   - hosts:
-    - jaeger-tracing.DOMAIN
+    - jaeger-tracing.workshop.stakater.com
     secretName: control/tls-cert

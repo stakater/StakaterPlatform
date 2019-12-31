@@ -19,7 +19,7 @@ spec:
         pullPolicy: IfNotPresent
       config:
         provider: gitlab
-        upstreamURL: "https://jenkins-delivery.DOMAIN"
+        upstreamURL: "https://jenkins-delivery.workshop.stakater.com"
         allowedPaths: "/github-webhook,/project"
         secret: ""
         ignoredUsers: "carbook.bot"
@@ -28,7 +28,7 @@ spec:
           expose: "true"
         annotations:
           configmap.reloader.stakater.com/reload: gitlabwebhookproxy
-          config.xposer.stakater.com/Domain: DOMAIN
+          config.xposer.stakater.com/Domain: workshop.stakater.com
           config.xposer.stakater.com/IngressNameTemplate: '{{.Service}}-{{.Namespace}}'
           config.xposer.stakater.com/IngressURLTemplate: '{{.Service}}-{{.Namespace}}.{{.Domain}}'
           xposer.stakater.com/annotations: |-

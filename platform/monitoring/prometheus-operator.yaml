@@ -282,7 +282,7 @@ spec:
           - control
       service:
         annotations:
-          config.xposer.stakater.com/Domain: DOMAIN
+          config.xposer.stakater.com/Domain: workshop.stakater.com
           config.xposer.stakater.com/IngressNameTemplate: "{{.Service}}-{{.Namespace}}"
           config.xposer.stakater.com/IngressURLPath: /
           config.xposer.stakater.com/IngressURLTemplate: prometheus-{{.Namespace}}.{{.Domain}}
@@ -325,10 +325,10 @@ spec:
           kubernetes.io/ingress.class: internal-ingress
         enabled: "true"
         hosts:
-          - grafana-monitoring.DOMAIN
+          - grafana-monitoring.workshop.stakater.com
         tls:
           - hosts:
-              - grafana-monitoring.DOMAIN
+              - grafana-monitoring.workshop.stakater.com
             secretName: tls-cert
       rbac:
         create: true
@@ -450,7 +450,7 @@ spec:
         minAvailable: 1
       service:
         annotations:
-          config.xposer.stakater.com/Domain: DOMAIN
+          config.xposer.stakater.com/Domain: workshop.stakater.com
           config.xposer.stakater.com/IngressNameTemplate: "{{.Service}}-{{.Namespace}}"
           config.xposer.stakater.com/IngressURLPath: /
           config.xposer.stakater.com/IngressURLTemplate: alertmanager-{{.Namespace}}.{{.Domain}}

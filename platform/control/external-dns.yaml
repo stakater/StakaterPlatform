@@ -16,10 +16,10 @@ spec:
     sources:
       - ingress
     domainFilters:
-      - DOMAIN
+      - workshop.stakater.com
     txtOwnerId: stakater-platform
     registry: txt
-    provider: DNS_PROVIDER
+    provider: aws
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
         valueFrom:

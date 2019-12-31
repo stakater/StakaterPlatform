@@ -25,9 +25,9 @@ spec:
       create: false
       name: helm-operator
     git:
-      url: "ssh://STAKATER_PLATFORM_SSH_GIT_URL"
+      url: "ssh://git@github.com/stakater/StakaterPlatform.git"
       pollInterval: "1m"
-      branch: "STAKATER_PLATFORM_BRANCH"
+      branch: "aks-platform-test"
       path: "platform"
       secretName: flux-key
     additionalArgs:

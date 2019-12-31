@@ -20,7 +20,7 @@ spec:
 
     nexus:
       annotations:
-        config.xposer.stakater.com/Domain: DOMAIN
+        config.xposer.stakater.com/Domain: workshop.stakater.com
         config.xposer.stakater.com/IngressNameTemplate: "{{.Service}}-{{.Namespace}}"
         config.xposer.stakater.com/IngressURLTemplate: "{{.Service}}-{{.Namespace}}.{{.Domain}}"
         xposer.stakater.com/annotations: |-
@@ -148,15 +148,15 @@ spec:
 
     secret:
       data:
-        .admin_account.json: BASE64_ENCODED_NEXUS_ADMIN_ACCOUNT_JSON
-        .cluster_account.json: BASE64_ENCODED_NEXUS_CLUSTER_ACCOUNT_JSON
+        .admin_account.json: eyJuYW1lIjogInVzZXItYWRtaW4iLCJ0eXBlIjogImdyb292eSIsImNvbnRlbnQiOiAic2VjdXJpdHkuYWRkVXNlcigndXNlci1hZG1pbicsICdTdGFrYXRlcicsICdBZG1pbicsICd1c2VyQGdtYWlsLmNvbScsIHRydWUsICdMOFRjbnJ3TXl0Q0ZwQUZlJywgWydueC1hZG1pbiddKSJ9Cg==
+        .cluster_account.json: eyJuYW1lIjogImNsdXN0ZXItYWRtaW4iLCJ0eXBlIjogImdyb292eSIsImNvbnRlbnQiOiAic2VjdXJpdHkuYWRkUm9sZSgnY2x1c3RlcicsICdjbHVzdGVyJywgJ1VzZXIgd2l0aCBwcml2aWxlZ2VzIHRvIGFsbG93IHJlYWQgYWNjZXNzIHRvIHJlcG8gY29udGVudCBhbmQgaGVhbHRjaGVjaycsIFsnbngtaGVhbHRoY2hlY2stcmVhZCcsJ254LXJlcG9zaXRvcnktdmlldy1kb2NrZXItc3Rha2F0ZXItZG9ja2VyLWJyb3dzZScsJ254LXJlcG9zaXRvcnktdmlldy1kb2NrZXItc3Rha2F0ZXItZG9ja2VyLXJlYWQnLCdueC1zZWFyY2gtcmVhZCddLCAgWydueC1hbm9ueW1vdXMnXSk7IHNlY3VyaXR5LmFkZFVzZXIoJ2NsdXN0ZXItYWRtaW4nLCAnQ2x1c3RlcicsICdDbHVzdGVyJywgJ3VzZXJAZ21haWwuY29tJywgdHJ1ZSwgJ21yelVHV3JEOWJ1RFloTUYnLCBbJ2NsdXN0ZXInXSkifQo=
       enabled: true
       mountPath: /etc/secret-volume
       readOnly: true
 
     service:
       annotations:
-        config.xposer.stakater.com/Domain: DOMAIN
+        config.xposer.stakater.com/Domain: workshop.stakater.com
         config.xposer.stakater.com/IngressNameTemplate: "{{.Service}}-{{.Namespace}}"
         config.xposer.stakater.com/IngressURLTemplate: "{{.Service}}-{{.Namespace}}.{{.Domain}}"
         xposer.stakater.com/annotations: |-
@@ -239,9 +239,9 @@ spec:
           apk add --no-cache curl
 
           # Admin Account details specified in nexus secret .admin_account.json
-          ADMIN_ACCOUNT_USERNAME=NEXUS_ADMIN_ACCOUNT_USER
+          ADMIN_ACCOUNT_USERNAME=user-admin
           # Cluster Account details specified in nexus secret .cluster_account.json
-          CLUSTER_ACCOUNT_USERNAME=NEXUS_CLUSTER_ACCOUNT_USER
+          CLUSTER_ACCOUNT_USERNAME=cluster-admin
 
           echo `pwd`
           cd /sonatype-nexus-conf/

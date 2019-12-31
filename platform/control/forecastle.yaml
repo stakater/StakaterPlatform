@@ -21,13 +21,13 @@ spec:
           authproxy.stakater.com/enabled: "true"
           authproxy.stakater.com/upstream-url: "http://127.0.0.1:3000"
           authproxy.stakater.com/source-service-name: forecastle
-          authproxy.stakater.com/redirection-url: "https://forecastle-control.DOMAIN"
+          authproxy.stakater.com/redirection-url: "https://forecastle-control.workshop.stakater.com"
           authproxy.stakater.com/listen: "0.0.0.0:80"
       service:
         expose: "true"
         annotations:
           config.xposer.stakater.com/IngressURLPath: "/"
-          config.xposer.stakater.com/Domain: "DOMAIN"
+          config.xposer.stakater.com/Domain: "workshop.stakater.com"
           config.xposer.stakater.com/IngressNameTemplate: "{{.Service}}"
           config.xposer.stakater.com/IngressURLTemplate: "{{.Service}}-{{.Namespace}}.{{.Domain}}"
           config.xposer.stakater.com/TLS: "true"
