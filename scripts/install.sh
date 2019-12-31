@@ -11,8 +11,6 @@ for NAMESPACE in $NAMESPACES; do kubectl create namespace $NAMESPACE; done
 kubectl apply -f platform/rbac.yaml
 helm init --wait --service-account tiller || true
 
-# TODO install sealed-secrets and convert all secrets!
-
 # Install storage class
 kubectl apply -f storageclass/$CLOUD_PROVIDER.yaml
 
