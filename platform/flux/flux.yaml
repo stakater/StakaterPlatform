@@ -29,5 +29,6 @@ spec:
       pollInterval: "1m"
       branch: "STAKATER_PLATFORM_BRANCH"
       path: "platform"
+      secretName: flux-key
     additionalArgs:
       - --k8s-allow-namespace=control,delivery,security,logging,monitoring,tracing,kube-system
