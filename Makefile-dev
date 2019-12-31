@@ -10,7 +10,7 @@ configure:
 	bash scripts/configure-dev.sh #&& \
 	# TODO add pre-commit hook for skipping these files
 	git update-index --skip-worktree variables.config
-	git update-index --skip-worktree $(git ls-files | grep 'configs/' | cut -d/ -f2)
+	git update-index --skip-worktree $(git ls-files | grep 'configs/')
 	git add . && \
 	git commit -a -m "[skip ci] update vars for deployment"  && \
 	git push -u origin $(STAKATER_PLATFORM_BRANCH) || true
