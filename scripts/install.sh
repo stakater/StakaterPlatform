@@ -36,6 +36,6 @@ kubectl -n flux wait --timeout=200s --for condition=ready pod -l release=flux
 #kubectl -n flux logs deployment/flux | grep identity.pub | cut -d '"' -f2
 
 # Wait for dashboard to be ready & then print dashboard access token
-kubectl -n control wait --timeout=2000s --for condition=ready pod -l release=stakater-control-dashboard
-echo -e "\n========= Kubernetes Dashboard Access Token ==========\n"
+kubectl -n control wait --timeout=200s --for condition=ready pod -l release=stakater-control-dashboard
+echo -e "\n========= Kubernetes Dashboard Access Token =========="
 kubectl -n control describe secret $(kubectl -n control get secret | grep stakater-control-dashboard-kubernetes-dashboard-token | awk '{print $1}') | grep 'token:' | cut -d ':' -f2
