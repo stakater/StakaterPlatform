@@ -1,14 +1,19 @@
-set -x
 #!/bin/bash
 NAMESPACES="flux control delivery logging monitoring security tracing"
 
-# Delete All HRs
-for NAMESPACE in $NAMESPACES; do 
+# Delete all HRs
+for NAMESPACE in $NAMESPACES; do
   kubectl delete hr --all -n $NAMESPACE
 done
 
+# Remove any remaing platform resources
+kubectl delete -f platform/
+
+# Remove Tiller
 helm reset --force
+
+# Remove Helm Operator
 helm delete --purge helm-operator
-kubectl delete crd helmreleases.helm.fluxcd.io
-kubectl delete configmap -l OWNER=TILLER -n kube-system
+
+# Delete all namespaces
 kubectl delete namespaces $NAMESPACES
