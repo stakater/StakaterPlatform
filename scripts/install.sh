@@ -23,6 +23,9 @@ helm repo add fluxcd https://charts.fluxcd.io && helm repo update
 # Install helm Operator
 helm upgrade --version 0.2.0 -i --wait --force helm-operator fluxcd/helm-operator --namespace flux --set createCRD=true,serviceAccount.name=helm-operator,clusterRole.name=helm-operator
 
+# Install istio-init chart
+kubectl apply -f platform/istio-init.yaml
+
 # Install Flux
 kubectl apply -f platform/flux.yaml -n flux
 
