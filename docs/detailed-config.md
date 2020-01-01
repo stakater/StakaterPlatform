@@ -1,5 +1,17 @@
 # Detailed Configuration
 
+For detailed walk-through please visit [StakaterPlatform](https://playbook.stakater.com/content/stacks/stakaterplatform.html)
+
+## Requirements
+
+To take full advantage of our tool stack, it is recommended to have the following things set-up:
+1. 3 Slack channels with [webhook's](https://slack.com/intl/en-pk/help/articles/115005265063-Incoming-WebHooks-for-Slack) added. These are required for:
+    * Dev-notifications: Notifications regarding up/down time and regarding new builds from jenkins
+    * infra-alerts: Alerts from infrastructure
+    * apps-alerts: Alerts for apps
+2. An account at (Uptime Robot)[https://uptimerobot.com/] for (IMC)[https://stakater.com/projects/imc.html] to work and provide you with up/down time alerts.
+
+
 ## Global Variables
 | Variables | Description | Default |  
 |---|---|---|

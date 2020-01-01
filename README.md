@@ -15,7 +15,7 @@ StakaterPlatform consist of 6 stacks:
 
 ## Prerequisites
 
-- Kubernetes cluster with at least 4 VCPUS & 16 GB of RAM
+- Kubernetes cluster with at least 8 VCPUS & 32 GB of RAM
 - kubectl (between v1.11 & v1.15.3)
 - helm (v2.15.0 or lower)
 - A working domain (e.g. `stakaterplatform.com` ) 
