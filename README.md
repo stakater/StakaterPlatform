@@ -1,6 +1,6 @@
 # StakaterPlatform
 
-Kick-start your kubernetes cluster with Stakater Platform. A consolidated solution for logging, tracing, monitoring, delivery, security and much more. 
+Kick-start your kubernetes cluster with StakaterPlatform. A consolidated solution for logging, tracing, monitoring, delivery, security and much more. 
 For detailed walk-through please visit [StakaterPlatform](https://playbook.stakater.com/content/stacks/stakaterplatform.html)
 
 
@@ -41,7 +41,7 @@ Run `make verify` to run tests to ensure that all the relevant endpoints are up 
 ## Basic Configuration
 | Variables | Description | Default |  
 |---|---|---|
-| CLOUD_PROVIDER | Name of the k8s cloud provider | `nil` <br> (`aws` \| `azure`) |
+| CLOUD_PROVIDER | Name of the k8s cloud provider | `nil` <br> (values: `aws` \| `azure`) |
 | DNS_PROVIDER | Cloud DNS Provider | `aws` (Route53) |
 | EXTERNAL_DNS_AWS_ACCESS_KEY_ID | AWS Access Key Id | `nil` |
 | EXTERNAL_DNS_AWS_SECRET_ACCESS_KEY | AWS Secret Access Key | `nil` |
@@ -62,9 +62,9 @@ Run `make destroy` to remove StakaterPlatform from your cluster.
 
 ## Production Configuration and Hardening
 
-- Change default user-names and passwords for all tools (`variables.config`)
+- Change default usernames and passwords for all tools (`variables.config`)
 - Add your own SSH keys for flux
-- Use Identity Providers (e.g. Google, Active Directory etc.) and configure keyclaok to use that
+- Use Identity Providers (e.g. Google, Active Directory etc.) and configure keyCloak to use that
 
 ## Compatibility Matrix
 

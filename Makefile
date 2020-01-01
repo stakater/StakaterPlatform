@@ -20,6 +20,7 @@ deploy:
 	bash scripts/install.sh $(CLOUD_PROVIDER)
 
 verify:
+    # TODO: Install shunit2 pre tests
 	scripts/tests/control-stack.sh
 	scripts/tests/delivery-stack.sh
 	scripts/tests/logging-stack.sh
