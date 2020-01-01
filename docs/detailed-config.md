@@ -9,7 +9,8 @@ To take full advantage of our tool stack, it is recommended to have the followin
     * Dev-notifications: Notifications regarding up/down time and regarding new builds from jenkins
     * infra-alerts: Alerts from infrastructure
     * apps-alerts: Alerts for apps
-2. An account at (Uptime Robot)[https://uptimerobot.com/] for (IMC)[https://stakater.com/projects/imc.html] to work and provide you with up/down time alerts.
+2. An account at (Uptime Robot)[https://uptimerobot.com/] for (IMC)[https://github.com/stakater/IngressMonitorController] 
+to work and provide you with up/down time alerts. For other supported down time monitors visit https://github.com/stakater/IngressMonitorController#supported-uptime-checkers
 
 
 ## Global Variables
