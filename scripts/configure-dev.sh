@@ -17,6 +17,10 @@ replace_configs() {
     find platform/ -type f -name "*.*" -print0 | xargs -0 sed -i "s|${1}|${VALUE_TO_REPLACE}|g"
 }
 
+replace_domain_in_tests() {
+    find configs/tests -type f -name "*.sh" -print0 | xargs -0 sed -i "s|DOMAIN|${DOMAIN}|g"
+}
+
 # Replace following keys with their values in config and platform
 replace_values CLOUD_PROVIDER $CLOUD_PROVIDER && \
 replace_values DNS_PROVIDER $DNS_PROVIDER && \
@@ -72,7 +76,10 @@ replace_configs  BASE64_ENCODED_KEYCLOAK_CONFIG configs/keycloak.json && \
 replace_configs  BASE64_ENCODED_NEXUS_ADMIN_ACCOUNT_JSON configs/nexus-admin-account.json && \
 replace_configs  BASE64_ENCODED_NEXUS_CLUSTER_ACCOUNT_JSON configs/nexus-cluster-account.json && \
 replace_configs  BASE64_ENCODED_PROXYINJECTOR_CONFIG configs/proxyinjector.yaml && \
-replace_configs  BASE64_ENCODED_FLUX_PRIVATE_KEY configs/flux
+replace_configs  BASE64_ENCODED_FLUX_PRIVATE_KEY configs/flux && \
+
+# Repalce DOMAIN in test suite
+replace_domain_in_tests
 
 if [ $?==0 ]; then
   exit 0
