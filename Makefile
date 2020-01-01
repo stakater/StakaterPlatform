@@ -35,7 +35,7 @@ track-secrets:
     git update-index --no-skip-worktree $(git ls-files | grep 'configs/')
 
 un-track-secrets:
-    git update-index --no-skip-worktree variables.config && \
+	git update-index --no-skip-worktree variables.config && \
     git update-index --no-skip-worktree $(git ls-files | grep 'configs/')
 
 .PHONY: configure deploy verify destroy
