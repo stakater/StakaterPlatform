@@ -74,5 +74,10 @@
 | GRAFANA_USERNAME | Grafana dashboard username |`admin` |
 | GRAFANA_PASSWORD | Grafana dashboard password |`CN3B6uY998kpBFDd` |
 
+
+## Flux
+In directory `configs`, SSH keys flux(private) & flux.pub(public) exist which flux uses for GitOps. You can
+provide, paste content of, your own SSH keys there. Else, a new unique key pair will be generated every time for you. 
+
 <!-- TODO Add links for configuring individual tools -->
 To configure Individual tools refer to Playbook

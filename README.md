@@ -1,8 +1,8 @@
 # StakaterPlatform
 
-StakaterPlatform Supercharges kubernetes clusters to provides out of the box stacks to control, monitor, log, trace and security tools.
+Kick-start your kubernetes cluster with Stakater Platform. A consolidated solution for logging, tracing, monitoring, delivery, security and much more. 
 
-StakaterPlatform consist of 6 stacks
+StakaterPlatform consist of 6 stacks:
 - [Control](https://playbook.stakater.com/content/stacks/control.html)
 - [Delivery](https://playbook.stakater.com/content/stacks/delivery.html)
 - [Logging](https://playbook.stakater.com/content/stacks/logging.html)
@@ -11,35 +11,30 @@ StakaterPlatform consist of 6 stacks
 - [Tracing](https://playbook.stakater.com/content/stacks/tracing.html)
 
 
-### Kubernetes Cluster Requitements
+## Prerequisites
 
-- Kubernetes version >=1.11
-
-The Minimum collective resources for the Kubernetes cluster should be:
-- Total CPUs >= 4
-- Total Memory >= 32 GB
-
-## Prerequistes
-
+- Kubernetes cluster with at least 4 VCPUS & 16 GB of RAM
+- kubectl (Client Version: v1.15.3 - Server Version: v1.15.3)
+- helm (v2.15.0 or lower)
 - A working domain (e.g. `stakaterplatform.com` ) 
-- SSL Certificate for domain
-- kubectl >= 1.11
-- Helm == 2.11
+- SSL Certificate for that domain
 
 ## Installation
 
-- Fork this repository in Github and clone it locally.
-- Update [variables](#Configuration) in `variables.config`
-- Configure Variables:
-```
-make -f Makefile-dev configure
-```
-- Deploy:
-```
-make -f Makefile-dev deploy
-```
+1. [Duplicate](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/duplicating-a-repository#mirroring-a-repository) this [repository](https://github.com/stakater/stakaterplatform).
+2. Update [configuration variables](#Configuration) in `variables.config` file and provide the relevant values.
+3. [Recommended but optional] To take full advantage of the tool stack configure [Additional Variables](docs/detailed-config.md) as well.
+4. Add the public SSH key with from `configs/flux.pub` to your Git repository with **write access**. [Guide](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account)
+5. Ensure that correct context is set for kubectl & helm.
+6. run `make configure` this step will make all substitutions based on configuration variables in the repository. When prompted commit those changes.
+7. Once changes are committed, run `make deploy` this will deploy StakaterPlatform on your cluster(Estimated time: 5-10 minutes). :confetti_ball: :confetti_ball:
 
-StakaterPlatform Flux uses default ssh public/private key pair to provide GitOps. It is recommended to use own private/public key. To generate your own see [here](#Production Configuration and Hardening)
+**Note:** Since `variables.config` file and `configs/` directory contains private information those files are not being
+ tracked in git and won't/shouldn't be committed. In case you wan't to commit those changes run `make track-secrets`.
+
+## Verify
+
+Run `make verify` to run tests.
 
 ## Basic Configuration
 | Variables | Description | Default |  
@@ -48,7 +43,7 @@ StakaterPlatform Flux uses default ssh public/private key pair to provide GitOps
 | DNS_PROVIDER | Cloud DNS Provider | `aws` (Route53) |
 | EXTERNAL_DNS_AWS_ACCESS_KEY_ID | AWS Access Key Id | `nil` |
 | EXTERNAL_DNS_AWS_SECRET_ACCESS_KEY | AWS Secret Access Key | `nil` |
-| DOMAIN | Domain to expose StakaterPlatform | `nil` |
+| DOMAIN | Domain to use for StakaterPlatform | `nil` |
 | BASE64_ENCODED_SSL_CERTIFICATE_CA_CRT | Base64 encoded Intermediate Certificate value | `nil` |
 | BASE64_ENCODED_SSL_CERTIFICATE_TLS_CRT | Base64 encoded Server Certficate value |`nil` |
 | BASE64_ENCODED_SSL_CERTIFICATE_TLS_KEY | Base64 encoded Certificate Key value |`nil` |
@@ -61,19 +56,13 @@ See [Detailed Configurations](docs/detailed-config.md) for configuring available
 
 ## Uninstall
 
-Run the following to tear down StakaterPlatform
-```
-make -f Makefile-dev destroy
-```
+Run `make destroy` following to remove StakaterPlatform from your cluster.
 
 ## Production Configuration and Hardening
 
-- Change default usernames and passwords for all tools
-- Generate own SSH keys for Flux. To generate own keys:
-    - Run `ssh-keygen -q -N "" -f ./flux`
-    - Copy content of private key in configs/flux-key.private and
-    - Add flux.pub key in your corresponding git repo with write access.
-- Use Identity Providers (e.g. Google, Active Directory etc.) to authenticate to KeyCloak
+- Change default user-names and passwords for all tools (`variables.config`)
+- Add your own SSH keys for flux
+- Use Identity Providers (e.g. Google, Active Directory etc.) and configure keyclaok to use that
 
 ## Compatibility Matrix
 
@@ -82,3 +71,4 @@ StakaterPlatform has been tested on following kubernetes flavors:
 | Platform Version| K8s Version  | Infrastructure |
 |---|---|---|
 | v0.0.1 | 1.14 | eks.6 |
+| v0.0.1 | 1.14.8 | aks |

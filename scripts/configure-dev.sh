@@ -72,7 +72,7 @@ replace_configs  BASE64_ENCODED_KEYCLOAK_CONFIG configs/keycloak.json && \
 replace_configs  BASE64_ENCODED_NEXUS_ADMIN_ACCOUNT_JSON configs/nexus-admin-account.json && \
 replace_configs  BASE64_ENCODED_NEXUS_CLUSTER_ACCOUNT_JSON configs/nexus-cluster-account.json && \
 replace_configs  BASE64_ENCODED_PROXYINJECTOR_CONFIG configs/proxyinjector.yaml && \
-replace_configs  BASE64_ENCODED_FLUX_PRIVATE_KEY configs/flux-key.private
+replace_configs  BASE64_ENCODED_FLUX_PRIVATE_KEY configs/flux
 
 if [ $?==0 ]; then
   exit 0

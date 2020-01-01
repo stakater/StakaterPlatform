@@ -1,4 +1,4 @@
 .idea/**
-configs/**
-scripts/**
-variables.config
+#configs/**
+#scripts/**
+#variables.config
