@@ -12,13 +12,13 @@ spec:
   values:
     rbac:
       create: true
-      clusterAdminRole: true    
-    # annotations:
-    #   authproxy.stakater.com/enabled: "true"
-    #   authproxy.stakater.com/upstream-url: "http://127.0.0.1:9090"
-    #   authproxy.stakater.com/source-service-name: stakater-control-dashboard-kubernetes-dashboard
-    #   authproxy.stakater.com/redirection-url: "https://dashboard.control.stakater.com"
-    #   authproxy.stakater.com/listen: "0.0.0.0:80"
+      clusterAdminRole: true
+#     annotations:
+#       authproxy.stakater.com/enabled: "true"
+#       authproxy.stakater.com/upstream-url: "http://127.0.0.1:9090"
+#       authproxy.stakater.com/source-service-name: stakater-control-dashboard-kubernetes-dashboard
+#       authproxy.stakater.com/redirection-url: "https://dashboard.control.DOMAIN"
+#       authproxy.stakater.com/listen: "0.0.0.0:80"
     enableInsecureLogin: true
     enableSkipLogin: false
     service:

@@ -90,8 +90,6 @@ spec:
       hostAliases: []
       image:
         pullPolicy: IfNotPresent
-        # pullSecrets:
-        # - dockerconfig
         repository: jboss/keycloak
         tag: 6.0.1
       ingress:

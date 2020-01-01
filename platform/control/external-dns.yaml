@@ -19,7 +19,7 @@ spec:
       - DOMAIN
     txtOwnerId: stakater-platform
     registry: txt
-    provider: aws
+    provider: DNS_PROVIDER
     extraEnv:
       - name: AWS_ACCESS_KEY_ID
         valueFrom:
@@ -39,4 +39,4 @@ spec:
     - key: "dedicated"
       operator: "Equal"
       value: "app"
-      effect: "NoSchedule"  
+      effect: "NoSchedule"

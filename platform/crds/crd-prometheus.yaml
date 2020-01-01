@@ -7,7 +7,6 @@ metadata:
   name: prometheuses.monitoring.coreos.com
   labels:
     app: prometheus-operator-operator
-    
     chart: prometheus-operator-5.10.3
     heritage: "Tiller"
   annotations:

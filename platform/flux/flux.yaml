@@ -11,30 +11,24 @@ spec:
     version: 0.15.0
   values:
     replicaCount: 1
-
     image:
       repository: docker.io/fluxcd/flux
       tag: 1.15.0
-
     helmOperator:
       create: false
       createCRD: false
-
     rbac:
       create: false
-    
     clusterRole:
       create: false
-    
     serviceAccount:
       create: false
       name: helm-operator
-    
     git:
       url: "ssh://STAKATER_PLATFORM_SSH_GIT_URL"
-      pollInterval: "2m"
+      pollInterval: "1m"
       branch: "STAKATER_PLATFORM_BRANCH"
       path: "platform"
-
+      secretName: flux-key
     additionalArgs:
       - --k8s-allow-namespace=control,delivery,security,logging,monitoring,tracing,kube-system

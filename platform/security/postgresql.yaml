@@ -48,22 +48,10 @@ spec:
       user: repl_user
       
     postgresqlUsername: keycloak
-    #postgresqlPassword: 
     existingSecret: postgres-secret
     usePasswordFile: false
     postgresqlDatabase: keycloak-db
     postgresqlDataDir: /bitnami/postgresql/data
-    #postgresqlInitdbArgs: 
-    #postgresqlInitdbWalDir: 
-    #postgresqlConfiguration: 
-    #postgresqlExtendedConf: 
-    #pgHbaConfiguration:  
-    #configurationConfigMap: 
-    #extendedConfConfigMap: 
-    #initdbScripts: 
-    #initdbScriptsConfigMap: 
-    #initdbScriptsSecret: 
-    #terminationGracePeriodSeconds: 
     service:
       annotations: {}
       port: 5432
@@ -158,5 +146,3 @@ spec:
       serviceMonitor:
         additionalLabels: {}
         enabled: false
-      
-    # extraEnv: map[]

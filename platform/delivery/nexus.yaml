@@ -239,9 +239,9 @@ spec:
           apk add --no-cache curl
 
           # Admin Account details specified in nexus secret .admin_account.json
-          ADMIN_ACCOUNT_USERNAME=NEXUS_ADMIN_ACCOUNT_USERNAME
+          ADMIN_ACCOUNT_USERNAME=NEXUS_ADMIN_ACCOUNT_USER
           # Cluster Account details specified in nexus secret .cluster_account.json
-          CLUSTER_ACCOUNT_USERNAME=NEXUS_CLUSTER_ACCOUNT_USERNAME
+          CLUSTER_ACCOUNT_USERNAME=NEXUS_CLUSTER_ACCOUNT_USER
 
           echo `pwd`
           cd /sonatype-nexus-conf/

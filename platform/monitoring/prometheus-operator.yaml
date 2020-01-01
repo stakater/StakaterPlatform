@@ -10,7 +10,6 @@ spec:
     name: prometheus-operator
     version: 5.11.0
   values:
-    # to override the names
     nameOverride: stakater
     fullnameOverride: stakater
     global:

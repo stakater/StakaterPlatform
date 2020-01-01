@@ -1,0 +1,17 @@
+gatekeeper-image : "keycloak/keycloak-gatekeeper:5.0.0"
+client-id: KEYCLOAK_CLIENT_ID
+client-secret: KEYCLOAK_CLIENT_SECRET
+discovery-url: "https://keycloak-security.DOMAIN/auth/realms/stakater"
+enable-default-deny: true
+secure-cookie: false
+verbose: true
+enable-logging: true
+cors-origins:
+  - '*'
+cors-methods:
+  - GET
+  - POST
+resources:
+  - uri: '/*'
+scopes:
+  - 'good-service'

@@ -33,7 +33,3 @@ spec:
       enabled: false
     kiali:
       enabled: true
-#    gateway:
-#      istio-ingressgateway:
-#        ports:
-#          nodePort: 31399
