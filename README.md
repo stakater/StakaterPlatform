@@ -1,6 +1,8 @@
 # StakaterPlatform
 
 Kick-start your kubernetes cluster with Stakater Platform. A consolidated solution for logging, tracing, monitoring, delivery, security and much more. 
+For detailed walk-through please visit [StakaterPlatform](https://playbook.stakater.com/content/stacks/stakaterplatform.html)
+
 
 StakaterPlatform consist of 6 stacks:
 - [Control](https://playbook.stakater.com/content/stacks/control.html)
@@ -14,7 +16,7 @@ StakaterPlatform consist of 6 stacks:
 ## Prerequisites
 
 - Kubernetes cluster with at least 4 VCPUS & 16 GB of RAM
-- kubectl (Client Version: v1.15.3 - Server Version: v1.15.3)
+- kubectl (between v1.11 & v1.15.3)
 - helm (v2.15.0 or lower)
 - A working domain (e.g. `stakaterplatform.com` ) 
 - SSL Certificate for that domain
@@ -22,11 +24,11 @@ StakaterPlatform consist of 6 stacks:
 ## Installation
 
 1. [Duplicate](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/duplicating-a-repository#mirroring-a-repository) this [repository](https://github.com/stakater/stakaterplatform).
-2. Update [configuration variables](#Configuration) in `variables.config` file and provide the relevant values.
+2. Update [configuration variables](#Basic-Configuration) in `variables.config` file and provide the relevant values.
 3. [Recommended but optional] To take full advantage of the tool stack configure [Additional Variables](docs/detailed-config.md) as well.
-4. Add the public SSH key with from `configs/flux.pub` to your Git repository with **write access**. [Guide](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account)
+4. [Add the public SSH key](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) from `configs/flux.pub` to your Git repository with **write access**.
 5. Ensure that correct context is set for kubectl & helm.
-6. run `make configure` this step will make all substitutions based on configuration variables in the repository. When prompted commit those changes.
+6. run `make configure`, this will make all required substitutions based on configuration variables in the repository. When prompted commit those changes.
 7. Once changes are committed, run `make deploy` this will deploy StakaterPlatform on your cluster(Estimated time: 5-10 minutes). :confetti_ball: :confetti_ball:
 
 **Note:** Since `variables.config` file and `configs/` directory contains private information those files are not being
@@ -34,7 +36,7 @@ StakaterPlatform consist of 6 stacks:
 
 ## Verify
 
-Run `make verify` to run tests.
+Run `make verify` to run tests to ensure that all the relevant endpoints are up and running.
 
 ## Basic Configuration
 | Variables | Description | Default |  
@@ -56,7 +58,7 @@ See [Detailed Configurations](docs/detailed-config.md) for configuring available
 
 ## Uninstall
 
-Run `make destroy` following to remove StakaterPlatform from your cluster.
+Run `make destroy` to remove StakaterPlatform from your cluster.
 
 ## Production Configuration and Hardening
 
@@ -72,3 +74,11 @@ StakaterPlatform has been tested on following kubernetes flavors:
 |---|---|---|
 | v0.0.1 | 1.14 | eks.6 |
 | v0.0.1 | 1.14.8 | aks |
+
+
+## Community
+
+If you have questions, check the [Documentation](https://playbook.stakater.com/content/stacks/stakaterplatform.html) and
+ talk to us on slack [#community on Stakater Slack](https://stakater.slack.com/messages/community).
+ 
+Click [here](https://slack-inviter.stakater.com) to join [Stakater](https://stakater.com) on Slack.
