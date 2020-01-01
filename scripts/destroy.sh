@@ -15,5 +15,7 @@ helm reset --force
 # Remove Helm Operator
 helm delete --purge helm-operator
 
+#TODO remove role and cluster roles
+
 # Delete all namespaces
 kubectl delete namespaces $NAMESPACES
