@@ -1,10 +1,10 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
-  name: metrics-server
+  name: stakater-monitoring-metrics-server
   namespace: monitoring
 spec:
-  releaseName: metrics-server
+  releaseName: stakater-monitoring-metrics-server
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com
     name: metrics-server
@@ -13,19 +13,90 @@ spec:
     hostNetwork:
       enabled: true
     image:
-      tag: v0.3.5
+      tag: v0.3.6
     args:
       - --kubelet-insecure-tls
 ---
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: stakater-monitoring-metrics-server-aggregated-metrics-reader
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-view: "true"
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
+rules:
+  - apiGroups: ["metrics.k8s.io"]
+    resources: ["pods", "nodes"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: stakater-monitoring-metrics-server-system:auth-delegator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects:
+  - kind: ServiceAccount
+    name: metrics-server
+    namespace: monitoring
+---
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: stakater-metrics-server-auth-reader
-  namespace: kube-system
+  name: stakater-monitoring-metrics-server-auth-reader
+  namespace: monitoring
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: extension-apiserver-authentication-reader
+subjects:
+  - kind: ServiceAccount
+    name: metrics-server
+    namespace: monitoring
+---
+apiVersion: apiregistration.k8s.io/v1beta1
+kind: APIService
+metadata:
+  name: stakater-monitoring-metrics-server-v1beta1.metrics.k8s.io
+spec:
+  service:
+    name: stakater-monitoring-metrics-server
+    namespace: monitoring
+  group: metrics.k8s.io
+  version: v1beta1
+  insecureSkipTLSVerify: true
+  groupPriorityMinimum: 100
+  versionPriority: 100
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: stakater-monitoring-metrics-server
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - nodes
+      - nodes/stats
+      - namespaces
+      - configmaps
+    verbs:
+      - get
+      - list
+      - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: stakater-monitoring-metrics-server
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: stakater-monitoring-metrics-server
 subjects:
   - kind: ServiceAccount
     name: metrics-server
