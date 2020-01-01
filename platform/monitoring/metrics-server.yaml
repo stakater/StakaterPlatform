@@ -1,0 +1,32 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: metrics-server
+  namespace: monitoring
+spec:
+  releaseName: metrics-server
+  chart:
+    repository: https://kubernetes-charts.storage.googleapis.com
+    name: metrics-server
+    version: 2.8.8
+  values:
+    hostNetwork:
+      enabled: true
+    image:
+      tag: v0.3.5
+    args:
+      - --kubelet-insecure-tls
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: stakater-metrics-server-auth-reader
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: extension-apiserver-authentication-reader
+subjects:
+  - kind: ServiceAccount
+    name: metrics-server
+    namespace: monitoring
