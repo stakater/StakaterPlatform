@@ -20,7 +20,7 @@ StakaterPlatform consist of 6 stacks:
 
 ## Prerequisites
 
-- Kubernetes cluster with at least 8 VCPUS & 32 GB of RAM
+- Kubernetes cluster with at least 8 vCPUs & 32 GB of RAM
 - kubectl (between v1.11 & v1.15.3)
 - helm (v2.15.0 or lower)
 - A working domain (e.g. `stakaterplatform.com` ) 
@@ -57,9 +57,11 @@ Run `make verify` to run tests to ensure that all the relevant endpoints are up 
 | STAKATER_PLATFORM_SSH_GIT_URL | SSH URL for your Github repo. | `nil`<br>(e.g `git@github.com/stakater/StakaterPlatform.git`. Notice `:` is replaced with `/` in the URL ) |
 | STAKATER_PLATFORM_BRANCH | Branch to use for `STAKATER_PLATFORM_SSH_GIT_URL` | `master` |
 
-## Detailed Configuration
+## Detailed Configuration and Stack definitions
 
-See [Detailed Configurations](docs/detailed-config.md) for configuring available tools in the stacks. 
+See [Detailed Configurations](docs/detailed-config.md) for configuring available tools in the stacks.
+
+See [Stakater Playbook](https://playbook.stakater.com/content/stacks/stakaterplatform.html#overview) for stack definitions and configuration options.
 
 ## Uninstall
 

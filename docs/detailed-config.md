@@ -74,10 +74,10 @@ to work and provide you with up/down time alerts. For other supported down time 
 ## AlertManager
 | Variables | Description | Default |  
 |---|---|---|
-| SLACK_INFRA_ALERTS_WEBHOOK_URL | Slack channel webhook URL to send Alertmanager infrastructure alerts |`OPTIONAL` |
 | SLACK_INFRA_ALERTS_CHANNEL | Slack channel name to send Alertmanager infrastructure alerts |`#stakater-platform-infra-alerts` |
-| SLACK_APPS_ALERTS_WEBHOOK_URL | Slack channel name to send Alertmanager application alerts |`OPTIONAL` |
+| SLACK_INFRA_ALERTS_WEBHOOK_URL | Slack channel webhook URL to send Alertmanager infrastructure alerts |`OPTIONAL` |
 | SLACK_APPS_ALERTS_CHANNEL | Slack channel webhook URL to send Alertmanager application alerts |`#stakater-platform-apps-alerts` |
+| SLACK_APPS_ALERTS_WEBHOOK_URL | Slack channel name to send Alertmanager application alerts |`OPTIONAL` |
 
 ## Grafana
 | Variables | Description | Default |  
@@ -89,6 +89,3 @@ to work and provide you with up/down time alerts. For other supported down time 
 ## Flux
 In directory `configs`, SSH keys flux(private) & flux.pub(public) exist which flux uses for GitOps. You can
 provide, paste content of, your own SSH keys there. Else, a new unique key pair will be generated every time for you. 
-
-<!-- TODO Add links for configuring individual tools -->
-To configure Individual tools refer to Playbook
