@@ -9,7 +9,7 @@ How can a novice user deploy tools that are required for the management of kuber
 Kick-start your kubernetes cluster with Stakater Platform. A consolidated solution for logging, tracing, monitoring, delivery, security and much more. 
 For detailed walk-through please visit [StakaterPlatform](https://playbook.stakater.com/content/stacks/stakaterplatform.html)
 
-StakaterPlatform consist of 6 stacks:
+StakaterPlatform consist of the following stacks:
 - [Control](https://playbook.stakater.com/content/stacks/control.html)
 - [Delivery](https://playbook.stakater.com/content/stacks/delivery.html)
 - [Logging](https://playbook.stakater.com/content/stacks/logging.html)
