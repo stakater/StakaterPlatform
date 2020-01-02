@@ -27,7 +27,7 @@ StakaterPlatform consist of 6 stacks:
 - A working domain (e.g. `stakaterplatform.com` ) 
 - SSL Certificate for that domain
 
-## Installation
+## Installation locally
 
 1. [Duplicate](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/duplicating-a-repository#mirroring-a-repository) this [repository](https://github.com/stakater/stakaterplatform).
 2. Update [configuration variables](#Basic-Configuration) in `variables.config` file and provide the relevant values.
@@ -40,9 +40,31 @@ StakaterPlatform consist of 6 stacks:
 **Note:** Since `variables.config` file and `configs/` directory contains private information those files are not being
  tracked in git and won't/shouldn't be committed. In case you wan't to commit those changes run `make track-secrets`.
 
-## Verify
+## Installation via GitLab CI
 
+1. [Duplicate](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/duplicating-a-repository#mirroring-a-repository) this [repository](https://github.com/stakater/stakaterplatform) in a GitLab account.
+2. Update [configuration variables](#Basic-Configuration) in `variables.config` file and provide the relevant values.
+3. Create a [Personal Access Token](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#creating-a-personal-access-token) on GitLab and note down Personal Access Token (Available only when created)
+4. Configure CI/CD Environment variables in `<Your GitLab Project> -> Settings -> CI/CD`.
+5. Add Following variables for the pipeline
+
+| Pipeline Variables | Description |  
+|:---|:---|
+| KUBE_CONFIG | `Base64 encoded` KubeConfig of the kubernetes cluster you want to deploy on |
+| REPO_ACCESS_TOKEN | Personal access token generated in Step 3 |
+| TARGET | Make file target. Value: `pipeline-deploy` |
+
+6. [Add the public SSH key](https://docs.gitlab.com/ee/ssh/#per-repository-deploy-keys)(Deploy Keys) to your GitLab account with **write access** printed at the end of pipeline logs.
+7. Once key is added StakaterPlatform will deploy on your cluster (Estimated time: 10-15 minutes). :confetti_ball: :confetti_ball:
+
+## Verification
+
+### Locally
 Run `make verify` to run tests to ensure that all the relevant endpoints are up and running.
+
+### GitLab CI
+Run the same pipeline with Pipeline variable: `TARGET`=`verify`
+
 
 ## Basic Configuration
 | Variables | Description | Default |  

@@ -23,12 +23,13 @@ helm repo add fluxcd https://charts.fluxcd.io && helm repo update
 # Install helm Operator
 helm upgrade --version 0.2.0 -i --wait --force helm-operator fluxcd/helm-operator --namespace flux --set createCRD=true,serviceAccount.name=helm-operator,clusterRole.name=helm-operator
 
-# Install istio-init chart
-kubectl apply -f platform/istio-init.yaml
-
 # Install Flux
 kubectl apply -f platform/flux/secrets/secret-flux-key.yaml
 kubectl apply -f platform/flux/flux.yaml
+
+# Install istio-init chart
+kubectl apply -f platform/istio-init.yaml
+
 
 # Wait till all pods against flux deployment are deployed & then print flux public key
 kubectl -n flux wait --timeout=200s --for condition=ready pod -l release=flux
