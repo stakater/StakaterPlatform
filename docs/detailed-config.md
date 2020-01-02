@@ -35,11 +35,11 @@ to work and provide you with up/down time alerts. For other supported down time 
 |---|---|---|
 | KEYCLOAK_CLIENT_ID | Client ID for KeyCloak Gatekeeper  | `stakater-online-platform` |
 | KEYCLOAK_CLIENT_SECRET | Client Secret for KeyCloak Gatekeeper | `1ce66f91-2068-4f3d-9578-f03fa8259230` |
-| KEYCLOAK_DEFAULT_USERNAME | Username for the default user created |`nil` |
+| KEYCLOAK_DEFAULT_USERNAME | Username for the default user created |`stakater-user` |
 | KEYCLOAK_DEFAULT_PASSWORD | Password for the default user created |`zUPaZnEfmYpcdd6X` |
 | KEYCLOAK_DB_USER | KeyCloak DB (Postgresql) username |`admin` |
 | KEYCLOAK_DB_PASSWORD | KeyCloak DB (Postgresql) password |`L3VT3hBysLGtsJaZ` |
-| KEYCLOAK_PASSWORD | Password for the admin user `stackator` |`vuHBBDaVsS35jvF9` |
+| KEYCLOAK_PASSWORD | Password for the admin user `stakater` |`vuHBBDaVsS35jvF9` |
 
 ## IngressMonitorController IMC
 
