@@ -77,7 +77,7 @@ StakaterPlatform has been tested on following kubernetes flavors:
 
 | Platform Version| K8s Version  | Infrastructure |
 |---|---|---|
-| v0.0.1 | 1.14 | eks.6 ![image](./images/rsz_aws.png) |
+| v0.0.1 | 1.14 | eks.6 [![image](./images/rsz_eks.png)](https://aws.amazon.com/eks/) |
 | v0.0.1 | 1.14.8 | aks |
 
 
