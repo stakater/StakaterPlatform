@@ -15,6 +15,7 @@ StakaterPlatform consist of 6 stacks:
 - [Logging](https://playbook.stakater.com/content/stacks/logging.html)
 - [Monitoring](https://playbook.stakater.com/content/stacks/monitoring.html)
 - [Security](https://playbook.stakater.com/content/stacks/security.html)
+- [Alerting](https://playbook.stakater.com/content/stacks/alerting.html)
 - [Tracing](https://playbook.stakater.com/content/stacks/tracing.html)
 
 
