@@ -1,10 +1,10 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
-  name: infra-flux
+  name: stakater-infra-flux
   namespace: flux
 spec:
-  releaseName: flux
+  releaseName: stakater-infra-flux
   chart:
     repository: https://charts.fluxcd.io
     name: flux

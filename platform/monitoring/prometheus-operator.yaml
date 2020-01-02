@@ -1,10 +1,10 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
-  name: stakater-monitoring-po
+  name: stakater-monitoring-prometheus-operator
   namespace: monitoring
 spec:
-  releaseName: stakater-monitoring-po
+  releaseName: stakater-monitoring-prometheus-operator
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com
     name: prometheus-operator

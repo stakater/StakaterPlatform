@@ -15,6 +15,7 @@ StakaterPlatform consist of 6 stacks:
 - [Logging](https://playbook.stakater.com/content/stacks/logging.html)
 - [Monitoring](https://playbook.stakater.com/content/stacks/monitoring.html)
 - [Security](https://playbook.stakater.com/content/stacks/security.html)
+- [Alerting](https://playbook.stakater.com/content/stacks/alerting.html)
 - [Tracing](https://playbook.stakater.com/content/stacks/tracing.html)
 
 
@@ -79,8 +80,8 @@ StakaterPlatform has been tested on following kubernetes flavors:
 
 | Platform Version| K8s Version  | Infrastructure |
 |---|---|---|
-| v0.0.1 | 1.14 | eks.6 |
-| v0.0.1 | 1.14.8 | aks |
+| v0.0.1 | 1.14 | eks.6 [![image](./images/eks.png)](https://aws.amazon.com/eks/) |
+| v0.0.1 | 1.14.8 | aks [![image](./images/aks.png)](https://docs.microsoft.com/en-us/azure/aks/) |
 
 
 ## Community
