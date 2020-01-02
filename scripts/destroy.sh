@@ -9,11 +9,11 @@ done
 # Remove any remaing platform resources
 kubectl delete -f platform/
 
-# Remove Tiller
-helm reset --force
-
 # Remove Helm Operator
 helm delete --purge helm-operator
+
+# Remove Tiller
+helm reset --force
 
 #TODO remove role and cluster roles
 
