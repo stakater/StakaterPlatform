@@ -63,7 +63,7 @@ StakaterPlatform consist of 6 stacks:
 Run `make verify` to run tests to ensure that all the relevant endpoints are up and running.
 
 ### GitLab CI
-Run the same pipeline with Pipeline variable: `TARGET`=`verify`
+Run the same pipeline with Pipeline variable: `TARGET`: verify
 
 
 ## Basic Configuration
