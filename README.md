@@ -1,8 +1,13 @@
 # StakaterPlatform
 
-Kick-start your kubernetes cluster with StakaterPlatform. A consolidated solution for logging, tracing, monitoring, delivery, security and much more. 
-For detailed walk-through please visit [StakaterPlatform](https://playbook.stakater.com/content/stacks/stakaterplatform.html)
+## Problem Statement
 
+How can a novice user deploy tools that are required for the management of kubernetes cluster?
+
+## Solution
+
+Kick-start your kubernetes cluster with Stakater Platform. A consolidated solution for logging, tracing, monitoring, delivery, security and much more. 
+For detailed walk-through please visit [StakaterPlatform](https://playbook.stakater.com/content/stacks/stakaterplatform.html)
 
 StakaterPlatform consist of 6 stacks:
 - [Control](https://playbook.stakater.com/content/stacks/control.html)
@@ -41,7 +46,7 @@ Run `make verify` to run tests to ensure that all the relevant endpoints are up 
 ## Basic Configuration
 | Variables | Description | Default |  
 |---|---|---|
-| CLOUD_PROVIDER | Name of the k8s cloud provider | `nil` <br> (values: `aws` \| `azure`) |
+| CLOUD_PROVIDER | Name of the k8s cloud provider | `nil` <br> (`aws` \| `azure`) |
 | DNS_PROVIDER | Cloud DNS Provider | `aws` (Route53) |
 | EXTERNAL_DNS_AWS_ACCESS_KEY_ID | AWS Access Key Id | `nil` |
 | EXTERNAL_DNS_AWS_SECRET_ACCESS_KEY | AWS Secret Access Key | `nil` |
