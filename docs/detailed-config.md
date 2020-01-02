@@ -26,9 +26,6 @@ to work and provide you with up/down time alerts. For other supported down time 
 | BASE64_ENCODED_SSL_CERTIFICATE_TLS_KEY | Base64 encoded Certificate Key value |`nil` |
 | STAKATER_PLATFORM_SSH_GIT_URL | SSH URL for your Github repo. | `nil`<br>(e.g `git@github.com/stakater/StakaterPlatform.git`. Notice `:` is replaced with `/` in the URL ) |
 | STAKATER_PLATFORM_BRANCH | Branch to use for `STAKATER_PLATFORM_SSH_GIT_URL` | `master` |
-| USER_MAIL | Email to commit back to repository (Used if deployed via pipeline) |`stakater@gmail.com` |
-| USER_NAME | Username to commit back to repository (Used if deployed via pipeline) |`stakater-user` |
-| REPO_ACCESS_TOKEN | Token used commit back to repository (Used if deployed via pipeline) |`OPTIONAL` |
 
 ## KeyCloak
 | Variables | Description | Default |  
