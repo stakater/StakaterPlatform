@@ -40,7 +40,7 @@ StakaterPlatform consist of 7 stacks:
 
 
 **Note:** Since `variables.config` file and `configs/` directory contains private information those files are not being
- tracked in git and won't/shouldn't be committed. In case you wan't to commit those changes run `make track-secrets`.
+ tracked in git and won't/shouldn't be committed. In case you want to commit those changes run `make track-secrets`.
 
 ## Verify
 
@@ -72,7 +72,10 @@ Run `make destroy` to remove StakaterPlatform from your cluster.
 
 - Change default user-names and passwords for all tools (`variables.config`)
 - Add your own SSH keys for flux
-- Use Identity Providers (e.g. Google, Active Directory etc.) and configure keyclaok to use that
+- Use Identity Providers (e.g. Google, Active Directory etc.) and configure keycloak to use that
+- Replace all secrets with sealed-secrets. [Stakater Workshop - Sealed Secrets](https://playbook.stakater.com/content/workshop/sealed-secrets/introduction.html)
+- Use keycloak for SSO over all exposed applications
+
 
 ## Compatibility Matrix
 
