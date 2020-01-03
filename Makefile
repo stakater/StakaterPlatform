@@ -19,6 +19,8 @@ configure:
 deploy:
 	bash scripts/install.sh $(CLOUD_PROVIDER)
 
+pipeline-deploy: configure deploy
+
 verify:
 	for file in ./scripts/tests/* ; do \
 		$${file};	

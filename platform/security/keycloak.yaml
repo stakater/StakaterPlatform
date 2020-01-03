@@ -178,7 +178,7 @@ spec:
         name: null
       startupScripts: {}
       tolerations: []
-      username: stackator
+      username: stakater
       
     postgresql:
       persistence:

@@ -27,21 +27,16 @@ to work and provide you with up/down time alerts. For other supported down time 
 | STAKATER_PLATFORM_SSH_GIT_URL | SSH URL for your Github repo. | `nil`<br>(e.g `git@github.com/stakater/StakaterPlatform.git`. Notice `:` is replaced with `/` in the URL ) |
 | STAKATER_PLATFORM_BRANCH | Branch to use for `STAKATER_PLATFORM_SSH_GIT_URL` | `master` |
 
-| USER_MAIL | Base64 encoded Certificate Key value |`nil` |
-
-| USER_NAME | Base64 encoded Certificate Key value |`nil` |
-| REPO_ACCESS_TOKEN | Base64 encoded Certificate Key value |`nil` |
-
 ## KeyCloak
 | Variables | Description | Default |  
 |---|---|---|
 | KEYCLOAK_CLIENT_ID | Client ID for KeyCloak Gatekeeper  | `stakater-online-platform` |
 | KEYCLOAK_CLIENT_SECRET | Client Secret for KeyCloak Gatekeeper | `1ce66f91-2068-4f3d-9578-f03fa8259230` |
-| KEYCLOAK_DEFAULT_USERNAME | Username for the default user created |`nil` |
+| KEYCLOAK_DEFAULT_USERNAME | Username for the default user created |`stakater-user` |
 | KEYCLOAK_DEFAULT_PASSWORD | Password for the default user created |`zUPaZnEfmYpcdd6X` |
 | KEYCLOAK_DB_USER | KeyCloak DB (Postgresql) username |`admin` |
 | KEYCLOAK_DB_PASSWORD | KeyCloak DB (Postgresql) password |`L3VT3hBysLGtsJaZ` |
-| KEYCLOAK_PASSWORD | Password for the admin user `stackator` |`vuHBBDaVsS35jvF9` |
+| KEYCLOAK_PASSWORD | Password for the admin user `stakater` |`vuHBBDaVsS35jvF9` |
 
 ## IngressMonitorController IMC
 
@@ -61,7 +56,7 @@ to work and provide you with up/down time alerts. For other supported down time 
 ## Jenkins
 | Variables | Description | Default |  
 |---|---|---|
-| JENKINS_NOTIFICATIONS_SLACK_CHANNEL | Slack channel name to notify for jenkins pipeline result |`OPTIONAL` |
+| JENKINS_NOTIFICATIONS_SLACK_CHANNEL | Slack channel name to notify for jenkins pipeline result |`OPTIONAL` (e.g. `#slack-channel-name`) |
 | JENKINS_NOTIFICATIONS_SLACK_WEBHOOK_URL | Slack webhook URL to notify for jenkins pipeline result |`OPTIONAL` |
 | JENKINS_PIPELINE_GITHUB_TOKEN | GitHub API token. If configured Pipeline will comment on Pull Requests |`OPTIONAL` |
 | JENKINS_PIPELINE_GITLAB_TOKEN | GitLab API token. If configured Pipeline will comment on Pull Requests |`OPTIONAL` |
@@ -76,10 +71,10 @@ to work and provide you with up/down time alerts. For other supported down time 
 ## AlertManager
 | Variables | Description | Default |  
 |---|---|---|
+| SLACK_INFRA_ALERTS_CHANNEL | Slack channel name to send Alertmanager infrastructure alerts |`#stakater-platform-infra-alerts` |
 | SLACK_INFRA_ALERTS_WEBHOOK_URL | Slack channel webhook URL to send Alertmanager infrastructure alerts |`OPTIONAL` |
-| SLACK_INFRA_ALERTS_CHANNEL | Slack channel name to send Alertmanager infrastructure alerts |`stakater-platform-infra-alerts` |
+| SLACK_APPS_ALERTS_CHANNEL | Slack channel webhook URL to send Alertmanager application alerts |`#stakater-platform-apps-alerts` |
 | SLACK_APPS_ALERTS_WEBHOOK_URL | Slack channel name to send Alertmanager application alerts |`OPTIONAL` |
-| SLACK_APPS_ALERTS_CHANNEL | Slack channel webhook URL to send Alertmanager application alerts |`stakater-platform-apps-alerts` |
 
 ## Grafana
 | Variables | Description | Default |  
@@ -89,12 +84,7 @@ to work and provide you with up/down time alerts. For other supported down time 
 
 
 ## Flux
-In directory `configs`, SSH keys flux(private) & flux.pub(public) exist which flux uses for GitOps. You can
-provide, paste content of, your own SSH keys there. Else, a new unique key pair will be generated every time for you. 
-
-<!-- TODO Add links for configuring individual tools -->
-To configure Individual tools refer to Playbook
-
+In directory `configs`, SSH keys flux(private) & flux.pub(public) exist which flux uses for GitOps. You can provide, paste content of, your own SSH keys there. Else, a new unique key pair will be generated every time for you. 
 
 ## Useful Resources
 
@@ -102,6 +92,6 @@ To configure Individual tools refer to Playbook
 
 [Create Slack Webhook](https://playbook.stakater.com/content/processes/monitoring/creating-hooks-slack.html)
 
-[Configuring Kibana](https://playbook.stakater.com/content/processes/logging/configure-kibana.htmlhttps://playbook.stakater.com/content/processes/logging/configure-kibana.html)
+[Configuring Kibana](https://playbook.stakater.com/content/processes/logging/configure-kibana.html)
 
 [Keycloak](https://playbook.stakater.com/content/processes/security/keycloak.html)

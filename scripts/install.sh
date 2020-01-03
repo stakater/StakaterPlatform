@@ -23,12 +23,13 @@ helm repo add fluxcd https://charts.fluxcd.io && helm repo update
 # Install helm Operator
 helm upgrade --version 0.2.0 -i --wait --force helm-operator fluxcd/helm-operator --namespace flux --set createCRD=true,serviceAccount.name=helm-operator,clusterRole.name=helm-operator
 
-# Install istio-init chart
-kubectl apply -f platform/istio-init.yaml
-
 # Install Flux
 kubectl apply -f platform/flux/secrets/secret-flux-key.yaml
 kubectl apply -f platform/flux/flux.yaml
+
+# Install istio-init chart
+kubectl apply -f platform/istio-init.yaml
+
 
 # Wait till all pods against flux deployment are deployed & then print flux public key
 kubectl -n flux wait --timeout=200s --for condition=ready pod -l release=flux
@@ -38,4 +39,7 @@ kubectl -n flux wait --timeout=200s --for condition=ready pod -l release=flux
 # Wait for dashboard to be ready & then print dashboard access token
 kubectl -n control wait --timeout=200s --for condition=ready pod -l release=stakater-control-dashboard
 echo -e "\n========= Kubernetes Dashboard Access Token =========="
-kubectl -n control describe secret $(kubectl -n control get secret | grep stakater-control-dashboard-kubernetes-dashboard-token | awk '{print $1}') | grep 'token:' | cut -d ':' -f2
+kubectl -n control describe secret $(kubectl -n control get secret | grep stakater-control-dashboard-kubernetes-dashboard-token | awk '{print $1}') | grep 'token:' | awk '{print $2}'
+
+echo -e "\n======== Add the following Flux Public Key to your git repository ========"
+cat ./configs/flux.pub
