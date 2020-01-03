@@ -9,7 +9,7 @@ How can a novice user deploy tools that are required for the management of kuber
 Kick-start your kubernetes cluster with Stakater Platform. A consolidated solution for logging, tracing, monitoring, delivery, security and much more. 
 For detailed walk-through please visit [StakaterPlatform](https://playbook.stakater.com/content/stacks/stakaterplatform.html)
 
-StakaterPlatform consist of 6 stacks:
+StakaterPlatform consist of 7 stacks:
 - [Control](https://playbook.stakater.com/content/stacks/control.html)
 - [Delivery](https://playbook.stakater.com/content/stacks/delivery.html)
 - [Logging](https://playbook.stakater.com/content/stacks/logging.html)
@@ -36,6 +36,8 @@ StakaterPlatform consist of 6 stacks:
 5. Ensure that correct context is set for kubectl & helm.
 6. run `make configure`, this will make all required substitutions based on configuration variables in the repository. When prompted commit those changes.
 7. Once changes are committed, run `make deploy` this will deploy StakaterPlatform on your cluster(Estimated time: 5-10 minutes). :confetti_ball: :confetti_ball:
+8. Visit `https://forecastle-control.YOURDOMAINNAME` and you'll be able to view all applications deployed by StakaterPlatform.
+
 
 **Note:** Since `variables.config` file and `configs/` directory contains private information those files are not being
  tracked in git and won't/shouldn't be committed. In case you wan't to commit those changes run `make track-secrets`.

@@ -94,3 +94,14 @@ provide, paste content of, your own SSH keys there. Else, a new unique key pair 
 
 <!-- TODO Add links for configuring individual tools -->
 To configure Individual tools refer to Playbook
+
+
+## Useful Resources
+
+[Stakater Platform](https://playbook.stakater.com/content/stacks/stakaterplatform.html)
+
+[Create Slack Webhook](https://playbook.stakater.com/content/processes/monitoring/creating-hooks-slack.html)
+
+[Configuring Kibana](https://playbook.stakater.com/content/processes/logging/configure-kibana.htmlhttps://playbook.stakater.com/content/processes/logging/configure-kibana.html)
+
+[Keycloak](https://playbook.stakater.com/content/processes/security/keycloak.html)
