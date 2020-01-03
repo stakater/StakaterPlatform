@@ -18,7 +18,7 @@ replace_configs() {
 }
 
 replace_domain_in_tests() {
-    find configs/tests -type f -name "*.sh" -print0 | xargs -0 sed -i "s|DOMAIN|${DOMAIN}|g"
+    find scripts/tests -type f -name "*.sh" -print0 | xargs -0 sed -i "s|DOMAIN|${DOMAIN}|g"
 }
 
 # Replace following keys with their values in config and platform
