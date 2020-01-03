@@ -9,7 +9,8 @@ How can a novice user deploy tools that are required for the management of kuber
 Kick-start your kubernetes cluster with Stakater Platform. A consolidated solution for logging, tracing, monitoring, delivery, security and much more. 
 StakaterPlatform gives you a head start for managing your kubernetes cluster by providing open source tools across seven 
 stacks so that you are only concerned about developing your applications, StakaterPlatform will take care of the rest.
-For detailed walk-through please visit [StakaterPlatform](https://playbook.stakater.com/content/stacks/stakaterplatform.html)
+
+For detailed walk-through please visit [StakaterPlatform on Playbook](https://playbook.stakater.com/content/stacks/stakaterplatform.html)
 
 
 StakaterPlatform consist of 7 stacks:
@@ -111,6 +112,9 @@ Run `make destroy` to remove StakaterPlatform from your cluster.
 - Use Identity Providers (e.g. Google, Active Directory etc.) and configure keyCloak to use that
 - Replace all secrets with sealed-secrets. [Stakater Workshop - Sealed Secrets](https://playbook.stakater.com/content/workshop/sealed-secrets/introduction.html)
 - Use keycloak for SSO over all exposed applications
+- Enable mTLS between microservices to prevent unauthorized connections between pods
+- Only allow restricted access to users other than the administrator for dashboard
+- Don't share your kubeconfig file and other secrets, it's suggested to keep such things in [vault](https://github.com/hashicorp/hands-on-with-vault-on-kubernetes)
 
 
 ## Compatibility Matrix
