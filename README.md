@@ -107,10 +107,10 @@ Run `make destroy` to remove StakaterPlatform from your cluster.
 
 ## Production Configuration and Hardening
 
+- Replace all secrets with sealed-secrets. [Stakater Workshop - Sealed Secrets](https://playbook.stakater.com/content/workshop/sealed-secrets/introduction.html) In coming updates for StakaterPlatform this will be followed by default
 - Change default usernames and passwords for all tools (`variables.config`)
 - Add your own SSH keys for flux
 - Use Identity Providers (e.g. Google, Active Directory etc.) and configure keyCloak to use that
-- Replace all secrets with sealed-secrets. [Stakater Workshop - Sealed Secrets](https://playbook.stakater.com/content/workshop/sealed-secrets/introduction.html)
 - Use keycloak for SSO over all exposed applications
 - Enable mTLS between microservices to prevent unauthorized connections between pods
 - Only allow restricted access to users other than the administrator for dashboard
