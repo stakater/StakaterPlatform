@@ -7,6 +7,8 @@ How can a novice user deploy tools that are required for the management of kuber
 ## Solution
 
 Kick-start your kubernetes cluster with Stakater Platform. A consolidated solution for logging, tracing, monitoring, delivery, security and much more. 
+StakaterPlatform gives you a head start for managing your kubernetes cluster by providing open source tools across seven 
+stacks so that you are only concerned about developing your applications, StakaterPlatform will take care of the rest.
 For detailed walk-through please visit [StakaterPlatform](https://playbook.stakater.com/content/stacks/stakaterplatform.html)
 
 

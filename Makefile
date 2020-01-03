@@ -8,7 +8,7 @@ include variables.config
 configure:
 	git checkout $(STAKATER_PLATFORM_BRANCH) 2>/dev/null || git checkout -b $(STAKATER_PLATFORM_BRANCH) && \
 	yes | ssh-keygen -q -N "" -f ./configs/flux >/dev/null && \
-	bash scripts/configure-dev.sh && \
+	bash scripts/configure.sh && \
 	# TODO add pre-commit hook for skipping these files
 	git update-index --skip-worktree variables.config && \
 	git update-index --skip-worktree $(git ls-files | grep 'configs/') && \
