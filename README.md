@@ -36,10 +36,9 @@ StakaterPlatform consist of 7 stacks:
 3. [Recommended but optional] To take full advantage of the tool stack configure [Additional Variables](docs/detailed-config.md) as well.
 4. Ensure that correct context is set for kubectl & helm.
 5. run `make configure`, this will make all required substitutions based on configuration variables in the repository. When prompted commit those changes.
-6. Once changes are committed, run `make deploy` this will deploy flux and output the flux public ssh key.
-7. [Add the public SSH key](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) to your Git repository with **write access**.
-8. Once key is added StakaterPlatform will deploy on your cluster (Estimated time: 10-15 minutes). :confetti_ball: :confetti_ball:
-9. Use the printed dashboard token to access the Kubernetes dashboard at `dashboard-control.DOMAIN`
+6. [Add the public SSH key](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) of flux(configs/flux.pub) to your Git repository with **write access**.
+7. Once changes are committed, run `make deploy` this will deploy flux, which will in turn deploy StakaterPlatform via GitOps. Estimated time for everything to be up and running is 5-10 
+9. Use the printed dashboard token to access the Kubernetes dashboard at `dashboard-control.YOURDOMAINNAME`
 10. Visit `https://forecastle-control.YOURDOMAINNAME` and you'll be able to view all applications deployed by StakaterPlatform.
 
 
