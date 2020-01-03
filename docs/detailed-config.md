@@ -84,5 +84,14 @@ to work and provide you with up/down time alerts. For other supported down time 
 
 
 ## Flux
-In directory `configs`, SSH keys flux(private) & flux.pub(public) exist which flux uses for GitOps. You can
-provide, paste content of, your own SSH keys there. Else, a new unique key pair will be generated every time for you. 
+In directory `configs`, SSH keys flux(private) & flux.pub(public) exist which flux uses for GitOps. You can provide, paste content of, your own SSH keys there. Else, a new unique key pair will be generated every time for you. 
+
+## Useful Resources
+
+[Stakater Platform](https://playbook.stakater.com/content/stacks/stakaterplatform.html)
+
+[Create Slack Webhook](https://playbook.stakater.com/content/processes/monitoring/creating-hooks-slack.html)
+
+[Configuring Kibana](https://playbook.stakater.com/content/processes/logging/configure-kibana.html)
+
+[Keycloak](https://playbook.stakater.com/content/processes/security/keycloak.html)
