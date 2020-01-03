@@ -30,7 +30,3 @@ execute:
   stage: execute
   script:
     - make $TARGET
-    - if [ $TARGET == "pipeline-deploy"]
-    -   echo "===== Add the following Flux Public key to your GitLab account ====="
-    -   cat ./configs/flux.pub
-    - fi

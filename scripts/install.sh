@@ -40,3 +40,6 @@ kubectl -n flux wait --timeout=200s --for condition=ready pod -l release=flux
 kubectl -n control wait --timeout=200s --for condition=ready pod -l release=stakater-control-dashboard
 echo -e "\n========= Kubernetes Dashboard Access Token =========="
 kubectl -n control describe secret $(kubectl -n control get secret | grep stakater-control-dashboard-kubernetes-dashboard-token | awk '{print $1}') | grep 'token:' | awk '{print $2}'
+
+echo -e "\n======== Add the following Flux Public Key to your git repository ========"
+cat ./configs/flux.pub

@@ -32,10 +32,12 @@ StakaterPlatform consist of the following stacks:
 1. [Duplicate](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/duplicating-a-repository#mirroring-a-repository) this [repository](https://github.com/stakater/stakaterplatform).
 2. Update [configuration variables](#Basic-Configuration) in `variables.config` file and provide the relevant values.
 3. [Recommended but optional] To take full advantage of the tool stack configure [Additional Variables](docs/detailed-config.md) as well.
-4. [Add the public SSH key](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) from `configs/flux.pub` to your Git repository with **write access**.
 5. Ensure that correct context is set for kubectl & helm.
 6. run `make configure`, this will make all required substitutions based on configuration variables in the repository. When prompted commit those changes.
-7. Once changes are committed, run `make deploy` this will deploy StakaterPlatform on your cluster(Estimated time: 5-10 minutes). :confetti_ball: :confetti_ball:
+7. Once changes are committed, run `make deploy` this will deploy flux and output the flux public ssh key.
+4. [Add the public SSH key](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) to your Git repository with **write access**.
+7. Once key is added StakaterPlatform will deploy on your cluster (Estimated time: 10-15 minutes). :confetti_ball: :confetti_ball:
+8. Use the printed dashboard token to access the Kubernetes dashboard at `dashboard-control.DOMAIN`
 
 **Note:** Since `variables.config` file and `configs/` directory contains private information those files are not being
  tracked in git and won't/shouldn't be committed. In case you wan't to commit those changes run `make track-secrets`.
@@ -58,6 +60,7 @@ StakaterPlatform consist of the following stacks:
 
 6. [Add the public SSH key](https://docs.gitlab.com/ee/ssh/#per-repository-deploy-keys)(Deploy Keys) to your GitLab account with **write access** printed at the end of pipeline logs.
 7. Once key is added StakaterPlatform will deploy on your cluster (Estimated time: 10-15 minutes). :confetti_ball: :confetti_ball:
+8. Use the printed dashboard token to access the Kubernetes dashboard at `dashboard-control.DOMAIN`
 
 ## Verification
 
@@ -65,7 +68,7 @@ StakaterPlatform consist of the following stacks:
 Run `make verify` to run tests to ensure that all the relevant endpoints are up and running.
 
 ### GitLab CI
-Run the same pipeline with Pipeline variable: `TARGET`: verify
+Run pipeline with Pipeline variable: `TARGET` = verify 
 
 
 ## Basic Configuration
