@@ -88,6 +88,10 @@ Run pipeline with Pipeline variable: `TARGET` = verify
 | STAKATER_PLATFORM_SSH_GIT_URL | SSH URL for your Github repo. | `nil`<br>(e.g `git@github.com/stakater/StakaterPlatform.git`. Notice `:` is replaced with `/` in the URL ) |
 | STAKATER_PLATFORM_BRANCH | Branch to use for `STAKATER_PLATFORM_SSH_GIT_URL` | `master` |
 
+
+For generating certificates view: [Creating & using custom SSL certificates](https://playbook.stakater.com/content/processes/exposing/create-use-tls-custom-cert.html)
+
+
 ## Detailed Configuration and Stack definitions
 
 See [Detailed Configurations](docs/detailed-config.md) for configuring available tools in the stacks.

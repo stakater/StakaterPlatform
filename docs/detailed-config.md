@@ -95,3 +95,5 @@ In directory `configs`, SSH keys flux(private) & flux.pub(public) exist which fl
 [Configuring Kibana](https://playbook.stakater.com/content/processes/logging/configure-kibana.html)
 
 [Keycloak](https://playbook.stakater.com/content/processes/security/keycloak.html)
+
+[Creating & using custom SSL certificates](https://playbook.stakater.com/content/processes/exposing/create-use-tls-custom-cert.html)
