@@ -27,12 +27,17 @@ StakaterPlatform consist of 7 stacks:
 ## Prerequisites
 
 - Kubernetes cluster with at least 8 VCPUS & 32 GB of RAM
-- kubectl (between v1.11 & v1.15.3)
-- helm (v2.15.0 or lower)
 - A working domain (e.g. `stakaterplatform.com` ) 
-- SSL Certificate for that domain
+- SSL Certificate for that domain. [Creating & using custom SSL certificates](https://playbook.stakater.com/content/processes/exposing/create-use-tls-custom-cert.html)
+
 
 ## Install via local machine
+
+### Prerequisites
+
+- kubectl (between v1.11 & v1.15.3)
+- helm (v2.15.0 or lower)
+
 
 1. [Duplicate](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/duplicating-a-repository#mirroring-a-repository) this [repository](https://github.com/stakater/stakaterplatform).
 2. Update [configuration variables](#Basic-Configuration) in `variables.config` file and provide the relevant values.
@@ -65,7 +70,7 @@ StakaterPlatform consist of 7 stacks:
 | AWS_SECRET_ACCESS_KEY | (Define only if `CLOUD_PROVIDER` is `aws`) AWS Secret Access Key. |
 
 6. [Add the public SSH key](https://docs.gitlab.com/ee/ssh/#per-repository-deploy-keys)(Deploy Keys) to your GitLab account with **write access** printed at the end of pipeline logs.
-7. Once key is added StakaterPlatform will deploy on your cluster (Estimated time: 10-15 minutes). :confetti_ball: :confetti_ball:
+7. Once key is added StakaterPlatform will deploy on your cluster (Estimated time: 5-10 minutes). :confetti_ball: 
 8. Use the printed dashboard token to access the Kubernetes dashboard at `dashboard-control.DOMAIN`
 
 ## Verification
