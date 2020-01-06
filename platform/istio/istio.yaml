@@ -1,10 +1,10 @@
 apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
-  name: stakater-tracing-istio
-  namespace: tracing
+  name: stakater-istio
+  namespace: istio-system
 spec:
-  releaseName: stakater-tracing-istio
+  releaseName: stakater-istio
   chart:
     repository: https://storage.googleapis.com/istio-release/releases/1.4.2/charts/
     name: istio
@@ -27,8 +27,6 @@ spec:
       enabled: false
     tracing:
       enabled: true
-      ingress:
-        enabled: true
     grafana:
       enabled: false
     kiali:
