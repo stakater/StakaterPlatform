@@ -61,11 +61,11 @@ spec:
       accessModes:
       - ReadWriteOnce
       annotations:
-        helm.sh/resource-policy: keep
+        helm.sh/resource-policy: delete
       enabled: true
       mountPath: /bitnami/postgresql
       size: 1Gi
-      storageClass: stakater-sc
+      storageClass: stakater-storageclass
       subPath: ""
       
     updateStrategy:

@@ -27,9 +27,13 @@ spec:
       master: "false"
       ingest: "false"
       data: "true"
+    persistence:
+      enabled: true
+      annotations:
+        helm.sh/resource-policy: delete
     volumeClaimTemplate:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: stakater-sc
+      storageClassName: stakater-storageclass
       resources:
         requests:
           storage: 20Gi
