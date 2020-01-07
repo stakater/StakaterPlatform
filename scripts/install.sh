@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CLOUD_PROVIDER=${1}
-NAMESPACES="control delivery logging monitoring security tracing flux"
+NAMESPACES="control delivery logging monitoring security tracing flux istio-system"
 TLS_SECRET_FILE="platform/control/secrets/secret-tls-cert.yaml"
 
 # Create Namespaces
