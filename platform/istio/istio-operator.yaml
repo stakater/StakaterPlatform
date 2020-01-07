@@ -49,7 +49,7 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  namespace: istio-operator
+  namespace: istio-system
   name: istio-operator
 ...
 ---
@@ -174,7 +174,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: istio-operator
-    namespace: istio-operator
+    namespace: istio-system
 roleRef:
   kind: ClusterRole
   name: istio-operator
@@ -184,7 +184,7 @@ roleRef:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: istio-operator
+  namespace: istio-system
   labels:
     name: istio-operator
   name: istio-operator-metrics
@@ -200,7 +200,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: istio-operator
+  namespace: istio-system
   name: istio-operator
 spec:
   replicas: 1
