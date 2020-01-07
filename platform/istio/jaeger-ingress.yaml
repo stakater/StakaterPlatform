@@ -10,7 +10,7 @@ metadata:
     forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/jaeger.png
     ingress.kubernetes.io/rewrite-target: /
   name: jaeger-ingress
-  namespace: istio-system
+  namespace: tracing
 spec:
   rules:
   - host: jaeger-tracing.DOMAIN

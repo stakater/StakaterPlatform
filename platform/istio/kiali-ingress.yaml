@@ -10,7 +10,7 @@ metadata:
     forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/kiali.png
     ingress.kubernetes.io/rewrite-target: /
   name: kiali-ingress
-  namespace: istio-system
+  namespace: tracing
 spec:
   rules:
   - host: kiali-tracing.DOMAIN
