@@ -19,6 +19,9 @@ configure:
 deploy:
 	bash scripts/install.sh $(CLOUD_PROVIDER)
 
+deploy-without-flux:
+	kubectl apply -f platform/
+
 pipeline-deploy: configure deploy
 
 verify:
