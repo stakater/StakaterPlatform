@@ -1,0 +1,42 @@
+apiVersion: install.istio.io/v1alpha2
+kind: IstioControlPlane
+metadata:
+  namespace: istio-system
+  name: stakater-istiocontrolplane
+spec:
+  profile: default
+  autoInjection:
+    components:
+      injector:
+        enabled: true
+    enabled: true
+  telemetry:
+    components:
+      telemetry:
+        enabled: true
+        k8s:
+          resources:
+            requests:
+              cpu: 100m
+              memory: 500m
+    enabled: true
+  trafficManagement:
+    components:
+      pilot:
+        enabled: true
+    enabled: true
+  values:
+    global:
+      enableTracing: true
+    grafana:
+      enabled: false
+    kiali:
+      enabled: true
+    pilot:
+      traceSampling: 100
+    prometheus:
+      enabled: false
+    sidecarInjectorWebhook:
+      rewriteAppHTTPProbe: true
+    tracing:
+      enabled: true

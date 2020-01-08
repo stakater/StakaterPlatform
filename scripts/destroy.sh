@@ -1,5 +1,5 @@
 #!/bin/bash
-NAMESPACES="flux control delivery logging monitoring security tracing"
+NAMESPACES="flux control delivery logging monitoring security tracing istio-system"
 
 # Remove Helm Operator
 helm delete --purge helm-operator

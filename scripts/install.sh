@@ -1,7 +1,7 @@
 #!/bin/bash
 
 CLOUD_PROVIDER=${1}
-NAMESPACES="control delivery logging monitoring security tracing flux"
+NAMESPACES="control delivery logging monitoring security tracing flux istio-system"
 TLS_SECRET_FILE="platform/control/secrets/secret-tls-cert.yaml"
 
 # Create Namespaces
@@ -27,12 +27,8 @@ helm upgrade --version 0.2.0 -i --wait --force helm-operator fluxcd/helm-operato
 kubectl apply -f platform/flux/secrets/secret-flux-key.yaml
 kubectl apply -f platform/flux/flux.yaml
 
-# Install istio-init chart
-kubectl apply -f platform/istio-init.yaml
-
-
 # Wait till all pods against flux deployment are deployed & then print flux public key
-kubectl -n flux wait --timeout=200s --for condition=ready pod -l release=flux
+kubectl -n flux wait --timeout=200s --for condition=ready pod -l release=stakater-infra-flux
 echo -e "\n======== Add the following Flux Public Key to your git repository ========"
 #kubectl -n flux logs deployment/flux | grep identity.pub | cut -d '"' -f2
 cat ./configs/flux.pub
