@@ -7,8 +7,11 @@ TLS_SECRET_FILE="platform/control/secrets/secret-tls-cert.yaml"
 # Create Namespaces
 for NAMESPACE in $NAMESPACES; do kubectl create namespace $NAMESPACE; done
 
-# Configure RBAC and Init Helm
-kubectl apply -f platform/rbac.yaml
+# Configure RBAC 
+kubectl create serviceaccount tiller --namespace kube-system
+kubectl create clusterrolebinding tiller --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+
+# Init Helm
 helm init --wait --service-account tiller || true
 
 # Install storage class
@@ -28,12 +31,12 @@ kubectl apply -f platform/flux/secrets/secret-flux-key.yaml
 kubectl apply -f platform/flux/flux.yaml
 
 # Wait till all pods against flux deployment are deployed & then print flux public key
-kubectl -n flux wait --timeout=200s --for condition=ready pod -l release=stakater-infra-flux
+kubectl -n flux wait --timeout=200s --for condition=Ready pod -l release=stakater-infra-flux
 echo -e "\n======== Add the following Flux Public Key to your git repository ========"
 #kubectl -n flux logs deployment/flux | grep identity.pub | cut -d '"' -f2
 cat ./configs/flux.pub
 
 # Wait for dashboard to be ready & then print dashboard access token
-kubectl -n control wait --timeout=200s --for condition=ready pod -l release=stakater-control-dashboard
+kubectl -n control wait --timeout=200s --for condition=Ready pod -l release=stakater-control-dashboard
 echo -e "\n========= Kubernetes Dashboard Access Token =========="
 kubectl -n control describe secret $(kubectl -n control get secret | grep stakater-control-dashboard-kubernetes-dashboard-token | awk '{print $1}') | grep 'token:' | awk '{print $2}'
