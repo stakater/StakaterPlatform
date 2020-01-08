@@ -31,4 +31,4 @@ spec:
       path: "platform"
       secretName: flux-key
     additionalArgs:
-      - --k8s-allow-namespace=control,delivery,security,logging,monitoring,tracing,kube-system
+      - --k8s-allow-namespace=control,delivery,security,logging,monitoring,tracing,kube-system,flux,istio-system

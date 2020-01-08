@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:    
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    kubernetes.io/ingress.class: internal-ingress
+    nginx.ingress.kubernetes.io/service-upstream: "true"
+    forecastle.stakater.com/appName: Kiali
+    forecastle.stakater.com/expose: "true"
+    forecastle.stakater.com/icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/kiali.png
+    ingress.kubernetes.io/rewrite-target: /
+  name: kiali-ingress
+  namespace: istio-system
+spec:
+  rules:
+  - host: kiali-tracing.DOMAIN
+    http:
+      paths:
+      - backend:
+          serviceName: kiali
+          servicePort: 20001
+  tls:
+  - hosts:
+    - kiali-tracing.DOMAIN
+    secretName: control/tls-cert

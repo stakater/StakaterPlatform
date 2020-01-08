@@ -1,5 +1,5 @@
 #!/bin/bash
-NAMESPACES="flux control delivery logging monitoring security tracing"
+NAMESPACES="flux control delivery logging monitoring security tracing istio-system"
 
 kubectl delete --wait=true -R -f platform/flux/
 
