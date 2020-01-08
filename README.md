@@ -31,6 +31,10 @@ StakaterPlatform consist of 7 stacks:
 - SSL Certificate for that domain. [Creating & using custom SSL certificates](https://playbook.stakater.com/content/processes/exposing/create-use-tls-custom-cert.html)
 
 
+## Tools
+
+**Flux:** You define the entire desired state of your cluster in git and flux ensures that the current state matches the one declared in repo.
+
 ## Install from local machine
 
 ### Prerequisites
