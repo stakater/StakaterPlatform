@@ -80,7 +80,7 @@ replace_configs  BASE64_ENCODED_NEXUS_CLUSTER_ACCOUNT_JSON configs/nexus-cluster
 replace_configs  BASE64_ENCODED_PROXYINJECTOR_CONFIG configs/proxyinjector.yaml && \
 replace_configs  BASE64_ENCODED_FLUX_PRIVATE_KEY configs/flux && \
 
-# Repalce DOMAIN in test suite
+# Replace DOMAIN in test suite
 replace_domain_in_tests
 
 if [ $?==0 ]; then
