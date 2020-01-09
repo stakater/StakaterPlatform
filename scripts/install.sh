@@ -25,7 +25,7 @@ kubectl apply -f configs/secret-sealed-secret-tls-cert.yaml
 kubectl apply -f platform/crds/crd-sealed-secrets.yaml
 kubectl apply -f platform/security/sealed-secrets.yaml
 
-kubectl -n flux wait --timeout=300s --for condition=ready pod -l release=stakater-security-sealed-secrets
+kubectl -n security wait --timeout=300s --for condition=ready pod -l release=stakater-security-sealed-secrets
 
 # Install tls secret
 kubectl apply -f $TLS_SECRET_FILE
