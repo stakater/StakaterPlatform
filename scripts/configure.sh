@@ -31,8 +31,8 @@ replace_secrets_with_sealed_secrets() {
 update_sealed_secrets_tls_cert_secret() {
   TLS_CRT_VALUE=`cat sealed-secret-tls.cert | base64 -w 0`
   TLS_CRT_KEY=`cat sealed-secret-tls.key | base64 -w 0`
-  sed -i 's/BASE64_ENCODED_SEALED_SECRETS_TLS_KEY/TLS_CRT_KEY/g' configs/secret-sealed-secret-tls-cert.yaml
-  sed -i 's/BASE64_ENCODED_SEALED_SECRETS_TLS_CRT/TLS_CRT_VALUE/g' configs/secret-sealed-secret-tls-cert.yaml
+  sed -i "s/BASE64_ENCODED_SEALED_SECRETS_TLS_KEY/${TLS_CRT_KEY}/g" configs/secret-sealed-secret-tls-cert.yaml
+  sed -i "s/BASE64_ENCODED_SEALED_SECRETS_TLS_CRT/${TLS_CRT_VALUE}/g" configs/secret-sealed-secret-tls-cert.yaml
 }
 
 # Replace following keys with their values in config and platform
