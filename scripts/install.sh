@@ -14,17 +14,17 @@ kubectl create clusterrolebinding tiller --clusterrole=cluster-admin --serviceac
 # Init Helm
 helm init --wait --service-account tiller || true
 
-# Install storage class
-kubectl apply -f storageclass/$CLOUD_PROVIDER.yaml
-
-# Install tls secret
-kubectl apply -f $TLS_SECRET_FILE
-
 # Add Fluxcd repo to helm repos
 helm repo add fluxcd https://charts.fluxcd.io && helm repo update
 
 # Install helm Operator
 helm upgrade --version 0.2.0 -i --wait --force helm-operator fluxcd/helm-operator --namespace flux --set createCRD=true,serviceAccount.name=helm-operator,clusterRole.name=helm-operator
+
+# Install storage class
+kubectl apply -f storageclass/$CLOUD_PROVIDER.yaml
+
+# Install tls secret
+kubectl apply -f $TLS_SECRET_FILE
 
 # Install Flux
 kubectl apply -f platform/flux/secrets/secret-flux-key.yaml

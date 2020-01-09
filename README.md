@@ -90,6 +90,11 @@ StakaterPlatform consist of 7 stacks:
     ```
     kubectl -n control describe secret $(kubectl -n control get secret | grep stakater-control-dashboard-kubernetes-dashboard-token | awk '{print $1}') | grep 'token:' | awk '{print $2}'
     ```
+### Flow Diagram for Deployment via GitLab CI Pipeline
+
+<p align="center">
+<img src="./images/pipeline-flow.png">
+</p>
 
 ## Verification
 
