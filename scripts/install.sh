@@ -8,7 +8,7 @@ TLS_SECRET_FILE="platform/control/secrets/secret-tls-cert.yaml"
 for NAMESPACE in $NAMESPACES; do kubectl create namespace $NAMESPACE; done
 
 # Configure RBAC and Init Helm
-kubectl apply -f platform/rbac.yaml
+kubectl apply -f tiller-rbac.yaml
 helm init --wait --service-account tiller || true
 
 # Install storage class
