@@ -11,7 +11,7 @@ kubectl delete --ignore-not-found --wait=true -R -f platform/flux/
 # Delete StakaterPlatform resources
 kubectl delete --ignore-not-found --wait=true -R -f platform/
 
-# Delete HelmReleases + HelmRelease history
+# Delete Helm Operator + HelmRelease history
 helm delete --purge $(helm list --short)
 
 # Remove namespaced resources from NAMESPACES (namespace scoped)
