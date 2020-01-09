@@ -21,6 +21,20 @@ replace_domain_in_tests() {
     find scripts/tests -type f -name "*.sh" -print0 | xargs -0 sed -i "s|DOMAIN|${DOMAIN}|g"
 }
 
+replace_secrets_with_sealed_secrets() {
+  find platform/**/secrets -type f -name "*.yaml" | while read secretFile; do
+      SEALED_SECRET="$(kubeseal --cert ./configs/sealed-secret-tls.cert < $secretFile -o yaml)"
+      echo "$SEALED_SECRET" > $secretFile
+  done
+}
+
+update_sealed_secrets_tls_cert_secret() {
+  TLS_CRT_VALUE=`cat sealed-secret-tls.cert | base64 -w 0`
+  TLS_CRT_KEY=`cat sealed-secret-tls.key | base64 -w 0`
+  sed -i 's/BASE64_ENCODED_SEALED_SECRETS_TLS_KEY/TLS_CRT_KEY/g' configs/secret-sealed-secret-tls-cert.yaml
+  sed -i 's/BASE64_ENCODED_SEALED_SECRETS_TLS_CRT/TLS_CRT_VALUE/g' configs/secret-sealed-secret-tls-cert.yaml
+}
+
 # Replace following keys with their values in config and platform
 replace_values CLOUD_PROVIDER $CLOUD_PROVIDER && \
 replace_values DNS_PROVIDER $DNS_PROVIDER && \
@@ -79,6 +93,12 @@ replace_configs  BASE64_ENCODED_NEXUS_ADMIN_ACCOUNT_JSON configs/nexus-admin-acc
 replace_configs  BASE64_ENCODED_NEXUS_CLUSTER_ACCOUNT_JSON configs/nexus-cluster-account.json && \
 replace_configs  BASE64_ENCODED_PROXYINJECTOR_CONFIG configs/proxyinjector.yaml && \
 replace_configs  BASE64_ENCODED_FLUX_PRIVATE_KEY configs/flux && \
+
+# Update secret-sealed-secret-tls-cert
+update_sealed_secrets_tls_cert_secret && \
+
+# Convert all secrets to sealed secrets
+replace_secrets_with_sealed_secrets && \
 
 # Replace DOMAIN in test suite
 replace_domain_in_tests
