@@ -14,7 +14,6 @@ spec:
       - accessModes:
           - ReadWriteOnce
         annotations:
-          helm.sh/resource-policy: keep
           volume.beta.kubernetes.io/storage-class: stakater-storageclass
         labels:
           app: jenkins

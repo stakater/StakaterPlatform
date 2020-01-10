@@ -60,8 +60,6 @@ spec:
     persistence:
       accessModes:
       - ReadWriteOnce
-      annotations:
-        helm.sh/resource-policy: delete
       enabled: true
       mountPath: /bitnami/postgresql
       size: 1Gi

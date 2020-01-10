@@ -27,10 +27,7 @@ spec:
       master: "true"
       ingest: "false"
       data: "false"
-    persistence:
-      enabled: true
-      annotations:
-        helm.sh/resource-policy: delete
+
     volumeClaimTemplate:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: stakater-storageclass
