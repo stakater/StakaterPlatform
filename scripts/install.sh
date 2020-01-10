@@ -43,7 +43,7 @@ kubectl apply -f platform/flux/flux.yaml
 kubectl -n flux wait --timeout=200s --for condition=Ready pod -l release=stakater-infra-flux
 echo -e "\n======== Add the following Flux Public Key to your git repository ========"
 #kubectl -n flux logs deployment/flux | grep identity.pub | cut -d '"' -f2
-cat ./configs/flux.pub	cat ./configs/flux.pub 
+cat ./configs/flux.pub
 
 # Wait for dashboard to be ready & then print dashboard access token	
 kubectl -n control wait --timeout=200s --for condition=ready pod -l release=stakater-control-dashboard	
