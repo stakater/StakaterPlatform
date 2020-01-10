@@ -13,6 +13,10 @@ configure-repo:
 	openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=SE/ST=StakaterUser/L=Stockholm/O=Stakater/CN=www.example.com" -keyout ./configs/sealed-secret-tls.key  -out ./configs/sealed-secret-tls.cert  2>/dev/null && \
 	bash scripts/configure.sh
 
+install-kubeseal:
+	curl -o kubeseal https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.9.6/kubeseal-linux-amd64 && \
+    install -m 755 kubeseal /usr/local/bin/kubeseal
+
 commit:
 	git update-index --skip-worktree variables.config && \
 	git update-index --skip-worktree $(git ls-files | grep 'configs/') && \
