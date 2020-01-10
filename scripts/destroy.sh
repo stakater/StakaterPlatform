@@ -1,23 +1,28 @@
 #!/bin/bash
-NAMESPACES="flux control delivery logging monitoring security tracing istio-system"
+NAMESPACES="flux control delivery logging monitoring security istio-system"
 
-# Delete flux to stop GitOps
-kubectl delete --wait=true -R -f platform/flux/
+# Delete Flux So it doesn't re-create helmReleases
+kubectl delete --ignore-not-found --wait=true -R -f platform/flux/
 
-# Remove everything from Platform
-kubectl delete -R -f platform/
+# Delete Istio Operator and Istio Deployment
+kubectl -n istio-system get IstioControlPlane stakater-istiocontrolplane -o=json | jq '.metadata.finalizers = null' | kubectl delete -f -
 
-# Delete all namespaces
-kubectl delete namespaces $NAMESPACES
+# Delete StakaterPlatform resources
+kubectl delete --ignore-not-found --wait=true -R -f platform/
 
-# Remove StorageClass
-kubectl delete -R -f storageclass/ 2>/dev/null
-
-# Remove Helm Operator
+# Remove HelmOperator 
 helm delete --purge helm-operator
 
-# Remove Tiller
+# Remove StorageClass
+kubectl delete -R -f --ignore-not-found storageclass/
+
+# Delete NAMESPACES
+kubectl delete namespaces --force --grace-period=0 $NAMESPACES
+
+# Delete tiller
 helm reset --force
+# Manually deleting tiller pod . Bug in Helm 2.11 See: https://github.com/helm/helm/issues/4825
+kubectl delete deploy tiller-deploy -n kube-system
 
 # Delete tiller RBAC
-kubectl delete -f tiller-rbac.yaml
+kubectl delete -f tiller-rbac.yaml 

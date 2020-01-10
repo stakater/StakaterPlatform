@@ -60,12 +60,10 @@ spec:
     persistence:
       accessModes:
       - ReadWriteOnce
-      annotations:
-        helm.sh/resource-policy: keep
       enabled: true
       mountPath: /bitnami/postgresql
       size: 1Gi
-      storageClass: stakater-sc
+      storageClass: stakater-storageclass
       subPath: ""
       
     updateStrategy:

@@ -52,12 +52,17 @@ StakaterPlatform consist of 7 stacks:
 4. Ensure that correct context is set for kubectl & helm.
 5. run `make configure`, this will make all required substitutions based on configuration variables in the repository. When prompted commit those changes, don't commit them if you want to run everything from your local machine i.e. No flux hence no GitOps.
 6. For deployment there are two options:
+    
     a. Using [flux](https://playbook.stakater.com/content/processes/gitops/gitops-with-flux.html), [Add the public SSH key](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) of flux(configs/flux.pub) to your Git repository with **write access**. 
+    
     b. Without flux, just don't add flux key and this will remove the process of GitOps(using flux) from your cluster. It removes the need of having your repository available remotely
 7. Run `make deploy` 
+    
     a. Using flux, this will deploy flux which will in turn deploy StakaterPlatform via GitOps.
+    
     b. If you don't want to use flux, just run `make deploy-without-flux` which will run `kubectl apply -f platform/` and deploy StakaterPlatform.
 9. Estimated time for everything to be up and running is 5-10. Use the printed dashboard token to access the Kubernetes dashboard at `dashboard-control.YOURDOMAINNAME`
+
 10. Visit `https://forecastle-control.YOURDOMAINNAME` and you'll be able to view all applications deployed by StakaterPlatform.
 
 
@@ -83,6 +88,12 @@ StakaterPlatform consist of 7 stacks:
 6. [Add the public SSH key](https://docs.gitlab.com/ee/ssh/#per-repository-deploy-keys)(Deploy Keys) to your GitLab account with **write access** printed at the end of pipeline logs.
 7. Once key is added StakaterPlatform will deploy on your cluster (Estimated time: 5-10 minutes). :confetti_ball: 
 8. Use the printed dashboard token to access the Kubernetes dashboard at `dashboard-control.DOMAIN`
+
+### Flow Diagram for Deployment via GitLab CI Pipeline
+
+<p align="center">
+<img src="./images/pipeline-flow.png">
+</p>
 
 ## Verification
 

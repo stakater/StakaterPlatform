@@ -14,10 +14,9 @@ spec:
       - accessModes:
           - ReadWriteOnce
         annotations:
-          helm.sh/resource-policy: keep
-          volume.beta.kubernetes.io/storage-class: stakater-sc
+          volume.beta.kubernetes.io/storage-class: stakater-storageclass
         labels:
           app: jenkins
         name: jenkins-mvn-local-repo
         storage: 10Gi
-        storageClassName: stakater-sc
+        storageClassName: stakater-storageclass
