@@ -8,20 +8,27 @@ TLS_SECRET_FILE="platform/control/secrets/secret-tls-cert.yaml"
 for NAMESPACE in $NAMESPACES; do kubectl create namespace $NAMESPACE; done
 
 # Configure RBAC and Init Helm
-kubectl apply -f platform/rbac.yaml
+kubectl apply -f tiller-rbac.yaml
 helm init --wait --service-account tiller || true
 
 # Install storage class
 kubectl apply -f storageclass/$CLOUD_PROVIDER.yaml
-
-# Install tls secret
-kubectl apply -f $TLS_SECRET_FILE
 
 # Add Fluxcd repo to helm repos
 helm repo add fluxcd https://charts.fluxcd.io && helm repo update
 
 # Install helm Operator
 helm upgrade --version 0.2.0 -i --wait --force helm-operator fluxcd/helm-operator --namespace flux --set createCRD=true,serviceAccount.name=helm-operator,clusterRole.name=helm-operator
+
+# Install SealedSecrets
+kubectl apply -f configs/secret-sealed-secret-tls-cert.yaml
+kubectl apply -f platform/crds/crd-sealed-secrets.yaml
+kubectl apply -f platform/security/sealed-secrets.yaml
+
+kubectl -n security wait --timeout=300s --for condition=ready pod -l release=stakater-security-sealed-secrets
+
+# Install tls secret
+kubectl apply -f $TLS_SECRET_FILE
 
 # Install Flux
 kubectl apply -f platform/flux/secrets/secret-flux-key.yaml
