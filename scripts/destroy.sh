@@ -24,5 +24,5 @@ helm reset --force
 # Manually deleting tiller pod . Bug in Helm 2.11 See: https://github.com/helm/helm/issues/4825
 kubectl delete deploy tiller-deploy -n kube-system
 
-kubectl delete serviceaccount tiller --namespace kube-system
-kubectl delete clusterrolebinding tiller
+# Delete tiller RBAC
+kubectl delete -f tiller-rbac.yaml 
