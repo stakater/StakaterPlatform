@@ -19,6 +19,9 @@ kubectl delete -R -f --ignore-not-found storageclass/
 # Delete NAMESPACES
 kubectl delete namespaces --force --grace-period=0 $NAMESPACES
 
+# Delete helm CRD
+kubectl delete crd helmreleases.helm.fluxcd.io 
+
 # Delete tiller
 helm reset --force
 # Manually deleting tiller pod . Bug in Helm 2.11 See: https://github.com/helm/helm/issues/4825
