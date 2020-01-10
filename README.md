@@ -61,7 +61,7 @@ StakaterPlatform consist of 7 stacks:
     a. Using flux, this will deploy flux which will in turn deploy StakaterPlatform via GitOps.
     
     b. If you don't want to use flux, just run `make deploy-without-flux` which will run `kubectl apply -f platform/` and deploy StakaterPlatform.
-9.  Estimated time for everything to be up and running is 5-10. Use the printed dashboard token to access the Kubernetes dashboard at `dashboard-control.YOURDOMAINNAME`
+9. Estimated time for everything to be up and running is 5-10. Use the printed dashboard token to access the Kubernetes dashboard at `dashboard-control.YOURDOMAINNAME`
 
 10. Visit `https://forecastle-control.YOURDOMAINNAME` and you'll be able to view all applications deployed by StakaterPlatform.
 
@@ -87,7 +87,7 @@ StakaterPlatform consist of 7 stacks:
 
 6. [Add the public SSH key](https://docs.gitlab.com/ee/ssh/#per-repository-deploy-keys)(Deploy Keys) to your GitLab account with **write access** printed at the end of pipeline logs.
 7. Once key is added StakaterPlatform will deploy on your cluster (Estimated time: 5-10 minutes). :confetti_ball: 
-8. 8. Use the printed dashboard token to access the Kubernetes dashboard at `dashboard-control.DOMAIN`	8. Access the Kubernetes dashboard at `dashboard-control.DOMAIN`. Token can be get by following command
+8. Use the printed dashboard token to access the Kubernetes dashboard at `dashboard-control.DOMAIN`
 
 ### Flow Diagram for Deployment via GitLab CI Pipeline
 
