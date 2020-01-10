@@ -14,7 +14,7 @@ configure-repo:
 	bash scripts/configure.sh
 
 install-kubeseal:
-	curl -o kubeseal https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.9.6/kubeseal-linux-amd64 && \
+	curl -o kubeseal -L https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.9.6/kubeseal-linux-amd64 && \
     install -m 755 kubeseal /usr/local/bin/kubeseal
 
 commit:
