@@ -14,6 +14,9 @@ kubectl create clusterrolebinding tiller --clusterrole=cluster-admin --serviceac
 # Init Helm
 helm init --wait --service-account tiller || true
 
+# Install storage class
+kubectl apply -f storageclass/$CLOUD_PROVIDER.yaml
+
 # Add Fluxcd repo to helm repos
 helm repo add fluxcd https://charts.fluxcd.io && helm repo update
 
@@ -22,6 +25,13 @@ helm upgrade --version 0.2.0 -i --wait --force helm-operator fluxcd/helm-operato
 
 # Install storage class
 kubectl apply -f storageclass/$CLOUD_PROVIDER.yaml
+
+# Install SealedSecrets
+kubectl apply -f configs/secret-sealed-secret-tls-cert.yaml
+kubectl apply -f platform/crds/crd-sealed-secrets.yaml
+kubectl apply -f platform/security/sealed-secrets.yaml
+
+kubectl -n security wait --timeout=300s --for condition=ready pod -l release=stakater-security-sealed-secrets
 
 # Install tls secret
 kubectl apply -f $TLS_SECRET_FILE

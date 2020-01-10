@@ -31,9 +31,11 @@ StakaterPlatform consist of 7 stacks:
 - SSL Certificate for that domain. [Creating & using custom SSL certificates](https://playbook.stakater.com/content/processes/exposing/create-use-tls-custom-cert.html)
 
 
-## Tools
+## Tools/Terms
 
 **Flux:** You define the entire desired state of your cluster in git and flux ensures that the current state matches the one declared in repo.
+**Kubeseal:** Required to encrypt base64 encoded secrets to commit-able(git) [sealed-secrets](https://playbook.stakater.com/content/workshop/sealed-secrets/introduction.html)
+
 
 ## Install from local machine
 
@@ -41,6 +43,7 @@ StakaterPlatform consist of 7 stacks:
 
 - kubectl (between v1.11 & v1.15.3)
 - helm (v2.15.0 or lower)
+- [kubeseal](https://github.com/bitnami-labs/sealed-secrets/releases)
 
 
 1. [Duplicate](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/duplicating-a-repository#mirroring-a-repository) this [repository](https://github.com/stakater/stakaterplatform).

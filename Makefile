@@ -5,11 +5,19 @@ SHELL= /bin/bash
 
 include variables.config
 
-configure:
+configure: configure-repo commit
+
+configure-repo:
 	git checkout $(STAKATER_PLATFORM_BRANCH) 2>/dev/null || git checkout -b $(STAKATER_PLATFORM_BRANCH) && \
 	yes | ssh-keygen -q -N "" -f ./configs/flux >/dev/null && \
-	bash scripts/configure.sh && \
-	# TODO add pre-commit hook for skipping these files
+	openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=SE/ST=StakaterUser/L=Stockholm/O=Stakater/CN=www.example.com" -keyout ./configs/sealed-secret-tls.key  -out ./configs/sealed-secret-tls.cert  2>/dev/null && \
+	bash scripts/configure.sh
+
+install-kubeseal:
+	curl -o kubeseal -L https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.9.6/kubeseal-linux-amd64 && \
+    install -m 755 kubeseal /usr/local/bin/kubeseal
+
+commit:
 	git update-index --skip-worktree variables.config && \
 	git update-index --skip-worktree $(git ls-files | grep 'configs/') && \
 	git add . && \
