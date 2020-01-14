@@ -22,7 +22,7 @@ create-namespaces:
 	kubectl apply -f https://raw.githubusercontent.com/stakater-lab/nordmart-dev-tools/master/tools/namespaces/nordmart-dev-tools.yaml
 
 configure:
-	bash scripts/configure.sh
+	find platform/nordmart -type f -name "*.yaml" -print0 | xargs -0 sed -i "s|DOMAIN|${DOMAIN}|g"
 
 configure-with-istio: clone-dev-apps configure
 	rm -rf platform/nordmart/releases
