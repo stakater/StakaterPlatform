@@ -1,0 +1,34 @@
+# Use this Makefile if you want to setup/deploy/destroy Nordmart on StakaterPlatform
+
+.ONESHELL:
+SHELL= /bin/bash
+
+include variables.config
+
+
+commit:
+	git update-index --skip-worktree variables.config && \
+	git update-index --skip-worktree $(git ls-files | grep 'configs/') && \
+	git add . && \
+	git commit -a -m "[skip ci] add Nordmart deployment"  && \
+	git push -u origin $(STAKATER_PLATFORM_BRANCH) || true
+
+clone-dev-apps:
+	git clone https://github.com/stakater-lab/nordmart-dev-apps.git platform/nordmart/ && \
+	rm -rf platform/nordmart/.git platform/nordmart/Makefile platform/nordmart/README.md platform/nordmart/.gitignore
+	wget https://raw.githubusercontent.com/stakater-lab/nordmart-dev-tools/master/tools-istio/external-dns.yaml -P platform/nordmart/releases-istio/
+
+configure:
+	bash scripts/configure.sh
+
+configure-with-istio: clone-dev-apps configure
+	git update-index --skip-worktree $(git ls-files | grep 'platform/nordmart/releases')
+
+configure-without-istio: clone-dev-apps configure
+	git update-index --skip-worktree $(git ls-files | grep 'platform/nordmart/releases-istio')
+
+deploy-nordmart-with-istio: configure-with-istio commit
+
+deploy-nordmart-without-istio: configure-without-istio commit
+
+.PHONY: configure commit clone-dev-apps configure-with-istio configure-without-istio deploy-nordmart-with-istio deploy-nordmart-without-istio

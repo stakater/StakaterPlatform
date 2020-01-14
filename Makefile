@@ -40,6 +40,12 @@ verify:
 destroy:
 	bash scripts/destroy.sh
 
+deploy-nordmart-with-istio:
+	make -f Makefile-nordmart deploy-nordmart-with-istio
+
+deploy-nordmart-without-istio: 
+	make -f Makefile-nordmart deploy-nordmart-without-istio
+
 track-secrets:
 	git update-index --no-skip-worktree variables.config && \
     git update-index --no-skip-worktree $(git ls-files | grep 'configs/')
