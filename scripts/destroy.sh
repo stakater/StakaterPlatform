@@ -14,7 +14,7 @@ kubectl delete --ignore-not-found --wait=true -R -f platform/
 helm delete --purge helm-operator
 
 # Remove StorageClass
-kubectl delete -R -f --ignore-not-found storageclass/
+kubectl delete --ignore-not-found -f storageclass/
 
 # Delete NAMESPACES
 kubectl delete namespaces --force --grace-period=0 $NAMESPACES
