@@ -40,10 +40,10 @@ verify:
 destroy:
 	bash scripts/destroy.sh
 
-deploy-nordmart-with-istio:
+deploy-nordmart-with-istio: install-kubeseal
 	make -f Makefile-nordmart deploy-nordmart-with-istio
 
-deploy-nordmart-without-istio: 
+deploy-nordmart-without-istio: install-kubeseal
 	make -f Makefile-nordmart deploy-nordmart-without-istio
 
 track-secrets:
