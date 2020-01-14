@@ -7,25 +7,28 @@ include variables.config
 
 
 commit:
-	git update-index --skip-worktree variables.config && \
-	git update-index --skip-worktree $(git ls-files | grep 'configs/') && \
-	git add . && \
+	git add platform/nordmart && \
 	git commit -a -m "[skip ci] add Nordmart deployment"  && \
-	git push -u origin $(STAKATER_PLATFORM_BRANCH) || true
+	git push -u origin $(STAKATER_PLATFORM_BRANCH)
 
-clone-dev-apps:
+clone-dev-apps: create-namespaces
+	git checkout $(STAKATER_PLATFORM_BRANCH) && \
 	git clone https://github.com/stakater-lab/nordmart-dev-apps.git platform/nordmart/ && \
 	rm -rf platform/nordmart/.git platform/nordmart/Makefile platform/nordmart/README.md platform/nordmart/.gitignore
 	wget https://raw.githubusercontent.com/stakater-lab/nordmart-dev-tools/master/tools-istio/external-dns.yaml -P platform/nordmart/releases-istio/
+
+create-namespaces:
+	kubectl apply -f https://raw.githubusercontent.com/stakater-lab/nordmart-dev-tools/master/tools/namespaces/nordmart-dev-apps.yaml
+	kubectl apply -f https://raw.githubusercontent.com/stakater-lab/nordmart-dev-tools/master/tools/namespaces/nordmart-dev-tools.yaml
 
 configure:
 	bash scripts/configure.sh
 
 configure-with-istio: clone-dev-apps configure
-	git update-index --skip-worktree $(git ls-files | grep 'platform/nordmart/releases')
+	rm -rf platform/nordmart/releases
 
 configure-without-istio: clone-dev-apps configure
-	git update-index --skip-worktree $(git ls-files | grep 'platform/nordmart/releases-istio')
+	rm -rf platform/nordmart/releases-istio
 
 deploy-nordmart-with-istio: configure-with-istio commit
 

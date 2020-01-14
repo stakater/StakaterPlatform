@@ -4,7 +4,7 @@ image:
 
 # Configuring CI/CD environment variables
 variables:
-  KUBE_CONFIG: "KUBE_CONFIG"
+  KUBE_CONFIG: ""
   REPO_ACCESS_TOKEN: "REPO_ACCESS_TOKEN"
   TARGET: "TARGET"
   USER_MAIL: "stakater@gmail.com"
@@ -14,8 +14,10 @@ variables:
 before_script:
   # Configuring kubernetes cluster access
   - echo "configuration kubernetes access in pipeline"
-  - mkdir ~/.kube/
-  - echo $KUBE_CONFIG | base64 -d > ~/.kube/config
+  - if [ $KUBE_CONFIG != "" ]; then
+  -   mkdir ~/.kube/
+  -   echo $KUBE_CONFIG | base64 -d > ~/.kube/config
+  - fi
   - export KUBECONFIG=~/.kube/config
   # Configure git access
   - git remote set-url origin https://$USER_NAME:$REPO_ACCESS_TOKEN@${CI_PROJECT_URL:8}

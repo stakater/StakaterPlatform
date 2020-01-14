@@ -5,7 +5,7 @@ SHELL= /bin/bash
 
 include variables.config
 
-configure: configure-repo commit
+configure: install-kubeseal configure-repo commit
 
 configure-repo:
 	git checkout $(STAKATER_PLATFORM_BRANCH) 2>/dev/null || git checkout -b $(STAKATER_PLATFORM_BRANCH) && \
