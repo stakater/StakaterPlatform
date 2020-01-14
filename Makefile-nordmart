@@ -15,7 +15,6 @@ clone-dev-apps: create-namespaces
 	git checkout $(STAKATER_PLATFORM_BRANCH) && \
 	git clone https://github.com/stakater-lab/nordmart-dev-apps.git platform/nordmart/ && \
 	rm -rf platform/nordmart/.git platform/nordmart/Makefile platform/nordmart/README.md platform/nordmart/.gitignore
-	wget https://raw.githubusercontent.com/stakater-lab/nordmart-dev-tools/master/tools-istio/external-dns.yaml -P platform/nordmart/releases-istio/
 
 create-namespaces:
 	kubectl apply -f https://raw.githubusercontent.com/stakater-lab/nordmart-dev-tools/master/tools/namespaces/nordmart-dev-apps.yaml
@@ -23,9 +22,14 @@ create-namespaces:
 
 configure:
 	find platform/nordmart -type f -name "*.yaml" -print0 | xargs -0 sed -i "s|DOMAIN|${DOMAIN}|g"
+	find platform/nordmart -type f -name "*.yaml" -print0 | xargs -0 sed -i "s|DOMAIN|${DOMAIN}|g"
+
+apply: clone-dev-apps
+	kubectl apply -f platform/nordmart/releases/
 
 configure-with-istio: clone-dev-apps configure
 	rm -rf platform/nordmart/releases
+	wget https://raw.githubusercontent.com/stakater-lab/nordmart-dev-tools/master/tools-istio/external-dns.yaml -P platform/nordmart/releases-istio/
 
 configure-without-istio: clone-dev-apps configure
 	rm -rf platform/nordmart/releases-istio

@@ -40,6 +40,9 @@ verify:
 destroy:
 	bash scripts/destroy.sh
 
+deploy-nordmart:
+	make -f Makefile-nordmart apply
+
 deploy-nordmart-with-istio: install-kubeseal
 	make -f Makefile-nordmart deploy-nordmart-with-istio
 
