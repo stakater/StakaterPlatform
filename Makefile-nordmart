@@ -21,15 +21,18 @@ create-namespaces:
 	kubectl apply -f https://raw.githubusercontent.com/stakater-lab/nordmart-dev-tools/master/tools/namespaces/nordmart-dev-tools.yaml
 
 configure:
-	find platform/nordmart -type f -name "*.yaml" -print0 | xargs -0 sed -i "s|DOMAIN|${DOMAIN}|g"
-	find platform/nordmart -type f -name "*.yaml" -print0 | xargs -0 sed -i "s|DOMAIN|${DOMAIN}|g"
+	bash scripts/configure-nordmart.sh
 
-apply: clone-dev-apps
-	kubectl apply -f platform/nordmart/releases/
+apply: clone-dev-apps configure-with-istio configure
+	kubectl apply -R -f platform/nordmart/releases-istio/
 
-configure-with-istio: clone-dev-apps configure
+delete:
+	kubectl delete namespaces nordmart-dev-apps nordmart-dev-tools
+
+configure-with-istio:
 	rm -rf platform/nordmart/releases
 	wget https://raw.githubusercontent.com/stakater-lab/nordmart-dev-tools/master/tools-istio/external-dns.yaml -P platform/nordmart/releases-istio/
+	wget https://raw.githubusercontent.com/stakater-lab/nordmart-dev-tools/master/tools-istio/secrets/secret-external-dns.yaml -P platform/nordmart/releases-istio/
 
 configure-without-istio: clone-dev-apps configure
 	rm -rf platform/nordmart/releases-istio
