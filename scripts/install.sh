@@ -29,23 +29,20 @@ kubectl apply -f storageclass/$CLOUD_PROVIDER.yaml
 kubectl apply -f configs/secret-sealed-secret-tls-cert.yaml
 kubectl apply -f platform/crds/crd-sealed-secrets.yaml
 kubectl apply -f platform/security/sealed-secrets.yaml
-
-kubectl -n security wait --timeout=300s --for condition=ready pod -l release=stakater-security-sealed-secrets
+kubectl rollout status deployment stakater-security-sealed-secrets -n security
 
 # Install tls secret
 kubectl apply -f $TLS_SECRET_FILE
 
+# Install dashboard
+kubectl apply -f platform/control/kubernetes-dashboard.yaml
+kubectl rollout status deployment stakater-control-dashboard-kubernetes-dashboard -n control
+echo -e "\n========= Kubernetes Dashboard Access Token =========="
+kubectl -n control describe secret $(kubectl -n control get secret | grep stakater-control-dashboard-kubernetes-dashboard-token | awk '{print $1}') | grep 'token:' | awk '{print $2}'
+
 # Install Flux
 kubectl apply -f platform/flux/secrets/secret-flux-key.yaml
 kubectl apply -f platform/flux/flux.yaml
-
-# Wait till all pods against flux deployment are deployed & then print flux public key
-kubectl -n flux wait --timeout=200s --for condition=Ready pod -l release=stakater-infra-flux
 echo -e "\n======== Add the following Flux Public Key to your git repository ========"
-#kubectl -n flux logs deployment/flux | grep identity.pub | cut -d '"' -f2
+#kubectl -n flux logs deployment/stakater-infra-flux | grep identity.pub | cut -d '"' -f2
 cat ./configs/flux.pub
-
-# Wait for dashboard to be ready & then print dashboard access token
-kubectl -n control wait --timeout=200s --for condition=ready pod -l release=stakater-control-dashboard
-echo -e "\n========= Kubernetes Dashboard Access Token =========="
-kubectl -n control describe secret $(kubectl -n control get secret | grep stakater-control-dashboard-kubernetes-dashboard-token | awk '{print $1}') | grep 'token:' | awk '{print $2}'
