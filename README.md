@@ -56,14 +56,9 @@ StakaterPlatform consist of 7 stacks:
     a. Using [flux](https://playbook.stakater.com/content/processes/gitops/gitops-with-flux.html), [Add the public SSH key](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) of flux(configs/flux.pub) to your Git repository with **write access**. 
     
     b. Without flux, just don't add flux key and this will remove the process of GitOps(using flux) from your cluster. It removes the need of having your repository available remotely
-7. Run `make deploy` 
-    
-    a. Using flux, this will deploy flux which will in turn deploy StakaterPlatform via GitOps.
-    
-    b. If you don't want to use flux, just run `make deploy-without-flux` which will run `kubectl apply -f platform/` and deploy StakaterPlatform.
-9. Estimated time for everything to be up and running is 5-10. Use the printed dashboard token to access the Kubernetes dashboard at `dashboard-control.YOURDOMAINNAME`
-
-10. Visit `https://forecastle-control.YOURDOMAINNAME` and you'll be able to view all applications deployed by StakaterPlatform.
+7. Run `make deploy`, this will install everything at your cluster
+8. Estimated time for everything to be up and running is 5-10. Use the printed dashboard token to access the Kubernetes dashboard at `dashboard-control.YOURDOMAINNAME`
+9. Visit `https://forecastle-control.YOURDOMAINNAME` and you'll be able to view all applications deployed by StakaterPlatform.
 
 
 **Note:** Since `variables.config` file and `configs/` directory contains private information those files are not being

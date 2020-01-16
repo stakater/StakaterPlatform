@@ -46,3 +46,5 @@ kubectl apply -f platform/flux/flux.yaml
 echo -e "\n======== Add the following Flux Public Key to your git repository ========"
 #kubectl -n flux logs deployment/stakater-infra-flux | grep identity.pub | cut -d '"' -f2
 cat ./configs/flux.pub
+
+kubectl apply -f platform/
