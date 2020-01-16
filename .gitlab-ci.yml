@@ -15,7 +15,12 @@ before_script:
   # Configuring kubernetes cluster access
   - echo "configuration kubernetes access in pipeline"
   - mkdir ~/.kube/
+  - if [ $KUBE_CONFIG != "" ]; then
   - echo $KUBE_CONFIG | base64 -d > ~/.kube/config
+  - else
+  - echo "Using kubeconfig from configs"
+  - echo $(cat configs/kube_config.yaml) > ~/.kube/config
+  - fi
   - export KUBECONFIG=~/.kube/config
   # Configure git access
   - git remote set-url origin https://$USER_NAME:$REPO_ACCESS_TOKEN@${CI_PROJECT_URL:8}
