@@ -24,7 +24,9 @@ replace_domain_in_tests() {
 replace_secrets_with_sealed_secrets() {
   find platform/**/secrets -type f -name "*.yaml" | while read secretFile; do
       SEALED_SECRET="$(kubeseal --cert ./configs/sealed-secret-tls.cert < $secretFile -o yaml)"
-      echo "$SEALED_SECRET" > $secretFile
+      if [ ! -z "$SEALED_SECRET" ] ; then
+        echo "$SEALED_SECRET" > $secretFile
+      fi
   done
 }
 
