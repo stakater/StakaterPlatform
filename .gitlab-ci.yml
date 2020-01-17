@@ -16,10 +16,10 @@ before_script:
   - echo "configuration kubernetes access in pipeline"
   - mkdir ~/.kube/
   - if [ $KUBE_CONFIG != "" ]; then
-  - echo $KUBE_CONFIG | base64 -d > ~/.kube/config
+  -   echo $KUBE_CONFIG | base64 -d > ~/.kube/config
   - else
-  - echo "Using kubeconfig from configs"
-  - echo $(cat configs/kube_config.yaml) > ~/.kube/config
+  -   echo "Using kubeconfig from configs"
+  -   cat configs/kube_config.yaml > ~/.kube/config
   - fi
   - export KUBECONFIG=~/.kube/config
   # Configure git access
