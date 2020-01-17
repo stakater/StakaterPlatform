@@ -15,7 +15,7 @@ before_script:
   # Configuring kubernetes cluster access
   - echo "configuration kubernetes access in pipeline"
   - mkdir ~/.kube/
-  - if [ $KUBE_CONFIG != "" ]; then
+  - if [ -n "$KUBE_CONFIG" ]; then
   -   echo $KUBE_CONFIG | base64 -d > ~/.kube/config
   - else
   -   echo "Using kubeconfig from configs"
