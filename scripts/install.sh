@@ -47,7 +47,7 @@ cat ./configs/flux.pub
 n=0
 until [ $n -ge 5 ]
 do
-   kubectl apply -R -f platform/ && break  # substitute your command here
+   kubectl apply -R -f platform/ && break
    n=$[$n+1]
    echo "Retrying for $n/5 times..."
 done
