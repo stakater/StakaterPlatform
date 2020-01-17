@@ -44,4 +44,10 @@ echo -e "\n======== Add the following Flux Public Key to your git repository ===
 #kubectl -n flux logs deployment/stakater-infra-flux | grep identity.pub | cut -d '"' -f2
 cat ./configs/flux.pub
 
-kubectl apply -R -f platform/ || true
+n=0
+until [ $n -ge 5 ]
+do
+   kubectl apply -R -f platform/ && break  # substitute your command here
+   n=$[$n+1]
+   echo "Retrying for $n/5 times..."
+done
