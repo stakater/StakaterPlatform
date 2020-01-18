@@ -23,11 +23,8 @@ create-namespaces:
 configure:
 	bash scripts/configure-nordmart.sh
 
-apply: clone-dev-apps configure-with-istio configure
+apply:
 	kubectl apply -R -f platform/nordmart/releases-istio/
-
-delete:
-	kubectl delete namespaces nordmart-dev-apps nordmart-dev-tools
 
 configure-with-istio:
 	rm -rf platform/nordmart/releases
@@ -37,8 +34,11 @@ configure-with-istio:
 configure-without-istio: clone-dev-apps configure
 	rm -rf platform/nordmart/releases-istio
 
-deploy-nordmart-with-istio: configure-with-istio commit
+deploy-nordmart-with-istio: clone-dev-apps configure-with-istio configure commit apply
 
-deploy-nordmart-without-istio: configure-without-istio commit
+deploy-nordmart-without-istio: clone-dev-apps configure-without-istio configure commit apply
 
-.PHONY: configure commit clone-dev-apps configure-with-istio configure-without-istio deploy-nordmart-with-istio deploy-nordmart-without-istio
+destroy:
+	bash scripts/destroy-nordmart.sh
+
+.PHONY: commit clone-dev-apps create-namespaces configure apply configure-with-istio configure-without-istio deploy-nordmart-with-istio deploy-nordmart-without-istio destroy

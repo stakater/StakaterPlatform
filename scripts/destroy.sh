@@ -1,5 +1,5 @@
 #!/bin/bash
-NAMESPACES="flux control delivery logging monitoring security istio-system nordmart-dev-apps nordmart-dev-tools"
+NAMESPACES="flux control delivery logging monitoring security istio-system"
 
 # Delete Flux So it doesn't re-create helmReleases
 kubectl delete --ignore-not-found --wait=true -R -f platform/flux/
