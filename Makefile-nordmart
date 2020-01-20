@@ -8,8 +8,8 @@ include variables.config
 
 commit:
 	git add platform/nordmart && \
-	git commit -a -m "[skip ci] add Nordmart deployment"  && \
-	git push -u origin $(STAKATER_PLATFORM_BRANCH)
+	git commit -a -m "[skip ci] add Nordmart deployment" && \
+	git push -u origin $(STAKATER_PLATFORM_BRANCH) || true
 
 clone-dev-apps: create-namespaces
 	git checkout $(STAKATER_PLATFORM_BRANCH) && \
