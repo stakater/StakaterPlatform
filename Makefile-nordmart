@@ -25,7 +25,7 @@ configure:
 	bash scripts/configure-nordmart.sh
 
 apply:
-	kubectl apply -R -f platform/nordmart/releases-istio/
+	kubectl apply -R -f platform/nordmart/
 
 configure-with-istio:
 	rm -rf platform/nordmart/releases
