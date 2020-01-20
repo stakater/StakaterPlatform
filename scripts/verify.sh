@@ -3,7 +3,7 @@
 
 echo -e "\n========= Testing Stakater Endpoints ==========\n"
 testIngresses() {
-	HOST_NAMES=$(sudo kubectl get ingress --all-namespaces | awk '{print $3}' | grep '\.')
+	HOST_NAMES=$(kubectl get ingress --all-namespaces | awk '{print $3}' | grep '\.')
         for HOST_NAME in $HOST_NAMES; do
 		echo $HOST_NAME
 		# this script works fine but all response code are not 200
