@@ -13,6 +13,7 @@ commit:
 
 clone-dev-apps: create-namespaces
 	git checkout $(STAKATER_PLATFORM_BRANCH) && \
+	rm -rf platform/nordmart && \
 	git clone https://github.com/stakater-lab/nordmart-dev-apps.git platform/nordmart/ && \
 	rm -rf platform/nordmart/.git platform/nordmart/Makefile platform/nordmart/README.md platform/nordmart/.gitignore
 
