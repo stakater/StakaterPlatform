@@ -29,10 +29,9 @@ deploy-without-flux:
 pipeline-deploy: configure deploy
 
 verify:
-	bash ./scripts/verify.sh
-	# for file in ./scripts/tests/* ; do \
-	# 	$${file};	
-	# done
+	for file in ./scripts/tests/* ; do \
+		$${file};	
+	done
 
 destroy:
 	bash scripts/destroy.sh
