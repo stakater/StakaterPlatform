@@ -8,7 +8,7 @@ spec:
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com
     name: metrics-server
-    version: 2.8.8
+    version: 2.9.0
   values:
     hostNetwork:
       enabled: true
@@ -20,7 +20,7 @@ spec:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: stakater-monitoring-metrics-server-aggregated-metrics-reader
+  name: stakater-system:aggregated-metrics-reader
   labels:
     rbac.authorization.k8s.io/aggregate-to-view: "true"
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
@@ -33,7 +33,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: stakater-monitoring-metrics-server-system:auth-delegator
+  name: stakater-monitoring-metrics-server:system:auth-delegator
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -60,13 +60,27 @@ subjects:
 apiVersion: apiregistration.k8s.io/v1beta1
 kind: APIService
 metadata:
-  name: stakater-monitoring-metrics-server-v1beta1.metrics.k8s.io
+  name: v1beta1.metrics.k8s.io
 spec:
   service:
     name: stakater-monitoring-metrics-server
     namespace: monitoring
   group: metrics.k8s.io
   version: v1beta1
+  insecureSkipTLSVerify: true
+  groupPriorityMinimum: 100
+  versionPriority: 100
+---
+apiVersion: apiregistration.k8s.io/v1beta1
+kind: APIService
+metadata:
+  name: v1alpha1.metrics
+spec:
+  service:
+    name: metrics-server
+    namespace: kube-system
+  group: metrics
+  version: v1alpha1
   insecureSkipTLSVerify: true
   groupPriorityMinimum: 100
   versionPriority: 100
