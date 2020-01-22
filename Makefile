@@ -13,10 +13,6 @@ configure-repo:
 	openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=SE/ST=StakaterUser/L=Stockholm/O=Stakater/CN=www.example.com" -keyout ./configs/sealed-secret-tls.key  -out ./configs/sealed-secret-tls.cert  2>/dev/null && \
 	bash scripts/configure.sh
 
-install-kubeseal:
-	curl -o kubeseal -L https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.9.6/kubeseal-linux-amd64 && \
-    install -m 755 kubeseal /usr/local/bin/kubeseal
-
 commit:
 	git update-index --skip-worktree variables.config && \
 	git update-index --skip-worktree $(git ls-files | grep 'configs/') && \
@@ -28,7 +24,7 @@ deploy:
 	bash scripts/install.sh $(CLOUD_PROVIDER)
 
 deploy-without-flux:
-	kubectl apply -f platform/
+	kubectl apply -R -f platform/
 
 pipeline-deploy: configure deploy
 
@@ -39,6 +35,15 @@ verify:
 
 destroy:
 	bash scripts/destroy.sh
+
+destroy-nordmart:
+	make -f Makefile-nordmart destroy
+
+deploy-nordmart-with-istio:
+	make -f Makefile-nordmart deploy-nordmart-with-istio
+
+deploy-nordmart-without-istio:
+	make -f Makefile-nordmart deploy-nordmart-without-istio
 
 track-secrets:
 	git update-index --no-skip-worktree variables.config && \

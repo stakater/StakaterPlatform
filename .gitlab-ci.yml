@@ -1,10 +1,10 @@
 # pipeline base image
 image:
-  name: stakater/builder-tool:terraform-0.12.7-v0.0.10
+  name: stakater/builder-tool:terraform-0.12.7-v0.0.16
 
 # Configuring CI/CD environment variables
 variables:
-  KUBE_CONFIG: "KUBE_CONFIG"
+  KUBE_CONFIG: ""
   REPO_ACCESS_TOKEN: "REPO_ACCESS_TOKEN"
   TARGET: "TARGET"
   USER_MAIL: "stakater@gmail.com"
@@ -15,11 +15,11 @@ before_script:
   # Configuring kubernetes cluster access
   - echo "configuration kubernetes access in pipeline"
   - mkdir ~/.kube/
-  - if [ $KUBE_CONFIG != "" ]; then
-  - echo $KUBE_CONFIG | base64 -d > ~/.kube/config
+  - if [ -n "$KUBE_CONFIG" ]; then
+  -   echo $KUBE_CONFIG | base64 -d > ~/.kube/config
   - else
-  - echo "Using kubeconfig from configs"
-  - echo $(cat configs/kube_config.yaml) > ~/.kube/config
+  -   echo "Using kubeconfig from configs"
+  -   cat configs/kube_config.yaml > ~/.kube/config
   - fi
   - export KUBECONFIG=~/.kube/config
   # Configure git access

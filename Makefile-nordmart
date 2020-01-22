@@ -1,0 +1,45 @@
+# Use this Makefile if you want to setup/deploy/destroy Nordmart on StakaterPlatform
+
+.ONESHELL:
+SHELL= /bin/bash
+
+include variables.config
+
+
+commit:
+	git add platform/nordmart && \
+	git commit -a -m "[skip ci] add Nordmart deployment" && \
+	git push -u origin $(STAKATER_PLATFORM_BRANCH) || true
+
+clone-dev-apps: create-namespaces
+	git checkout $(STAKATER_PLATFORM_BRANCH) && \
+	rm -rf platform/nordmart && \
+	git clone https://github.com/stakater-lab/nordmart-dev-apps.git platform/nordmart/ && \
+	rm -rf platform/nordmart/.git platform/nordmart/Makefile platform/nordmart/README.md platform/nordmart/.gitignore
+
+create-namespaces:
+	kubectl apply -f https://raw.githubusercontent.com/stakater-lab/nordmart-dev-tools/master/tools/namespaces/nordmart-dev-apps.yaml
+	kubectl apply -f https://raw.githubusercontent.com/stakater-lab/nordmart-dev-tools/master/tools/namespaces/nordmart-dev-tools.yaml
+
+configure:
+	bash scripts/configure-nordmart.sh
+
+apply:
+	kubectl apply -R -f platform/nordmart/
+
+configure-with-istio:
+	rm -rf platform/nordmart/releases
+	wget https://raw.githubusercontent.com/stakater-lab/nordmart-dev-tools/master/tools-istio/external-dns.yaml -P platform/nordmart/releases-istio/
+	wget https://raw.githubusercontent.com/stakater-lab/nordmart-dev-tools/master/tools-istio/secrets/secret-external-dns.yaml -P platform/nordmart/releases-istio/
+
+configure-without-istio: clone-dev-apps configure
+	rm -rf platform/nordmart/releases-istio
+
+deploy-nordmart-with-istio: clone-dev-apps configure-with-istio configure commit apply
+
+deploy-nordmart-without-istio: clone-dev-apps configure-without-istio configure commit apply
+
+destroy:
+	bash scripts/destroy-nordmart.sh
+
+.PHONY: commit clone-dev-apps create-namespaces configure apply configure-with-istio configure-without-istio deploy-nordmart-with-istio deploy-nordmart-without-istio destroy
