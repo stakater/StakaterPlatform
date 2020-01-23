@@ -21,6 +21,21 @@ StakaterPlatform consist of 7 stacks:
 - [Alerting](https://playbook.stakater.com/content/stacks/alerting.html)
 - [Tracing](https://playbook.stakater.com/content/stacks/tracing.html)
 
+Table for Stacks tools
+
+
+| Control | Delivery | Logging | Monitoring | Security | Alerting | Tracing |
+|---|---|---|---|---|---|---|
+| External DNS | Jenkins | Elasticsearch | Prometheus Operator | Keycloak | Uptime Robot | Istio|
+| Nginx Ingress | Sonatype-Nexus | Fluentd | Metrics Server | Proxy Injector | Slack ||
+| Descheduler | RDLM | Eventrouter |||||
+| Forecastle || Kibana |||||
+| Reloader || Cerebro |||||
+| Sealed Secret Controller || Elasticsearch Curator |||||
+| K8S Dashboard || Logrotate |||||
+| Gitwebhookproxy || Konfigurator |||||
+| Ingress Monitor Controller |||||||
+| Xposer |||||||
 
 ## Prerequisites
 
