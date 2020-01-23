@@ -3,7 +3,7 @@
 # GLOBAL VARIABLES
 ITERATIONS=1
 TOTAL_ITERATIONS=3
-SLEEP_DURATION=3  # duration in seconds
+SLEEP_DURATION=300  # duration in seconds
 
 echo "3 iterations will be done each with delay of 5 minutes"
 until [ $ITERATIONS -gt $TOTAL_ITERATIONS ]
