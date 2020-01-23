@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # GLOBAL VARIABLES
-ITERATIONS=1
+ITERATIONS_COUNTER=1
 TOTAL_ITERATIONS=3
 SLEEP_DURATION=300  # duration in seconds
 
 echo "3 iterations will be done each with delay of 5 minutes"
-until [ $ITERATIONS -gt $TOTAL_ITERATIONS ]
+until [ $ITERATIONS_COUNTER -gt $TOTAL_ITERATIONS ]
 do
     echo "#############"
-    echo "Iteration # $ITERATIONS" 
+    echo "Iteration # $ITERATIONS_COUNTER" 
     echo "#############"
 
     # iterating over the files that exists in the tests folder
@@ -37,11 +37,11 @@ do
     rm tests-output.txt || true
     
 
-    if [[ $ITERATIONS != $TOTAL_ITERATIONS ]]
+    if [[ $ITERATIONS_COUNTER != $TOTAL_ITERATIONS ]]
     then
         sleep $SLEEP_DURATION
     fi
 
     # incrementing the ITERATION variable
-    ITERATIONS=$[$ITERATIONS+1]
+    ITERATIONS_COUNTER=$[$ITERATIONS_COUNTER+1]
 done
