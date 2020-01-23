@@ -98,6 +98,10 @@ Run `make verify` to run tests to ensure that all the relevant endpoints are up 
 ### GitLab CI
 Run pipeline with Pipeline variable: `TARGET` = verify 
 
+StakaterPlatform offers a tool [Forecastle](https://github.com/stakater/forecastle) to access tools from a single panel. Go to `forecastle-control.DOMAIN` to access forecastle after complete deployment.
+
+![Diagram](./images/forecastle.png)
+
 
 ## Basic Configuration
 | Variables | Description | Default |  
