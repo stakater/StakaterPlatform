@@ -4,11 +4,11 @@
 
 How can a novice user deploy tools that are required for the management of kubernetes cluster?
 
+An individual or company deploys a kubernetes cluster for workload management. *What is the next thing required*. Security, Monitoring, Logging, Tracing, Alerting and CI/CD for workloads, a lot of tools exists for these processes and selecting a tools based on industry's standards and recommendation is quite a hard task as it requires a lot of research that fulfill the requirements.
+
 ## Solution
 
-Kick-start your kubernetes cluster with Stakater Platform. A consolidated solution for logging, tracing, monitoring, delivery, security and much more. 
-StakaterPlatform gives you a head start for managing your kubernetes cluster by providing open source tools across seven 
-stacks so that you are only concerned about developing your applications, StakaterPlatform will take care of the rest.
+Stakater understands the industry's problem and keeping that in mind. Stakater has developed a consolidated solution named `StakaterPlatform` that gives head-start to individuals and companies with a set of seven stacks containing opensource tools based on industry's recommendation and best practices for `monitoring`, `logging`, `security`, `tracing` and `alerting` of Kubernetes cluster. End-users only need to focus on developing their application while everything else will be managed by `StakaterPlatform`.
 
 For detailed walk-through please visit [StakaterPlatform on Playbook](https://playbook.stakater.com/content/stacks/stakaterplatform.html)
 
