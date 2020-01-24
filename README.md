@@ -68,12 +68,12 @@ Table for Stacks tools:
 5. run `make configure`, this will make all required substitutions based on configuration variables in the repository. When prompted commit those changes, don't commit them if you want to run everything from your local machine i.e. No flux hence no GitOps.
 6. For deployment there are two options:
     
-    a. Using [flux](https://playbook.stakater.com/content/processes/gitops/gitops-with-flux.html), [Add the public SSH key](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) of flux(configs/flux.pub) to your Git repository with **write access**. 
+    a. Using [flux](https://playbook.stakater.com/content/processes/gitops/gitops-with-flux.html), [Add the public SSH key](https://help.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account) of flux(configs/flux.pub) to your Git repository with **write access**. For flux run `make deploy-flux` and provide git credentials on prompt.
     
-    b. Without flux, just don't add flux key and this will remove the process of GitOps(using flux) from your cluster. It removes the need of having your repository available remotely
-7. Run `make deploy`, this will install everything at your cluster
-8. Estimated time for everything to be up and running is 5-10. Use the printed dashboard token to access the Kubernetes dashboard at `dashboard-control.YOURDOMAINNAME`
-9. Visit `https://forecastle-control.YOURDOMAINNAME` and you'll be able to view all applications deployed by StakaterPlatform.
+    b. Without flux, just don't add flux key and this will remove the process of GitOps(using flux) from your cluster. It removes the need of having your repository available remotely. Run `make deploy`
+
+7. Estimated time for everything to be up and running is 5-10. Use the printed dashboard token to access the Kubernetes dashboard at `dashboard-control.YOURDOMAINNAME`
+8. Visit `https://forecastle-control.YOURDOMAINNAME` and you'll be able to view all applications deployed by StakaterPlatform.
 
 
 **Note:** Since `variables.config` file and `configs/` directory contains private information those files are not being

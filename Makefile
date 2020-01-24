@@ -5,17 +5,14 @@ SHELL= /bin/bash
 
 include variables.config
 
-configure: configure-repo commit
 
-configure-repo:
+configure:
 	git checkout $(STAKATER_PLATFORM_BRANCH) 2>/dev/null || git checkout -b $(STAKATER_PLATFORM_BRANCH) && \
 	yes | ssh-keygen -q -N "" -f ./configs/flux >/dev/null && \
 	openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=SE/ST=StakaterUser/L=Stockholm/O=Stakater/CN=www.example.com" -keyout ./configs/sealed-secret-tls.key  -out ./configs/sealed-secret-tls.cert  2>/dev/null && \
 	bash scripts/configure.sh
 
-commit:
-	git update-index --skip-worktree variables.config && \
-	git update-index --skip-worktree $(git ls-files | grep 'configs/') && \
+commit: un-track-secrets
 	git add . && \
 	git commit -a -m "[skip ci] update vars for deployment"  && \
 	git push -u origin $(STAKATER_PLATFORM_BRANCH) || true
@@ -23,10 +20,9 @@ commit:
 deploy:
 	bash scripts/install.sh $(CLOUD_PROVIDER)
 
-deploy-without-flux:
-	kubectl apply -R -f platform/
+deploy-flux: configure commit deploy
 
-pipeline-deploy: configure deploy
+pipeline-deploy: configure commit deploy
 
 verify:
 	bash scripts/run-tests.sh
