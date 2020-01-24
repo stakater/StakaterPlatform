@@ -6,10 +6,13 @@ An individual or company deploys a kubernetes cluster for workload management. *
 
 ## Solution
 
-Stakater understands the industry's problem and keeping that in mind. Stakater has developed a consolidated solution named `StakaterPlatform` that gives head-start to individuals and companies with a set of seven stacks containing opensource tools based on industry's recommendation and best practices for `monitoring`, `logging`, `security`, `tracing` and `alerting` of Kubernetes cluster. End-users only need to focus on developing their application while everything else will be managed by `StakaterPlatform`.
+Stakater understands the industry's problem and keeping that in mind. Stakater has developed a consolidated solution named `StakaterPlatform` that will help the community to adopt Security, Monitoring, Logging, Tracing, Alerting and CI/CD processes for thier workloads.
 
-For detailed walk-through please visit [StakaterPlatform on Playbook](https://playbook.stakater.com/content/stacks/stakaterplatform.html)
+## Introduction
 
+`StakaterPlatform ` gives head-start to individuals and companies with a set of seven stacks containing opensource tools based on industry's recommendation and best practices for `monitoring`, `logging`, `security`, `tracing` and `alerting` of Kubernetes cluster. End-users only need to focus on developing their application while everything else will be managed by `StakaterPlatform`.
+
+For detailed walk-through please visit [StakaterPlatform on Stakater Playbook](https://playbook.stakater.com/content/stacks/stakaterplatform.html)
 
 StakaterPlatform consist of 7 stacks:
 
