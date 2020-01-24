@@ -21,21 +21,20 @@ StakaterPlatform consist of 7 stacks:
 - [Alerting](https://playbook.stakater.com/content/stacks/alerting.html)
 - [Tracing](https://playbook.stakater.com/content/stacks/tracing.html)
 
-Table for Stacks tools
-
+Table for Stacks tools:
 
 | Control | Delivery | Logging | Monitoring | Security | Alerting | Tracing |
 |---|---|---|---|---|---|---|
-| External DNS | Jenkins | Elasticsearch | Prometheus Operator | Keycloak | Uptime Robot | Istio|
-| Nginx Ingress | Sonatype-Nexus | Fluentd | Metrics Server | Proxy Injector | Slack ||
-| Descheduler | RDLM | Eventrouter |||||
-| Forecastle || Kibana |||||
-| Reloader || Cerebro |||||
-| Sealed Secret Controller || Elasticsearch Curator |||||
-| K8S Dashboard || Logrotate |||||
-| Gitwebhookproxy || Konfigurator |||||
-| Ingress Monitor Controller |||||||
-| Xposer |||||||
+| [External DNS](https://github.com/kubernetes-sigs/external-dns) | [Jenkins](https://github.com/jenkinsci/jenkins) | Elasticsearch | [Prometheus Operator](https://github.com/coreos/prometheus-operator) | [Keycloak](https://github.com/keycloak/keycloak) | Uptime Robot | [Istio](https://istio.io/docs/reference/config/installation-options/) |
+| [Nginx Ingress](https://github.com/kubernetes/ingress-nginx) | [Sonatype-Nexus](https://github.com/sonatype/nexus-public) | Fluentd | [Metrics Server](https://github.com/coreos/prometheus-operator) | [Proxy Injector](https://github.com/stakater/proxyinjector) | Slack ||
+| [Descheduler](https://github.com/kubernetes-sigs/descheduler) | RDLM | Eventrouter |||||
+| [Forecastle](https://github.com/stakater/forecastle) || Kibana |||||
+| [Reloader](https://github.com/stakater/Reloader) || Cerebro |||||
+| [Sealed Secret Controller](https://github.com/bitnami-labs/sealed-secrets) || Elasticsearch Curator |||||
+| [K8S Dashboard](https://github.com/kubernetes/dashboard) || Logrotate |||||
+| [Gitwebhookproxy](https://github.com/stakater/GitWebhookProxy) || [Konfigurator](https://github.com/stakater/Konfigurator) |||||
+| [Ingress Monitor Controller](https://github.com/stakater/IngressMonitorController) |||||||
+| [Xposer](https://github.com/stakater/Xposer) |||||||
 
 ## Prerequisites
 
