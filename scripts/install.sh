@@ -26,14 +26,14 @@ helm upgrade --version 0.2.0 -i --wait --force helm-operator fluxcd/helm-operato
 kubectl apply -f configs/secret-sealed-secret-tls-cert.yaml
 kubectl apply -f platform/crds/crd-sealed-secrets.yaml
 kubectl apply -f platform/security/sealed-secrets.yaml
-kubectl rollout status deployment stakater-security-sealed-secrets -n security
+until [[ "$(helm status stakater-security-sealed-secrets -ojson | jq .info.status.code)" == "1" ]]; do echo waiting for deployment to complete... ; done
 
 # Install tls secret
 kubectl apply -f $TLS_SECRET_FILE
 
 # Install dashboard
 kubectl apply -f platform/control/kubernetes-dashboard.yaml
-kubectl rollout status deployment stakater-control-dashboard-kubernetes-dashboard -n control
+until [[ "$(helm status stakater-control-dashboard -ojson | jq .info.status.code)" == "1" ]]; do echo waiting for deployment to complete... ; done
 echo -e "\n========= Kubernetes Dashboard Access Token =========="
 kubectl -n control describe secret $(kubectl -n control get secret | grep stakater-control-dashboard-kubernetes-dashboard-token | awk '{print $1}') | grep 'token:' | awk '{print $2}'
 
