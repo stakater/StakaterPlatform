@@ -15,7 +15,7 @@ do
     # iterating over the files that exists in the tests folder
     touch tests-output.txt
     for file in ./scripts/tests/* ; do \
-        # executing the test scripts and appending the resilt in the tests-output.txt file.
+        # executing the test scripts and appending the results in the tests-output.txt file.
         ${file} &>> tests-output.txt; \
     done
 
