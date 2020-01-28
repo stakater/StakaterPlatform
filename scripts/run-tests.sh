@@ -2,10 +2,10 @@
 
 # GLOBAL VARIABLES
 ITERATIONS_COUNTER=1
-TOTAL_ITERATIONS=3
-SLEEP_DURATION=300  # duration in seconds
+TOTAL_ITERATIONS=20
+SLEEP_DURATION=60  # duration in seconds
 
-echo "3 iterations will be done each with delay of 5 minutes"
+echo "Maximum $TOTAL_ITERATIONS iterations will be done each with delay of 1 minute"
 until [ $ITERATIONS_COUNTER -gt $TOTAL_ITERATIONS ]
 do
     echo "#############"
@@ -40,6 +40,9 @@ do
     if [[ $ITERATIONS_COUNTER != $TOTAL_ITERATIONS ]]
     then
         sleep $SLEEP_DURATION
+    else
+        echo "TRIED FOR $ITERATIONS_COUNTER TIMES. TESTS STILL FAILING. FAILING PIPELINE..."
+        exit 1
     fi
 
     # incrementing the ITERATION variable
