@@ -117,6 +117,9 @@ StakaterPlatform offers a tool [Forecastle](https://github.com/stakater/forecast
 
 ![Diagram](./images/forecastle.png)
 
+## Default Credentials
+
+See default username and passwords set for tools [here](./docs/default-passwords.md)
 
 ## Basic Configuration
 | Variables | Description | Default |  
