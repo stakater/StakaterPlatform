@@ -2,15 +2,17 @@
 
 # GLOBAL VARIABLES
 ITERATIONS_COUNTER=1
-TOTAL_ITERATIONS=20
-SLEEP_DURATION=60  # duration in seconds
+TOTAL_ITERATIONS=5
+SLEEP_DURATION=300  # duration in seconds
 
-echo "Maximum $TOTAL_ITERATIONS iterations will be done each with delay of 1 minute"
+echo "Maximum $TOTAL_ITERATIONS iterations will be done each with delay of $SLEEP_DURATION seconds"
 until [ $ITERATIONS_COUNTER -gt $TOTAL_ITERATIONS ]
 do
     echo "#############"
     echo "Iteration # $ITERATIONS_COUNTER" 
     echo "#############"
+    # need to add sleep before executing any tests
+    sleep $SLEEP_DURATION
 
     # iterating over the files that exists in the tests folder
     touch tests-output.txt
@@ -27,7 +29,7 @@ do
     if grep -q ERROR 'tests-output.txt'; then \
         echo "ERROR WHILE EXECUTING TESTS";
     else
-        echo "TESTS EXECUTED SUCCESSFULLY";
+        echo "TESTS EXECUTED SUCCESSFULLY AFTER $ITERATIONS_COUNTER";
         # removing the tests output file
         rm tests-output.txt || true
         break;
@@ -35,12 +37,10 @@ do
     cat tests-output.txt || true
     # removing the tests output file
     rm tests-output.txt || true
-    
 
-    if [[ $ITERATIONS_COUNTER != $TOTAL_ITERATIONS ]]
+    # script will be failed if tests are not successful after the provided iterations
+    if [[ $ITERATIONS_COUNTER == $TOTAL_ITERATIONS ]]
     then
-        sleep $SLEEP_DURATION
-    else
         echo "TRIED FOR $ITERATIONS_COUNTER TIMES. TESTS STILL FAILING. FAILING PIPELINE..."
         exit 1
     fi
