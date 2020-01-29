@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 # NOTE: These tests require shunit2 to be installed
 testJenkinsURL() {
   x=$(curl -X GET -IL https://jenkins-delivery.DOMAIN 2>/dev/null | head -n 1 | cut -d ' ' -f2)
