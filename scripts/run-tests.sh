@@ -31,7 +31,9 @@ do
     else
         echo "TESTS EXECUTED SUCCESSFULLY AFTER $ITERATIONS_COUNTER";
         # removing the tests output file
+        cat tests-output.txt
         rm tests-output.txt || true
+
         break;
     fi
     cat tests-output.txt || true
