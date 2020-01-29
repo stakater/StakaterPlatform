@@ -3,7 +3,7 @@
 # GLOBAL VARIABLES
 ITERATIONS_COUNTER=1
 TOTAL_ITERATIONS=5
-SLEEP_DURATION=300  # duration in seconds
+SLEEP_DURATION=3  # duration in seconds
 
 echo "Maximum $TOTAL_ITERATIONS iterations will be done each with delay of $SLEEP_DURATION seconds"
 until [ $ITERATIONS_COUNTER -gt $TOTAL_ITERATIONS ]
@@ -31,7 +31,9 @@ do
     else
         echo "TESTS EXECUTED SUCCESSFULLY AFTER $ITERATIONS_COUNTER";
         # removing the tests output file
+        cat tests-output.txt
         rm tests-output.txt || true
+
         break;
     fi
     cat tests-output.txt || true
