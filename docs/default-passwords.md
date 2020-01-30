@@ -4,6 +4,7 @@ Following are the default credentials used by StakaterPlatform tools
 
 | Tool | SSO | Username | Password |
 |:----|:----:|:--------:|:---------:|
+| Forecastle | Yes | `user` | `zUPaZnEfmYpcdd6X` |
 | Kubernetes Dashboard | No |  `nil` | `Login token printed at the time of deployment`|
 | Nexus | No |`nexus-admin` | `L8TcnrwMytCFpAFe` |
 | Jenkins | Yes | `user` | `zUPaZnEfmYpcdd6X`|
