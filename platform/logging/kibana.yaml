@@ -44,3 +44,11 @@ spec:
 
       labels:
         expose: "true"
+    
+    resources:
+      limits:
+        cpu: 200m
+        memory: 600Mi
+      requests:
+        cpu: 100m
+        memory: 300Mi

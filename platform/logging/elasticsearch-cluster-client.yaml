@@ -16,7 +16,7 @@ spec:
     esJavaOpts: "-Xmx1g -Xms1g"
     initResources: # they must be in sync with java-options setting above!
       requests:
-        memory: 3Gi
+        memory: 2Gi
         cpu: 500m
       limits:
         memory: 3Gi

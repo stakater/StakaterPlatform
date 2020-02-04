@@ -244,7 +244,13 @@ spec:
         replicaExternalLabelName: ""
         replicaExternalLabelNameClear: false
         replicas: 1
-        resources: {}
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+          limits:
+            cpu: 200m
+            memory: 1024Mi
         retention: 10d
         retentionSize: ""
         routePrefix: /
@@ -408,7 +414,13 @@ spec:
         podMetadata: {}
         priorityClassName: ""
         replicas: 1
-        resources: {}
+        resources:
+          requests:
+            cpu: 100m
+            memory: 512Mi
+          limits:
+            cpu: 200m
+            memory: 1024Mi
         retention: 120h
         routePrefix: /
         secrets:

@@ -29,7 +29,12 @@ spec:
       varLog: /var/log
       
     resources:
-      {}
+      limits:
+        cpu: 100m
+        memory: 500Mi
+      requests:
+        cpu: 100m
+        memory: 200Mi
       
     elasticsearch:
       auth:

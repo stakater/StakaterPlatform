@@ -37,3 +37,10 @@ spec:
           forecastle.stakater.com/icon: https://github.com/stakater/ForecastleIcons/raw/master/kubernetes.png
           forecastle.stakater.com/appName: Dashboard
           exposeIngressUrl: locally
+    resources:
+      limits:
+        cpu: 200m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 100Mi
