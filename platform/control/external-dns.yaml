@@ -40,3 +40,10 @@ spec:
       operator: "Equal"
       value: "app"
       effect: "NoSchedule"
+    resources:
+      limits:
+        cpu: 50m
+        memory: 100Mi
+      requests:
+        memory: 50Mi
+        cpu: 10m

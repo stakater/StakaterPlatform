@@ -69,4 +69,11 @@ spec:
         annotations-prefix: ingress.kubernetes.io        
         enable-dynamic-certificates: "false"        
         enable-ssl-chain-completion: true
-        default-ssl-certificate: "control/tls-cert" 
+        default-ssl-certificate: "control/tls-cert"
+      resources:
+        limits:
+          cpu: 200m
+          memory: 512Mi
+        requests:
+          cpu: 100m
+          memory: 256Mi
