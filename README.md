@@ -54,6 +54,10 @@ Table for Stacks tools:
 
 ## Install from local machine
 
+## Video Tutorial
+
+Installation tutorial for local machine can be seen [here](https://youtu.be/92qIaqJgaLw)
+
 ### Prerequisites
 
 - kubectl (between v1.11 & v1.15.3)
