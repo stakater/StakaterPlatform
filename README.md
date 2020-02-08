@@ -6,11 +6,13 @@ When an individual or a company deploys a kubernetes cluster for workload manage
 
 ## Solution
 
-Stakater understands the industry's problem and keeping that in mind. Stakater has developed a consolidated solution named `StakaterPlatform` that will help the community to adopt Security, Monitoring, Logging, Tracing, Alerting and CI/CD processes for thier workloads.
+We at Stakater understand the industry's problem and keeping that in mind we have developed a consolidated solution named `StakaterPlatform` that will help the community to adopt Security, Monitoring, Logging, Tracing, Alerting and CI/CD processes for thier workloads.
 
 ## Introduction
 
-`StakaterPlatform ` gives head-start to individuals and companies with a set of seven stacks containing opensource tools based on industry's recommendation and best practices for `monitoring`, `logging`, `security`, `tracing` and `alerting` of Kubernetes cluster. End-users only need to focus on developing their application while everything else will be managed by `StakaterPlatform`.
+`StakaterPlatform` gives a head-start to individuals and companies with a set of seven stacks containing best of the breed opensource tools based on industry's recommendation and best practices for `monitoring`, `logging`, `security`, `tracing` and `alerting` of Kubernetes cluster. End-users only need to focus on developing their application while everything else will be managed by `StakaterPlatform`!
+
+`StakaterPlatform` uses community managed helm charts and docker images.
 
 For detailed walk-through please visit [StakaterPlatform on Stakater Playbook](https://playbook.stakater.com/content/stakaterplatform/stakaterplatform.html)
 
@@ -45,12 +47,10 @@ Table for Stacks tools:
 - A working domain (e.g. `stakaterplatform.com` ) 
 - SSL Certificate for that domain. [Creating & using custom SSL certificates](https://playbook.stakater.com/content/processes/exposing/create-use-tls-custom-cert.html)
 
-
 ## Tools/Terms
 
 - **Flux:** You define the entire desired state of your cluster in git and flux ensures that the current state matches the one declared in repo.
 - **Kubeseal:** Required to encrypt base64 encoded secrets to commit-able(git) [sealed-secrets](https://playbook.stakater.com/content/workshop/sealed-secrets/introduction.html)
-
 
 ## Install from local machine
 
@@ -141,7 +141,6 @@ See default username and passwords set for tools [here](./docs/default-passwords
 
 
 For generating certificates view: [Creating & using custom SSL certificates](https://playbook.stakater.com/content/processes/exposing/create-use-tls-custom-cert.html)
-
 
 ## Detailed Configuration and Stack definitions
 
