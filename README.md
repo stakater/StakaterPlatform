@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-An individual or company deploys a kubernetes cluster for workload management. *What is the next thing required*. Security, Monitoring, Logging, Tracing, Alerting and CI/CD for workloads, a lot of tools exists for these processes and selecting a tools based on industry's standards and recommendation is quite a hard task as it requires a lot of research that fulfill the requirements.
+An individual or a company deploys a kubernetes cluster for workload management. *What is the next thing required*. Security, Monitoring, Logging, Tracing, Alerting and CI/CD for workloads, a lot of great opensource tools exist for these processes and selecting a tools based on industry's standards and recommendations is quite a hard & duanting task as it requires a lot of research that fulfill the requirements.
 
 ## Solution
 
