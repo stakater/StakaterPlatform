@@ -12,7 +12,7 @@ Stakater understands the industry's problem and keeping that in mind. Stakater h
 
 `StakaterPlatform ` gives head-start to individuals and companies with a set of seven stacks containing opensource tools based on industry's recommendation and best practices for `monitoring`, `logging`, `security`, `tracing` and `alerting` of Kubernetes cluster. End-users only need to focus on developing their application while everything else will be managed by `StakaterPlatform`.
 
-For detailed walk-through please visit [StakaterPlatform on Stakater Playbook](https://playbook.stakater.com/content/stacks/stakaterplatform.html)
+For detailed walk-through please visit [StakaterPlatform on Stakater Playbook](https://playbook.stakater.com/content/stakaterplatform/stakaterplatform.html)
 
 StakaterPlatform consist of 7 stacks:
 
@@ -48,8 +48,8 @@ Table for Stacks tools:
 
 ## Tools/Terms
 
-**Flux:** You define the entire desired state of your cluster in git and flux ensures that the current state matches the one declared in repo.
-**Kubeseal:** Required to encrypt base64 encoded secrets to commit-able(git) [sealed-secrets](https://playbook.stakater.com/content/workshop/sealed-secrets/introduction.html)
+- **Flux:** You define the entire desired state of your cluster in git and flux ensures that the current state matches the one declared in repo.
+- **Kubeseal:** Required to encrypt base64 encoded secrets to commit-able(git) [sealed-secrets](https://playbook.stakater.com/content/workshop/sealed-secrets/introduction.html)
 
 
 ## Install from local machine
