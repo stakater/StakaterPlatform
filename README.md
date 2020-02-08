@@ -16,13 +16,13 @@ For detailed walk-through please visit [StakaterPlatform on Stakater Playbook](h
 
 StakaterPlatform consist of 7 stacks:
 
-- [Control](https://playbook.stakater.com/content/stacks/control.html)
-- [Delivery](https://playbook.stakater.com/content/stacks/delivery.html)
-- [Logging](https://playbook.stakater.com/content/stacks/logging.html)
-- [Monitoring](https://playbook.stakater.com/content/stacks/monitoring.html)
-- [Security](https://playbook.stakater.com/content/stacks/security.html)
-- [Alerting](https://playbook.stakater.com/content/stacks/alerting.html)
-- [Tracing](https://playbook.stakater.com/content/stacks/tracing.html)
+- [Control](https://playbook.stakater.com/content/stakaterplatform/stakaterplatform.html#control-stack)
+- [Delivery](https://playbook.stakater.com/content/stakaterplatform/stakaterplatform.html#delivery-stack)
+- [Logging](https://playbook.stakater.com/content/stakaterplatform/stakaterplatform.html#logging-stack)
+- [Monitoring](https://playbook.stakater.com/content/stakaterplatform/stakaterplatform.html#monitoring-stack)
+- [Security](https://playbook.stakater.com/content/stakaterplatform/stakaterplatform.html#security-stack)
+- [Alerting](https://playbook.stakater.com/content/stakaterplatform/stakaterplatform.html#alerting-stack)
+- [Tracing](https://playbook.stakater.com/content/stakaterplatform/stakaterplatform.html#tracing-stack)
 
 Table for Stacks tools:
 
