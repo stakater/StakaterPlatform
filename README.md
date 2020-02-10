@@ -2,27 +2,29 @@
 
 ## Problem Statement
 
-An individual or company deploys a kubernetes cluster for workload management. *What is the next thing required*. Security, Monitoring, Logging, Tracing, Alerting and CI/CD for workloads, a lot of tools exists for these processes and selecting a tools based on industry's standards and recommendation is quite a hard task as it requires a lot of research that fulfill the requirements.
+When an individual or a company deploys a kubernetes cluster for workload management. *What is the next thing required*. Security, Monitoring, Logging, Tracing, Alerting and CI/CD for workloads, a lot of great opensource tools exist for these processes and selecting a tools based on industry's standards and recommendations is quite a hard & duanting task as it requires a lot of research that fulfill the requirements.
 
 ## Solution
 
-Stakater understands the industry's problem and keeping that in mind. Stakater has developed a consolidated solution named `StakaterPlatform` that will help the community to adopt Security, Monitoring, Logging, Tracing, Alerting and CI/CD processes for thier workloads.
+We at Stakater understand the industry's problem and keeping that in mind we have developed a consolidated solution named `StakaterPlatform` that will help the community to adopt Security, Monitoring, Logging, Tracing, Alerting and CI/CD processes for thier workloads.
 
 ## Introduction
 
-`StakaterPlatform ` gives head-start to individuals and companies with a set of seven stacks containing opensource tools based on industry's recommendation and best practices for `monitoring`, `logging`, `security`, `tracing` and `alerting` of Kubernetes cluster. End-users only need to focus on developing their application while everything else will be managed by `StakaterPlatform`.
+`StakaterPlatform` gives a head-start to individuals and companies with a set of seven stacks containing best of the breed opensource tools based on industry's recommendation and best practices for `monitoring`, `logging`, `security`, `tracing` and `alerting` of Kubernetes cluster. End-users only need to focus on developing their application while everything else will be managed by `StakaterPlatform`!
 
-For detailed walk-through please visit [StakaterPlatform on Stakater Playbook](https://playbook.stakater.com/content/stacks/stakaterplatform.html)
+`StakaterPlatform` uses community managed helm charts and docker images.
+
+For detailed walk-through please visit [StakaterPlatform on Stakater Playbook](https://playbook.stakater.com/content/stakaterplatform/stakaterplatform.html)
 
 StakaterPlatform consist of 7 stacks:
 
-- [Control](https://playbook.stakater.com/content/stacks/control.html)
-- [Delivery](https://playbook.stakater.com/content/stacks/delivery.html)
-- [Logging](https://playbook.stakater.com/content/stacks/logging.html)
-- [Monitoring](https://playbook.stakater.com/content/stacks/monitoring.html)
-- [Security](https://playbook.stakater.com/content/stacks/security.html)
-- [Alerting](https://playbook.stakater.com/content/stacks/alerting.html)
-- [Tracing](https://playbook.stakater.com/content/stacks/tracing.html)
+- [Control](https://playbook.stakater.com/content/stakaterplatform/stakaterplatform.html#control-stack)
+- [Delivery](https://playbook.stakater.com/content/stakaterplatform/stakaterplatform.html#delivery-stack)
+- [Logging](https://playbook.stakater.com/content/stakaterplatform/stakaterplatform.html#logging-stack)
+- [Monitoring](https://playbook.stakater.com/content/stakaterplatform/stakaterplatform.html#monitoring-stack)
+- [Security](https://playbook.stakater.com/content/stakaterplatform/stakaterplatform.html#security-stack)
+- [Alerting](https://playbook.stakater.com/content/stakaterplatform/stakaterplatform.html#alerting-stack)
+- [Tracing](https://playbook.stakater.com/content/stakaterplatform/stakaterplatform.html#tracing-stack)
 
 Table for Stacks tools:
 
@@ -45,12 +47,10 @@ Table for Stacks tools:
 - A working domain (e.g. `stakaterplatform.com` ) 
 - SSL Certificate for that domain. [Creating & using custom SSL certificates](https://playbook.stakater.com/content/processes/exposing/create-use-tls-custom-cert.html)
 
-
 ## Tools/Terms
 
-**Flux:** You define the entire desired state of your cluster in git and flux ensures that the current state matches the one declared in repo.
-**Kubeseal:** Required to encrypt base64 encoded secrets to commit-able(git) [sealed-secrets](https://playbook.stakater.com/content/workshop/sealed-secrets/introduction.html)
-
+- **Flux:** You define the entire desired state of your cluster in git and flux ensures that the current state matches the one declared in repo.
+- **Kubeseal:** Required to encrypt base64 encoded secrets to commit-able(git) [sealed-secrets](https://playbook.stakater.com/content/workshop/sealed-secrets/introduction.html)
 
 ## Install from local machine
 
@@ -141,7 +141,6 @@ See default username and passwords set for tools [here](./docs/default-passwords
 
 
 For generating certificates view: [Creating & using custom SSL certificates](https://playbook.stakater.com/content/processes/exposing/create-use-tls-custom-cert.html)
-
 
 ## Detailed Configuration and Stack definitions
 
