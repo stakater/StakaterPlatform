@@ -19,6 +19,15 @@ kubectl apply -f storageclass/$CLOUD_PROVIDER.yaml
 # Add Fluxcd repo to helm repos
 helm repo add fluxcd https://charts.fluxcd.io && helm repo update
 
+  # Install block storage incase of IBM
+if [[ $CLOUD_PROVIDER == "ibm" ]];
+then
+  helm repo add ibm  https://registry.bluemix.net/helm/ibm && \
+  helm repo update && \
+  helm install ibm/ibmcloud-block-storage-plugin
+fi
+
+
 # Install helm Operator
 helm upgrade --version 0.2.0 -i --wait --force helm-operator fluxcd/helm-operator --namespace flux --set createCRD=true,serviceAccount.name=helm-operator,clusterRole.name=helm-operator
 
