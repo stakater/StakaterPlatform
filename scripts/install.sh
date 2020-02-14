@@ -24,7 +24,7 @@ if [[ $CLOUD_PROVIDER == "ibm" ]];
 then
   helm repo add ibm  https://registry.bluemix.net/helm/ibm && \
   helm repo update && \
-  helm install ibm/ibmcloud-block-storage-plugin
+  helm upgrade -i --wait --force ibmc-block-storage ibm/ibmcloud-block-storage-plugin --namespace kube-system
 fi
 
 # Install helm Operator

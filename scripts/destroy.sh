@@ -25,7 +25,7 @@ kubectl delete crd helmreleases.helm.fluxcd.io
 # Delete tiller
 helm reset --force
 # Manually deleting tiller pod . Bug in Helm 2.11 See: https://github.com/helm/helm/issues/4825
-kubectl delete rs $(kubectl get rs -n kube-system | grep tiller-deploy | awk '{print $1}') -n kube-system
+kubectl delete deploy $(kubectl get deploy -n kube-system | grep tiller-deploy | awk '{print $1}') -n kube-system
 
 # Delete tiller RBAC
 kubectl delete -f tiller-rbac.yaml 
