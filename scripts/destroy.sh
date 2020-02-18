@@ -1,4 +1,6 @@
 #!/bin/bash
+
+CLOUD_PROVIDER=${1}
 NAMESPACES="flux control delivery logging monitoring security istio-system"
 
 # Delete Flux So it doesn't re-create helmReleases
@@ -12,6 +14,12 @@ kubectl delete --ignore-not-found --wait=true -R -f platform/
 
 # Remove HelmOperator 
 helm delete --purge helm-operator
+
+# Install block storage incase of IBM
+if [[ $CLOUD_PROVIDER == "ibm" ]];
+then
+  helm delete --purge ibmc-block-storage
+fi
 
 # Remove StorageClass
 kubectl delete --ignore-not-found -f storageclass/

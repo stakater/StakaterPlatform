@@ -28,7 +28,7 @@ verify:
 	bash scripts/run-tests.sh
 
 destroy:
-	bash scripts/destroy.sh
+	bash scripts/destroy.sh $(CLOUD_PROVIDER)
 
 destroy-nordmart:
 	make -f Makefile-nordmart destroy
