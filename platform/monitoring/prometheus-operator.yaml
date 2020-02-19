@@ -8,10 +8,10 @@ spec:
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com
     name: prometheus-operator
-    version: 5.11.0
+    version: 8.8.1
   values:
-    nameOverride: stakater
-    fullnameOverride: stakater
+    nameOverride: prometheus-operator
+    fullnameOverride: prometheus-operator
     global:
       rbac:
         create: true
@@ -45,7 +45,8 @@ spec:
                   summary: "Server memory is almost full {{ $labels.node }}"
                   description: "Host memory usage is {{ humanize $value}}%. Reported by instance {{ $labels.instance }} of job {{ $labels.job }}."
   
-      - additionalLabels:
+      - name: fluentd-rules
+        additionalLabels:
           kind: infra
         groups:
           - name: Fluentd
@@ -81,7 +82,6 @@ spec:
                 labels:
                   kind: infra
                   severity: critical
-        name: fluentd-rules
 
     commonLabels:
       expose: "true"
@@ -403,7 +403,7 @@ spec:
         externalUrl: null
         image:
           repository: quay.io/prometheus/alertmanager
-          tag: v0.17.0
+          tag: v0.20.0
         listenLocal: false
         logFormat: logfmt
         logLevel: info

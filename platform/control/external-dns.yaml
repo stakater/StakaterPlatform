@@ -8,10 +8,10 @@ spec:
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com 
     name: external-dns
-    version: 2.4.2
+    version: 2.18.0
   values:
     image:
-      name: bitnami/external-dns
+      repository: bitnami/external-dns
       pullPolicy: IfNotPresent
     sources:
       - ingress

@@ -8,14 +8,13 @@ spec:
   chart:
     repository: https://stakater.github.io/stakater-charts/
     name: gitwebhookproxy
-    version: 0.2.64
+    version: 0.2.71
   values:
     gitWebhookProxy:
       useCustomName: true
       customName: gitlabwebhookproxy
       image:
         name: stakater/gitwebhookproxy
-        tag: "v0.2.64"
         pullPolicy: IfNotPresent
       config:
         provider: gitlab

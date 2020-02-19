@@ -8,7 +8,7 @@ spec:
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com
     name: sonatype-nexus
-    version: 1.18.1
+    version: 1.22.0
   values:
     nameOverride: nexus
     fullnameOverride: nexus

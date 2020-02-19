@@ -8,7 +8,7 @@ spec:
   chart:
     repository: https://stakater.github.io/stakater-charts/
     name: proxyinjector
-    version: 0.0.22
+    version: 0.0.23
   values:
     proxyinjector:
       watchGlobally: true

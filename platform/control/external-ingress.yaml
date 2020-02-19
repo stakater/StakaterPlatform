@@ -32,7 +32,7 @@ spec:
   chart:
     repository: https://kubernetes-charts.storage.googleapis.com 
     name: nginx-ingress
-    version: 1.6.10
+    version: 1.30.3
   values:
     nameOverride: stakater-control-external
     fullnameOverride: stakater-control-external
@@ -43,16 +43,12 @@ spec:
         enabled: true
         pathOverride: "control/stakater-control-external-nginx-ingress"
       ingressClass: external-ingress
-      stats:
-        enabled: "true"
       metrics:
         enabled: "true"
         service:
           annotations:
             prometheus.io/scrape: "true"
             prometheus.io/port: "10254"
-          labels:
-            k8s-app: external-ingress
       config:
         use-proxy-protocol: "false"
         enable-opentracing: "false"
