@@ -167,10 +167,11 @@ spec:
       labels:
         expose: "true"
       name: docker
-      port: 80
-      portName: docker
       serviceType: ClusterIP
-      targetPort: 5003
+      ports:
+      - port: 80
+        name: docker
+        targetPort: 5003
 
     config:
       data:
