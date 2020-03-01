@@ -170,13 +170,13 @@ StakaterPlatform has been tested on following kubernetes flavors:
 
 | Platform Version| K8s Version  | Infrastructure |
 |---|---|---|
-| v0.0.1 | 1.14 | [![image](./images/eks.png)](https://aws.amazon.com/eks/) eks.6 |
-| v0.0.1 | 1.14.8 | [![image](./images/aks.png)](https://docs.microsoft.com/en-us/azure/aks/)  aks|
+| v0.0.1 | 1.14.6 | AWS [![image](./images/eks.png)](https://aws.amazon.com/eks/) eks |
+| v0.0.1 | 1.14.8 | Azure [![image](./images/aks.png)](https://docs.microsoft.com/en-us/azure/aks/)  aks|
 
 
 ## Community
 
 If you have questions, check the [Documentation](https://playbook.stakater.com/content/stacks/stakaterplatform.html) and
- talk to us on slack [#community on Stakater Slack](https://stakater.slack.com/messages/community).
+ talk to us on slack [#community on Stakater Slack](https://stakater-community.slack.com/messages/community).
  
 Click [here](https://slack-inviter.stakater.com) to join [Stakater](https://stakater.com) on Slack.
