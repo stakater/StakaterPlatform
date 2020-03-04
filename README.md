@@ -168,10 +168,10 @@ Run `make destroy` to remove StakaterPlatform from your cluster.
 
 StakaterPlatform has been tested on following kubernetes flavors:
 
-| Platform Version| K8s Version  | Infrastructure |
+| Infrastructure | Kubernetes Version  | Platform Version |
 |---|---|---|
-| v0.0.1 | 1.14.6 | AWS [![image](./images/eks.png)](https://aws.amazon.com/eks/) eks |
-| v0.0.1 | 1.14.8 | Azure [![image](./images/aks.png)](https://docs.microsoft.com/en-us/azure/aks/)  aks|
+| AWS - [![image](./images/eks.png)](https://aws.amazon.com/eks/) EKS | 1.14.6 | v0.0.1 |
+| Azure - [![image](./images/aks.png)](https://docs.microsoft.com/en-us/azure/aks/)  AKS | 1.14.8 | v0.0.1 |
 
 
 ## Community
