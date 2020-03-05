@@ -170,8 +170,8 @@ StakaterPlatform has been tested on following kubernetes flavors:
 
 | Infrastructure | Kubernetes Version  | Platform Version |
 |---|---|---|
-| AWS - [![image](./images/eks.png)](https://aws.amazon.com/eks/) EKS | 1.14.6 | v0.0.1 |
-| Azure - [![image](./images/aks.png)](https://docs.microsoft.com/en-us/azure/aks/)  AKS | 1.14.8 | v0.0.1 |
+| AWS [![image](./images/eks.png)](https://aws.amazon.com/eks/) EKS | 1.14.6 | v0.0.1 |
+| Azure [![image](./images/aks.png)](https://docs.microsoft.com/en-us/azure/aks/)  AKS | 1.14.8 | v0.0.1 |
 
 
 ## Community
