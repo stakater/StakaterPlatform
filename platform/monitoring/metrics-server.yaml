@@ -40,7 +40,7 @@ roleRef:
   name: system:auth-delegator
 subjects:
   - kind: ServiceAccount
-    name: metrics-server
+    name: stakater-monitoring-metrics-server
     namespace: monitoring
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -54,7 +54,7 @@ roleRef:
   name: extension-apiserver-authentication-reader
 subjects:
   - kind: ServiceAccount
-    name: metrics-server
+    name: stakater-monitoring-metrics-server
     namespace: monitoring
 ---
 apiVersion: apiregistration.k8s.io/v1beta1
@@ -67,20 +67,6 @@ spec:
     namespace: monitoring
   group: metrics.k8s.io
   version: v1beta1
-  insecureSkipTLSVerify: true
-  groupPriorityMinimum: 100
-  versionPriority: 100
----
-apiVersion: apiregistration.k8s.io/v1beta1
-kind: APIService
-metadata:
-  name: v1alpha1.metrics
-spec:
-  service:
-    name: metrics-server
-    namespace: kube-system
-  group: metrics
-  version: v1alpha1
   insecureSkipTLSVerify: true
   groupPriorityMinimum: 100
   versionPriority: 100
@@ -113,5 +99,5 @@ roleRef:
   name: stakater-monitoring-metrics-server
 subjects:
   - kind: ServiceAccount
-    name: metrics-server
+    name: stakater-monitoring-metrics-server
     namespace: monitoring
