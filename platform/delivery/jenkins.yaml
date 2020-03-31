@@ -22,7 +22,7 @@ spec:
 
     master:
       image: jenkins/jenkins
-      imageTag: "2.203"
+      imageTag: "2.223"
       resources:
         limits:
           cpu: 2000m
@@ -56,44 +56,45 @@ spec:
 
       serviceType: ClusterIP
       installPlugins:
-      - workflow-cps:2.75
+      - workflow-cps:2.80
       - git:3.9.1
-      - oic-auth:1.6
+      - oic-auth:1.7
       - github:1.29.2
       - github-pullrequest:0.2.4
       - github-oauth:0.29
       - github-api:1.92
       - github-branch-source:2.4.1
       - github-issues:1.2.4
-      - workflow-multibranch:2.20
-      - pipeline-model-api:1.4.0
+      - workflow-multibranch:2.21
+      - pipeline-model-api:1.6.0
       - pipeline-stage-step:2.3
-      - workflow-cps-global-lib:2.11
+      - workflow-cps-global-lib:2.16
       - pipeline-github-lib:1.0
       - kubernetes:1.12.6
       - kubernetes-pipeline-steps:1.5
       - kubernetes-pipeline-aggregator:1.5
-      - workflow-basic-steps:2.18
-      - jdk-tool:1.1
+      - workflow-basic-steps:2.19
+      - jdk-tool:1.4
       - jackson2-api:2.9.8
       - blueocean-pipeline-api-impl:1.8.4
-      - pipeline-utility-steps:2.1.0
-      - gitlab-plugin:1.5.10
+      - pipeline-utility-steps:2.5.0
+      - gitlab-plugin:1.5.13
       - gitlab-merge-request-jenkins:2.0.0
-      - job-dsl:1.70
-      - cloudbees-folder:6.9
+      - job-dsl:1.77
+      - cloudbees-folder:6.11.1
       - authorize-project:1.3.0
       - gitlab-hook:1.4.2
-      - pipeline-stage-view:2.10
-      - ssh-agent:1.17
+      - pipeline-stage-view:2.13
+      - ssh-agent:1.19
       - ssh:2.6.1
       - ssh-credentials:1.17.2
       - ssh-steps:1.1.1
       - rich-text-publisher-plugin:1.4
-      - timestamper:1.8.10
+      - timestamper:1.11.2
       - workflow-aggregator:2.6
-      - cloudbees-bitbucket-branch-source:2.4.2
-      - pipeline-aws:1.39
+      - cloudbees-bitbucket-branch-source:2.7.0
+      - pipeline-aws:1.41
+      - pipeline-model-extensions:1.6.0
 
       scriptApproval:
         - staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods first java.lang.Object[]
