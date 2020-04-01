@@ -1,6 +1,6 @@
 # pipeline base image
 image:
-  name: stakater/builder-tool:terraform-0.12.7-v0.0.17
+  name: stakater/builder-tool:terraform-0.12.7-v0.0.19
 
 # Configuring CI/CD environment variables
 variables:
